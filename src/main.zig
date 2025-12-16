@@ -257,66 +257,173 @@ fn parseTimezoneOffset(tz: []const u8) i32 {
 // JSONL Parsing
 // ============================================================================
 
-fn parseJsonlFileChunk(allocator: Allocator, path: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8, chunk_start: u64, chunk_end: u64) void {
+fn parseJsonlFile(allocator: Allocator, path: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) !void {
     const file = fs.openFileAbsolute(path, .{}) catch return;
     defer file.close();
+    const content = file.readToEndAlloc(allocator, 512 * 1024 * 1024) catch return;
+    defer allocator.free(content);
+
+    var pos: usize = 0;
+    while (pos < content.len) {
+        const newline_pos = mem.indexOfScalarPos(u8, content, pos, '\n') orelse content.len;
+        const line = content[pos..newline_pos];
+        pos = newline_pos + 1;
+        try parseLineFast(allocator, line, events, project);
+    }
+}
+
+fn parseJsonlFileWithBuf(allocator: Allocator, path: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) void {
+    const file = fs.openFileAbsolute(path, .{}) catch return;
+    defer file.close();
+
     const stat = file.stat() catch return;
     if (stat.size == 0) return;
 
-    const is_chunk = chunk_end > 0;
-    const file_size = stat.size;
+    // Use mmap for zero-copy file reading
+    const content = std.posix.mmap(
+        null,
+        stat.size,
+        std.posix.PROT.READ,
+        .{ .TYPE = .PRIVATE },
+        file.handle,
+        0,
+    ) catch {
+        // Fallback to regular read if mmap fails
+        const fallback = file.readToEndAlloc(allocator, 512 * 1024 * 1024) catch return;
+        parseContent(allocator, fallback, events, project);
+        return;
+    };
+    defer std.posix.munmap(content);
 
-    if (is_chunk or file_size > 50 * 1024 * 1024) {
-        const ptr = std.posix.mmap(null, file_size, std.posix.PROT.READ, .{ .TYPE = .PRIVATE }, file.handle, 0) catch return;
-        defer std.posix.munmap(ptr);
-        const full_content: []const u8 = ptr[0..file_size];
-
-        if (is_chunk) {
-            var start: usize = @intCast(chunk_start);
-            var end: usize = @intCast(@min(chunk_end, file_size));
-            if (start > 0) {
-                while (start < end and full_content[start - 1] != '\n') : (start += 1) {}
-            }
-            while (end < full_content.len and full_content[end - 1] != '\n') : (end += 1) {}
-            parseContent(allocator, full_content[start..end], events, project);
-        } else {
-            parseContent(allocator, full_content, events, project);
-        }
-    } else {
-        const content = file.readToEndAlloc(allocator, 50 * 1024 * 1024) catch return;
-        parseContent(allocator, content, events, project);
-    }
+    parseContent(allocator, content, events, project);
 }
 
 fn parseContent(allocator: Allocator, content: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) void {
     var pos: usize = 0;
     while (pos < content.len) {
-        const line_end = mem.indexOfScalarPos(u8, content, pos, '\n') orelse content.len;
-        const line = content[pos..line_end];
-        pos = line_end + 1;
-        if (line.len == 0 or findSubstring(line, "input_tokens") == null) continue;
-
-        const input_tokens = extractU64(line, "\"input_tokens\":") orelse continue;
-        const output_tokens = extractU64(line, "\"output_tokens\":") orelse 0;
-        const cache_creation = extractU64(line, "\"cache_creation_input_tokens\":") orelse 0;
-        const cache_read = extractU64(line, "\"cache_read_input_tokens\":") orelse 0;
-        const model = extractString(line, "\"model\":\"") orelse "";
-        const cost_usd = extractF64(line, "\"costUSD\":") orelse
-            calculateCost(model, input_tokens, output_tokens, cache_creation, cache_read);
-
-        events.append(allocator, .{
-            .timestamp = parseIsoTimestamp(extractString(line, "\"timestamp\":\"") orelse ""),
-            .model = allocator.dupe(u8, model) catch "",
-            .input_tokens = input_tokens,
-            .output_tokens = output_tokens,
-            .cache_creation_tokens = cache_creation,
-            .cache_read_tokens = cache_read,
-            .cost_usd = cost_usd,
-            .session_id = allocator.dupe(u8, extractString(line, "\"sessionId\":\"") orelse "") catch "",
-            .project = allocator.dupe(u8, project) catch "",
-        }) catch {};
+        const newline_pos = mem.indexOfScalarPos(u8, content, pos, '\n') orelse content.len;
+        const line = content[pos..newline_pos];
+        pos = newline_pos + 1;
+        // Must dupe strings since mmap content is unmapped after parsing
+        parseLineFast(allocator, line, events, project) catch @panic("OOM in parseLineFast");
     }
 }
+
+// Optimized single-pass parser using SIMD-friendly quote search
+fn parseLineFast(allocator: Allocator, line: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) !void {
+    if (line.len < 50) return;
+
+    // Result fields
+    var timestamp: []const u8 = "";
+    var session_id: []const u8 = "";
+    var model: []const u8 = "";
+    var input_tokens: u64 = 0;
+    var output_tokens: u64 = 0;
+    var cache_creation: u64 = 0;
+    var cache_read: u64 = 0;
+    var cost_usd: ?f64 = null;
+    var has_input = false;
+
+    const b = line;
+    var pos: usize = 0;
+
+    // Find keys by jumping between quotes using SIMD-optimized indexOfScalarPos
+    while (pos < line.len) {
+        // Find next quote
+        const q1 = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+        const key_start = q1 + 1;
+        const q2 = mem.indexOfScalarPos(u8, b, key_start, '"') orelse break;
+        const key = b[key_start..q2];
+        pos = q2 + 1;
+
+        // Verify this is a key (colon must immediately follow, allowing only whitespace)
+        var colon_pos = pos;
+        while (colon_pos < b.len and (b[colon_pos] == ' ' or b[colon_pos] == '\t')) : (colon_pos += 1) {}
+        if (colon_pos >= b.len or b[colon_pos] != ':') {
+            // Not a key, this quote pair was inside a value - continue scanning
+            continue;
+        }
+        pos = colon_pos + 1;
+        while (pos < b.len and (b[pos] == ' ' or b[pos] == '\t')) : (pos += 1) {}
+        if (pos >= b.len) break;
+
+        // Dispatch on key first char + length for fast rejection
+        const key_len = key.len;
+        switch (key[0]) {
+            't' => if (key_len == 9 and mem.eql(u8, key, "timestamp")) {
+                if (b[pos] == '"') {
+                    pos += 1;
+                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+                    timestamp = b[pos..end];
+                    pos = end + 1;
+                }
+            },
+            's' => if (key_len == 9 and mem.eql(u8, key, "sessionId")) {
+                if (b[pos] == '"') {
+                    pos += 1;
+                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+                    session_id = b[pos..end];
+                    pos = end + 1;
+                }
+            },
+            'm' => if (key_len == 5 and mem.eql(u8, key, "model")) {
+                if (b[pos] == '"') {
+                    pos += 1;
+                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+                    model = b[pos..end];
+                    pos = end + 1;
+                }
+            },
+            'i' => if (key_len == 12 and mem.eql(u8, key, "input_tokens")) {
+                input_tokens = parseU64At(b, pos);
+                has_input = true;
+            },
+            'o' => if (key_len == 13 and mem.eql(u8, key, "output_tokens")) {
+                output_tokens = parseU64At(b, pos);
+            },
+            'c' => {
+                if (key_len == 27 and mem.eql(u8, key, "cache_creation_input_tokens")) {
+                    cache_creation = parseU64At(b, pos);
+                } else if (key_len == 23 and mem.eql(u8, key, "cache_read_input_tokens")) {
+                    cache_read = parseU64At(b, pos);
+                } else if (key_len == 7 and mem.eql(u8, key, "costUSD")) {
+                    const start = pos;
+                    while (pos < b.len and ((b[pos] >= '0' and b[pos] <= '9') or b[pos] == '.' or b[pos] == '-' or b[pos] == 'e' or b[pos] == 'E')) : (pos += 1) {}
+                    cost_usd = std.fmt.parseFloat(f64, b[start..pos]) catch null;
+                }
+            },
+            else => {},
+        }
+    }
+
+    if (!has_input) return;
+
+    const cost = cost_usd orelse calculateCost(model, input_tokens, output_tokens, cache_creation, cache_read);
+
+    // Dupe strings into arena - source content will be freed after this function
+    try events.append(allocator, .{
+        .timestamp = parseIsoTimestamp(timestamp),
+        .model = try allocator.dupe(u8, model),
+        .input_tokens = input_tokens,
+        .output_tokens = output_tokens,
+        .cache_creation_tokens = cache_creation,
+        .cache_read_tokens = cache_read,
+        .cost_usd = cost,
+        .session_id = try allocator.dupe(u8, session_id),
+        .project = project, // Already in arena from collectEvents
+    });
+}
+
+// Fast u64 parsing at position
+fn parseU64At(b: []const u8, start: usize) u64 {
+    var val: u64 = 0;
+    var i = start;
+    while (i < b.len and b[i] >= '0' and b[i] <= '9') : (i += 1) {
+        val = val * 10 + (b[i] - '0');
+    }
+    return val;
+}
+
 
 fn findSubstring(haystack: []const u8, needle: []const u8) ?usize {
     if (needle.len == 0) return 0;
@@ -394,8 +501,6 @@ const FileTask = struct {
     path: []const u8,
     project: []const u8,
     size: u64,
-    chunk_start: u64 = 0,
-    chunk_end: u64 = 0,
 };
 
 const ParallelThreadData = struct {
@@ -403,13 +508,26 @@ const ParallelThreadData = struct {
     events: std.ArrayListUnmanaged(UsageEvent),
 };
 
-fn collectEvents(allocator: Allocator, data_dirs: []const []const u8) !std.ArrayListUnmanaged(UsageEvent) {
+// Result of collectEvents - caller must call deinit() when done with events
+const CollectResult = struct {
+    events: std.ArrayListUnmanaged(UsageEvent),
+    // Thread arenas that hold string data for events - freed in deinit
+    thread_data: ?[]ParallelThreadData,
+    allocator: Allocator,
+
+    pub fn deinit(self: *CollectResult) void {
+        if (self.thread_data) |td| {
+            for (td) |*t| t.arena.deinit();
+            self.allocator.free(td);
+        }
+        self.events.deinit(self.allocator);
+    }
+};
+
+fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []const []const u8) !CollectResult {
     var files = std.ArrayListUnmanaged(FileTask){};
     defer {
-        for (files.items) |f| {
-            allocator.free(f.path);
-            allocator.free(f.project);
-        }
+        for (files.items) |f| allocator.free(f.path);
         files.deinit(allocator);
     }
 
@@ -425,55 +543,26 @@ fn collectEvents(allocator: Allocator, data_dirs: []const []const u8) !std.Array
         while (walker.next() catch null) |entry| {
             if (entry.kind != .file or !mem.endsWith(u8, entry.basename, ".jsonl")) continue;
             const full_path = try std.fmt.allocPrint(allocator, "{s}/{s}", .{ projects_path, entry.path });
-            const project = try allocator.dupe(u8, extractProjectName(entry.path));
-            const file_size = blk: {
-                const f = fs.openFileAbsolute(full_path, .{}) catch break :blk @as(u64, 0);
-                defer f.close();
-                break :blk (f.stat() catch break :blk @as(u64, 0)).size;
-            };
-
-            const chunk_threshold: u64 = 200 * 1024 * 1024;
-            const chunk_size: u64 = 100 * 1024 * 1024;
-
-            if (file_size > chunk_threshold) {
-                var offset: u64 = 0;
-                while (offset < file_size) {
-                    const end = @min(offset + chunk_size, file_size);
-                    try files.append(allocator, .{
-                        .path = try allocator.dupe(u8, full_path),
-                        .project = try allocator.dupe(u8, project),
-                        .size = end - offset,
-                        .chunk_start = offset,
-                        .chunk_end = end,
-                    });
-                    offset = end;
-                }
-                allocator.free(full_path);
-                allocator.free(project);
-            } else {
-                try files.append(allocator, .{ .path = full_path, .project = project, .size = file_size });
-            }
+            const project = try string_arena.dupe(u8, extractProjectName(entry.path));
+            try files.append(allocator, .{ .path = full_path, .project = project, .size = 0 });
         }
     }
 
-    mem.sort(FileTask, files.items, {}, struct {
-        fn cmp(_: void, a: FileTask, b: FileTask) bool {
-            return a.size > b.size;
-        }
-    }.cmp);
-
+    // Use CPU count for threads
     const num_threads = @min(files.items.len, std.Thread.getCpuCount() catch 4);
     if (num_threads <= 1 or files.items.len < 10) {
         var events = std.ArrayListUnmanaged(UsageEvent){};
-        for (files.items) |f| parseJsonlFileChunk(allocator, f.path, &events, f.project, f.chunk_start, f.chunk_end);
-        return events;
+        for (files.items) |f| try parseJsonlFile(string_arena, f.path, &events, f.project);
+        return .{ .events = events, .thread_data = null, .allocator = allocator };
     }
 
     var work_index = std.atomic.Value(usize).init(0);
-    var thread_data = try allocator.alloc(ParallelThreadData, num_threads);
+    const thread_data = try allocator.alloc(ParallelThreadData, num_threads);
     for (thread_data) |*td| {
+        // page_allocator has less contention than c_allocator for multi-threaded use
         td.arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
         td.events = .{};
+        td.events.ensureTotalCapacity(td.arena.allocator(), 100_000) catch {};
     }
 
     var threads = try allocator.alloc(?std.Thread, num_threads);
@@ -492,7 +581,8 @@ fn collectEvents(allocator: Allocator, data_dirs: []const []const u8) !std.Array
     var events = std.ArrayListUnmanaged(UsageEvent){};
     try events.ensureTotalCapacity(allocator, total_events);
     for (thread_data) |td| events.appendSliceAssumeCapacity(td.events.items);
-    return events;
+
+    return .{ .events = events, .thread_data = thread_data, .allocator = allocator };
 }
 
 fn processFilesWorkStealing(files: []const FileTask, work_index: *std.atomic.Value(usize), data: *ParallelThreadData) void {
@@ -501,7 +591,7 @@ fn processFilesWorkStealing(files: []const FileTask, work_index: *std.atomic.Val
         const idx = work_index.fetchAdd(1, .monotonic);
         if (idx >= files.len) break;
         const f = files[idx];
-        parseJsonlFileChunk(alloc, f.path, &data.events, f.project, f.chunk_start, f.chunk_end);
+        parseJsonlFileWithBuf(alloc, f.path, &data.events, f.project);
     }
 }
 
@@ -644,6 +734,45 @@ const ANSI = struct {
     const cyan = "\x1b[36m";
     const yellow = "\x1b[33m";
 };
+
+fn formatProjects(allocator: Allocator, projects: std.StringHashMap(void)) ![]const u8 {
+    const count = projects.count();
+    if (count == 0) return "-";
+
+    var iter = projects.keyIterator();
+    const first = iter.next() orelse return "-";
+    const short = shortenProjectName(first.*);
+    if (count == 1) return short;
+
+    // Show "first, +N more" format like Rust
+    return std.fmt.allocPrint(allocator, "{s}, +{d} more", .{ short, count - 1 });
+}
+
+// Shorten project path by removing common prefixes
+fn shortenProjectName(name: []const u8) []const u8 {
+    var n = name;
+    // Handle "-Users-joel-Work-project" -> "project"
+    if (mem.startsWith(u8, n, "-Users-")) {
+        n = n[7..];
+        // Skip username
+        if (mem.indexOf(u8, n, "-")) |idx| {
+            const rest = n[idx + 1 ..];
+            // Skip "Work" or similar
+            if (mem.indexOf(u8, rest, "-")) |idx2| {
+                return rest[idx2 + 1 ..];
+            }
+            return rest;
+        }
+    }
+    // Handle "-private-tmp-project" or "-private-var-..." -> last component
+    if (mem.startsWith(u8, n, "-private-")) {
+        // Find the last meaningful component (after last dash)
+        if (mem.lastIndexOf(u8, n, "-")) |idx| {
+            if (idx + 1 < n.len) return n[idx + 1 ..];
+        }
+    }
+    return n;
+}
 
 fn formatModels(allocator: Allocator, models: std.StringHashMap(void)) ![]const u8 {
     var list = std.ArrayList([]const u8){};
@@ -800,7 +929,7 @@ fn runPeriodReport(comptime key_fmt: KeyFormat, allocator: Allocator, args: Args
         return;
     }
 
-    var table = Table(6).init(allocator, .{ "Period", "In", "Out", "Total", "Cost", "Models" });
+    var table = Table(7).init(allocator, .{ "Period", "In", "Out", "Total", "Cost", "Projects", "Models" });
     var totals = Totals{};
     var fmt = Fmt(8){};
 
@@ -812,6 +941,7 @@ fn runPeriodReport(comptime key_fmt: KeyFormat, allocator: Allocator, args: Args
             try allocator.dupe(u8, fmt.tokens(row.totals.output_tokens)),
             try allocator.dupe(u8, fmt.tokens(row.totals.total_tokens)),
             try allocator.dupe(u8, fmt.cost(row.totals.cost_usd)),
+            try formatProjects(allocator, row.projects),
             try formatModels(allocator, row.models),
         });
     }
@@ -822,6 +952,7 @@ fn runPeriodReport(comptime key_fmt: KeyFormat, allocator: Allocator, args: Args
         try allocator.dupe(u8, fmt.yellow(fmt.tokens(totals.output_tokens))),
         try allocator.dupe(u8, fmt.yellow(fmt.tokens(totals.total_tokens))),
         try allocator.dupe(u8, fmt.yellow(fmt.cost(totals.cost_usd))),
+        "",
         "",
     });
     try table.print(title);
@@ -1018,6 +1149,10 @@ pub fn main() !void {
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
+    // Arena for event string data - all event strings live here until program end
+    var event_arena = std.heap.ArenaAllocator.init(allocator);
+    defer event_arena.deinit();
+
     var args = try parseArgs(allocator);
     defer args.deinit(allocator);
 
@@ -1026,15 +1161,15 @@ pub fn main() !void {
         return;
     }
 
-    var events = try collectEvents(allocator, args.data_dirs.items);
-    defer events.deinit(allocator);
+    var result = try collectEvents(allocator, event_arena.allocator(), args.data_dirs.items);
+    defer result.deinit();
 
     switch (args.command) {
-        .daily, .weekly => try runPeriodReport(.date, allocator, args, events.items),
-        .monthly => try runPeriodReport(.month, allocator, args, events.items),
-        .sessions => try runSessions(allocator, args, events.items),
-        .statusline => try runStatusline(allocator, args, events.items),
-        .blocks => try runPeriodReport(.date, allocator, args, events.items),
+        .daily, .weekly => try runPeriodReport(.date, allocator, args, result.events.items),
+        .monthly => try runPeriodReport(.month, allocator, args, result.events.items),
+        .sessions => try runSessions(allocator, args, result.events.items),
+        .statusline => try runStatusline(allocator, args, result.events.items),
+        .blocks => try runPeriodReport(.date, allocator, args, result.events.items),
         .help => printHelp(),
     }
 }
