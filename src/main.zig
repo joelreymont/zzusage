@@ -276,37 +276,112 @@ fn parseJsonlFileWithBuf(allocator: Allocator, path: []const u8, events: *std.Ar
     const file = fs.openFileAbsolute(path, .{}) catch return;
     defer file.close();
 
-    const stat = file.stat() catch return;
-    if (stat.size == 0) return;
+    // Allocate into arena - content stays valid, no string duping needed
+    const content = file.readToEndAlloc(allocator, 512 * 1024 * 1024) catch return;
 
-    // Use mmap for zero-copy file reading
-    const content = std.posix.mmap(
-        null,
-        stat.size,
-        std.posix.PROT.READ,
-        .{ .TYPE = .PRIVATE },
-        file.handle,
-        0,
-    ) catch {
-        // Fallback to regular read if mmap fails
-        const fallback = file.readToEndAlloc(allocator, 512 * 1024 * 1024) catch return;
-        parseContent(allocator, fallback, events, project);
-        return;
-    };
-    defer std.posix.munmap(content);
-
-    parseContent(allocator, content, events, project);
-}
-
-fn parseContent(allocator: Allocator, content: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) void {
     var pos: usize = 0;
     while (pos < content.len) {
         const newline_pos = mem.indexOfScalarPos(u8, content, pos, '\n') orelse content.len;
         const line = content[pos..newline_pos];
         pos = newline_pos + 1;
-        // Must dupe strings since mmap content is unmapped after parsing
-        parseLineFast(allocator, line, events, project) catch @panic("OOM in parseLineFast");
+        parseLineFastNoDupe(allocator, line, events, project) catch @panic("OOM in parseLineFast");
     }
+}
+
+// No-dupe version - strings reference content buffer which stays in arena
+fn parseLineFastNoDupe(allocator: Allocator, line: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) !void {
+    if (line.len < 50) return;
+
+    var timestamp: []const u8 = "";
+    var session_id: []const u8 = "";
+    var model: []const u8 = "";
+    var input_tokens: u64 = 0;
+    var output_tokens: u64 = 0;
+    var cache_creation: u64 = 0;
+    var cache_read: u64 = 0;
+    var cost_usd: ?f64 = null;
+    var has_input = false;
+
+    const b = line;
+    var pos: usize = 0;
+
+    while (pos < line.len) {
+        const q1 = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+        const key_start = q1 + 1;
+        const q2 = mem.indexOfScalarPos(u8, b, key_start, '"') orelse break;
+        const key = b[key_start..q2];
+        pos = q2 + 1;
+
+        var colon_pos = pos;
+        while (colon_pos < b.len and (b[colon_pos] == ' ' or b[colon_pos] == '\t')) : (colon_pos += 1) {}
+        if (colon_pos >= b.len or b[colon_pos] != ':') continue;
+        pos = colon_pos + 1;
+        while (pos < b.len and (b[pos] == ' ' or b[pos] == '\t')) : (pos += 1) {}
+        if (pos >= b.len) break;
+
+        const key_len = key.len;
+        switch (key[0]) {
+            't' => if (key_len == 9 and mem.eql(u8, key, "timestamp")) {
+                if (b[pos] == '"') {
+                    pos += 1;
+                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+                    timestamp = b[pos..end];
+                    pos = end + 1;
+                }
+            },
+            's' => if (key_len == 9 and mem.eql(u8, key, "sessionId")) {
+                if (b[pos] == '"') {
+                    pos += 1;
+                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+                    session_id = b[pos..end];
+                    pos = end + 1;
+                }
+            },
+            'm' => if (key_len == 5 and mem.eql(u8, key, "model")) {
+                if (b[pos] == '"') {
+                    pos += 1;
+                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
+                    model = b[pos..end];
+                    pos = end + 1;
+                }
+            },
+            'i' => if (key_len == 12 and mem.eql(u8, key, "input_tokens")) {
+                input_tokens = parseU64At(b, pos);
+                has_input = true;
+            },
+            'o' => if (key_len == 13 and mem.eql(u8, key, "output_tokens")) {
+                output_tokens = parseU64At(b, pos);
+            },
+            'c' => {
+                if (key_len == 27 and mem.eql(u8, key, "cache_creation_input_tokens")) {
+                    cache_creation = parseU64At(b, pos);
+                } else if (key_len == 23 and mem.eql(u8, key, "cache_read_input_tokens")) {
+                    cache_read = parseU64At(b, pos);
+                } else if (key_len == 7 and mem.eql(u8, key, "costUSD")) {
+                    const start = pos;
+                    while (pos < b.len and ((b[pos] >= '0' and b[pos] <= '9') or b[pos] == '.' or b[pos] == '-' or b[pos] == 'e' or b[pos] == 'E')) : (pos += 1) {}
+                    cost_usd = std.fmt.parseFloat(f64, b[start..pos]) catch null;
+                }
+            },
+            else => {},
+        }
+    }
+
+    if (!has_input) return;
+
+    const cost = cost_usd orelse calculateCost(model, input_tokens, output_tokens, cache_creation, cache_read);
+
+    try events.append(allocator, .{
+        .timestamp = parseIsoTimestamp(timestamp),
+        .model = model,
+        .input_tokens = input_tokens,
+        .output_tokens = output_tokens,
+        .cache_creation_tokens = cache_creation,
+        .cache_read_tokens = cache_read,
+        .cost_usd = cost,
+        .session_id = session_id,
+        .project = project,
+    });
 }
 
 // Optimized single-pass parser using SIMD-friendly quote search
