@@ -104,6 +104,16 @@ fn Fmt(comptime buf_count: usize) type {
             const buf = self.next();
             return std.fmt.bufPrint(buf, "{s}{s}{s}{s}", .{ ANSI.yellow, ANSI.bold, s, ANSI.reset }) catch s;
         }
+
+        pub fn cyanBold(self: *Self, s: []const u8) []const u8 {
+            const buf = self.next();
+            return std.fmt.bufPrint(buf, "{s}{s}{s}{s}", .{ ANSI.cyan, ANSI.bold, s, ANSI.reset }) catch s;
+        }
+
+        pub fn dim(self: *Self, s: []const u8) []const u8 {
+            const buf = self.next();
+            return std.fmt.bufPrint(buf, "{s}{s}{s}", .{ ANSI.dim, s, ANSI.reset }) catch s;
+        }
     };
 }
 
@@ -257,39 +267,26 @@ fn parseTimezoneOffset(tz: []const u8) i32 {
 // JSONL Parsing
 // ============================================================================
 
-fn parseJsonlFile(allocator: Allocator, path: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) !void {
+// comptime dupe_strings: true frees content after parsing (strings duped to allocator)
+//                        false keeps content in arena (strings reference content directly)
+fn parseJsonlFile(comptime dupe_strings: bool, allocator: Allocator, path: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) void {
     const file = fs.openFileAbsolute(path, .{}) catch return;
     defer file.close();
     const content = file.readToEndAlloc(allocator, 512 * 1024 * 1024) catch return;
-    defer allocator.free(content);
+    defer if (dupe_strings) allocator.free(content);
 
     var pos: usize = 0;
     while (pos < content.len) {
         const newline_pos = mem.indexOfScalarPos(u8, content, pos, '\n') orelse content.len;
         const line = content[pos..newline_pos];
         pos = newline_pos + 1;
-        try parseLineFast(allocator, line, events, project);
+        parseLine(dupe_strings, allocator, line, events, project) catch @panic("OOM in parseLine");
     }
 }
 
-fn parseJsonlFileWithBuf(allocator: Allocator, path: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) void {
-    const file = fs.openFileAbsolute(path, .{}) catch return;
-    defer file.close();
-
-    // Allocate into arena - content stays valid, no string duping needed
-    const content = file.readToEndAlloc(allocator, 512 * 1024 * 1024) catch return;
-
-    var pos: usize = 0;
-    while (pos < content.len) {
-        const newline_pos = mem.indexOfScalarPos(u8, content, pos, '\n') orelse content.len;
-        const line = content[pos..newline_pos];
-        pos = newline_pos + 1;
-        parseLineFastNoDupe(allocator, line, events, project) catch @panic("OOM in parseLineFast");
-    }
-}
-
-// No-dupe version - strings reference content buffer which stays in arena
-fn parseLineFastNoDupe(allocator: Allocator, line: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) !void {
+// Single-pass JSON parser using SIMD-friendly quote search
+// comptime dupe_strings: true when content buffer will be freed after parsing
+fn parseLine(comptime dupe_strings: bool, allocator: Allocator, line: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) !void {
     if (line.len < 50) return;
 
     var timestamp: []const u8 = "";
@@ -312,6 +309,7 @@ fn parseLineFastNoDupe(allocator: Allocator, line: []const u8, events: *std.Arra
         const key = b[key_start..q2];
         pos = q2 + 1;
 
+        // Verify colon follows (this is a key, not a string value)
         var colon_pos = pos;
         while (colon_pos < b.len and (b[colon_pos] == ' ' or b[colon_pos] == '\t')) : (colon_pos += 1) {}
         if (colon_pos >= b.len or b[colon_pos] != ':') continue;
@@ -319,6 +317,7 @@ fn parseLineFastNoDupe(allocator: Allocator, line: []const u8, events: *std.Arra
         while (pos < b.len and (b[pos] == ' ' or b[pos] == '\t')) : (pos += 1) {}
         if (pos >= b.len) break;
 
+        // Dispatch on first char + length
         const key_len = key.len;
         switch (key[0]) {
             't' => if (key_len == 9 and mem.eql(u8, key, "timestamp")) {
@@ -369,123 +368,22 @@ fn parseLineFastNoDupe(allocator: Allocator, line: []const u8, events: *std.Arra
 
     if (!has_input) return;
 
+    // Skip records with invalid timestamps (Rust filters these out)
+    const ts = parseIsoTimestamp(timestamp);
+    if (ts == 0) return;
+
     const cost = cost_usd orelse calculateCost(model, input_tokens, output_tokens, cache_creation, cache_read);
 
     try events.append(allocator, .{
-        .timestamp = parseIsoTimestamp(timestamp),
-        .model = model,
+        .timestamp = ts,
+        .model = if (dupe_strings) try allocator.dupe(u8, model) else model,
         .input_tokens = input_tokens,
         .output_tokens = output_tokens,
         .cache_creation_tokens = cache_creation,
         .cache_read_tokens = cache_read,
         .cost_usd = cost,
-        .session_id = session_id,
+        .session_id = if (dupe_strings) try allocator.dupe(u8, session_id) else session_id,
         .project = project,
-    });
-}
-
-// Optimized single-pass parser using SIMD-friendly quote search
-fn parseLineFast(allocator: Allocator, line: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) !void {
-    if (line.len < 50) return;
-
-    // Result fields
-    var timestamp: []const u8 = "";
-    var session_id: []const u8 = "";
-    var model: []const u8 = "";
-    var input_tokens: u64 = 0;
-    var output_tokens: u64 = 0;
-    var cache_creation: u64 = 0;
-    var cache_read: u64 = 0;
-    var cost_usd: ?f64 = null;
-    var has_input = false;
-
-    const b = line;
-    var pos: usize = 0;
-
-    // Find keys by jumping between quotes using SIMD-optimized indexOfScalarPos
-    while (pos < line.len) {
-        // Find next quote
-        const q1 = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
-        const key_start = q1 + 1;
-        const q2 = mem.indexOfScalarPos(u8, b, key_start, '"') orelse break;
-        const key = b[key_start..q2];
-        pos = q2 + 1;
-
-        // Verify this is a key (colon must immediately follow, allowing only whitespace)
-        var colon_pos = pos;
-        while (colon_pos < b.len and (b[colon_pos] == ' ' or b[colon_pos] == '\t')) : (colon_pos += 1) {}
-        if (colon_pos >= b.len or b[colon_pos] != ':') {
-            // Not a key, this quote pair was inside a value - continue scanning
-            continue;
-        }
-        pos = colon_pos + 1;
-        while (pos < b.len and (b[pos] == ' ' or b[pos] == '\t')) : (pos += 1) {}
-        if (pos >= b.len) break;
-
-        // Dispatch on key first char + length for fast rejection
-        const key_len = key.len;
-        switch (key[0]) {
-            't' => if (key_len == 9 and mem.eql(u8, key, "timestamp")) {
-                if (b[pos] == '"') {
-                    pos += 1;
-                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
-                    timestamp = b[pos..end];
-                    pos = end + 1;
-                }
-            },
-            's' => if (key_len == 9 and mem.eql(u8, key, "sessionId")) {
-                if (b[pos] == '"') {
-                    pos += 1;
-                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
-                    session_id = b[pos..end];
-                    pos = end + 1;
-                }
-            },
-            'm' => if (key_len == 5 and mem.eql(u8, key, "model")) {
-                if (b[pos] == '"') {
-                    pos += 1;
-                    const end = mem.indexOfScalarPos(u8, b, pos, '"') orelse break;
-                    model = b[pos..end];
-                    pos = end + 1;
-                }
-            },
-            'i' => if (key_len == 12 and mem.eql(u8, key, "input_tokens")) {
-                input_tokens = parseU64At(b, pos);
-                has_input = true;
-            },
-            'o' => if (key_len == 13 and mem.eql(u8, key, "output_tokens")) {
-                output_tokens = parseU64At(b, pos);
-            },
-            'c' => {
-                if (key_len == 27 and mem.eql(u8, key, "cache_creation_input_tokens")) {
-                    cache_creation = parseU64At(b, pos);
-                } else if (key_len == 23 and mem.eql(u8, key, "cache_read_input_tokens")) {
-                    cache_read = parseU64At(b, pos);
-                } else if (key_len == 7 and mem.eql(u8, key, "costUSD")) {
-                    const start = pos;
-                    while (pos < b.len and ((b[pos] >= '0' and b[pos] <= '9') or b[pos] == '.' or b[pos] == '-' or b[pos] == 'e' or b[pos] == 'E')) : (pos += 1) {}
-                    cost_usd = std.fmt.parseFloat(f64, b[start..pos]) catch null;
-                }
-            },
-            else => {},
-        }
-    }
-
-    if (!has_input) return;
-
-    const cost = cost_usd orelse calculateCost(model, input_tokens, output_tokens, cache_creation, cache_read);
-
-    // Dupe strings into arena - source content will be freed after this function
-    try events.append(allocator, .{
-        .timestamp = parseIsoTimestamp(timestamp),
-        .model = try allocator.dupe(u8, model),
-        .input_tokens = input_tokens,
-        .output_tokens = output_tokens,
-        .cache_creation_tokens = cache_creation,
-        .cache_read_tokens = cache_read,
-        .cost_usd = cost,
-        .session_id = try allocator.dupe(u8, session_id),
-        .project = project, // Already in arena from collectEvents
     });
 }
 
@@ -499,46 +397,6 @@ fn parseU64At(b: []const u8, start: usize) u64 {
     return val;
 }
 
-
-fn findSubstring(haystack: []const u8, needle: []const u8) ?usize {
-    if (needle.len == 0) return 0;
-    if (needle.len > haystack.len) return null;
-    var pos: usize = 0;
-    while (pos + needle.len <= haystack.len) {
-        const idx = mem.indexOfScalarPos(u8, haystack, pos, needle[0]) orelse return null;
-        if (idx + needle.len > haystack.len) return null;
-        if (mem.eql(u8, haystack[idx..][0..needle.len], needle)) return idx;
-        pos = idx + 1;
-    }
-    return null;
-}
-
-fn extractU64(line: []const u8, key: []const u8) ?u64 {
-    const idx = findSubstring(line, key) orelse return null;
-    const start = idx + key.len;
-    var end = start;
-    while (end < line.len and line[end] >= '0' and line[end] <= '9') : (end += 1) {}
-    if (end == start) return null;
-    return std.fmt.parseInt(u64, line[start..end], 10) catch null;
-}
-
-fn extractF64(line: []const u8, key: []const u8) ?f64 {
-    const idx = findSubstring(line, key) orelse return null;
-    const start = idx + key.len;
-    var end = start;
-    while (end < line.len and (line[end] == '.' or line[end] == '-' or (line[end] >= '0' and line[end] <= '9'))) : (end += 1) {}
-    if (end == start) return null;
-    return std.fmt.parseFloat(f64, line[start..end]) catch null;
-}
-
-fn extractString(line: []const u8, key: []const u8) ?[]const u8 {
-    const idx = findSubstring(line, key) orelse return null;
-    const start = idx + key.len;
-    var end = start;
-    while (end < line.len and line[end] != '"') : (end += 1) {}
-    if (end == start or end >= line.len) return null;
-    return line[start..end];
-}
 
 fn parseIsoTimestamp(s: []const u8) i64 {
     if (s.len < 19) return 0;
@@ -627,7 +485,7 @@ fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []con
     const num_threads = @min(files.items.len, std.Thread.getCpuCount() catch 4);
     if (num_threads <= 1 or files.items.len < 10) {
         var events = std.ArrayListUnmanaged(UsageEvent){};
-        for (files.items) |f| try parseJsonlFile(string_arena, f.path, &events, f.project);
+        for (files.items) |f| parseJsonlFile(true, string_arena, f.path, &events, f.project);
         return .{ .events = events, .thread_data = null, .allocator = allocator };
     }
 
@@ -666,7 +524,7 @@ fn processFilesWorkStealing(files: []const FileTask, work_index: *std.atomic.Val
         const idx = work_index.fetchAdd(1, .monotonic);
         if (idx >= files.len) break;
         const f = files[idx];
-        parseJsonlFileWithBuf(alloc, f.path, &data.events, f.project);
+        parseJsonlFile(false, alloc, f.path, &data.events, f.project);
     }
 }
 
@@ -1084,17 +942,26 @@ fn runStatusline(allocator: Allocator, args: Args, events: []const UsageEvent) !
     const w = &writer.interface;
 
     if (result.date) |date| {
-        var fmt = Fmt(8){};
-        try w.print("{s}{s}{s} | in {s} | out {s} | c/w {s} | c/r {s} | total {s} | {s}\n", .{
-            ANSI.cyan,
-            date,
-            ANSI.reset,
+        var fmt = Fmt(20){};
+        try w.print("{s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s} {s}\n", .{
+            fmt.cyanBold(date),
+            fmt.dim("|"),
+            fmt.dim("in"),
             fmt.tokens(result.totals.input_tokens),
+            fmt.dim("|"),
+            fmt.dim("out"),
             fmt.tokens(result.totals.output_tokens),
+            fmt.dim("|"),
+            fmt.dim("c/w"),
             fmt.tokens(result.totals.cache_creation_tokens),
+            fmt.dim("|"),
+            fmt.dim("c/r"),
             fmt.tokens(result.totals.cache_read_tokens),
+            fmt.dim("|"),
+            fmt.dim("total"),
             fmt.tokens(result.totals.total_tokens),
-            fmt.yellow(fmt.cost(result.totals.cost_usd)),
+            fmt.dim("|"),
+            fmt.yellowBold(fmt.cost(result.totals.cost_usd)),
         });
     } else {
         try w.writeAll("No data\n");
