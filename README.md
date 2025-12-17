@@ -21,7 +21,7 @@ Monthly usage summary:
 
 ## Performance
 
-Compared to the [Rust implementation](https://github.com/jlowin/ccusage-rs):
+Compared to the [Rust implementation](https://github.com/jreymont/ccusage-rs):
 
 | Metric | zzusage (Zig) | ccusage (Rust) |
 |--------|---------------|----------------|
