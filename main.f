@@ -5,6 +5,7 @@ require lib/fs-list.f
 require lib/date.f
 require lib/fmath.f
 require lib/f64-text.f
+require lib/process.f
 
 package ZU
 
@@ -1204,6 +1205,10 @@ variable SET-SCAN-FIRST
 public
 : MAIN ( -- )
    PARSE-ARGS
+   \ A closed stdout is still ignored by help and reported by other commands.
+   [: 1 >FD FD-NOSIGPIPE! ;] catch 0<> if
+      MODE @ HELP-MODE = if exit then WRITE-FAIL
+   then
    MODE @ HELP-MODE = if HELP exit then
    INSTALL-WALK
    COLLECT

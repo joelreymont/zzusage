@@ -516,6 +516,28 @@ def main():
                                      'stderr': outputs[1][2].decode(errors='replace')}})
             print(('PASS ' if passed else 'FAIL ') + name, flush=True)
 
+        for args in (['--help'], ['daily', '--json'], ['sessions']):
+            name = 'broken-stdout-' + args[0].lstrip('-')
+            root = suite / name
+            root.mkdir()
+            outputs = []
+            for binary in binaries:
+                reader, writer = os.pipe()
+                os.close(reader)
+                try:
+                    cp = subprocess.run([binary, *args, '--data-dir', str(root / 'missing')],
+                                        cwd=root, env={**os.environ, 'HOME': str(root)},
+                                        stdout=writer, stderr=subprocess.PIPE, timeout=10)
+                finally:
+                    os.close(writer)
+                outputs.append((cp.returncode, cp.stderr))
+            expected = (0, b'') if args == ['--help'] else (1, b'error: WriteFailed\n')
+            passed = outputs == [expected, expected]
+            results.append({'name': name, 'passed': passed,
+                            'exit': [x[0] for x in outputs],
+                            'stderr': [x[1].decode(errors='replace') for x in outputs]})
+            print(('PASS ' if passed else 'FAIL ') + name, flush=True)
+
         # A sparse log can gain bytes between discovery and EOF. The append count is
         # intentionally nondeterministic; both programs must retain the first row.
         growing = []
