@@ -73,6 +73,7 @@ variable READ-N
 variable HAS-INPUT
 variable HAS-COST
 TYPED-VARIABLE COST-EXPLICIT r
+variable COST-ACC
 
 DYNAMIC-BUFFER ROW-KEY-OFF n
 DYNAMIC-BUFFER ROW-KEY-U n
@@ -312,9 +313,27 @@ variable SET-COUNT
    field F-MODEL = if a at 1+ + MODEL-P ! stop at 1+ - MODEL-U ! then
    stop 1+ ;
 
+: COST-EXACT-INT? ( ptr u8 n -- bool ) {: a:ptr u:n :}
+   u 0= if FALSE-FLAG exit then
+   a c@ 45 = {: negative:bool :}
+   negative if 1 else 0 then {: first:n :}
+   u first <= if FALSE-FLAG exit then
+   0 COST-ACC !
+   u first ?do
+      a i + c@ 48 - {: digit:n :}
+      digit 0 < digit 9 > or if FALSE-FLAG unloop exit then
+      \ Every prefix must fit exactly in binary64 before multiplying by ten.
+      COST-ACC @ 9007199254740992 digit - 10 / > if FALSE-FLAG unloop exit then
+      COST-ACC @ 10 * digit + COST-ACC !
+   loop
+   COST-ACC @ s>f negative if fnegate then COST-EXPLICIT !
+   1 HAS-COST !
+   0 0= ;
+
 : RECORD-COST ( ptr u8 n n -- n ) {: a:ptr u:n at:n :}
    0 HAS-COST !
    a u at SCAN-COST-END {: stop:n :}
+   a at + stop at - COST-EXACT-INT? if stop exit then
    a at + stop at - F64-TEXT:PARSE MATCH result
       ok OF COST-EXPLICIT ! 1 HAS-COST ! ENDOF
       err OF

@@ -270,6 +270,28 @@ def fixture(root: Path, kind: str):
             b'{"timestamp":"2026-01-02T12:34:56Z","input_tokens":1000000,'
             b'"model":"claude-sonnet-4-5","sessionId":"s","costUSD":7,"costUSD":null}'])
         return [d]
+    if kind in ('cost-exact-integers', 'cost-parser-fallback'):
+        d = root / 'one'
+        if kind == 'cost-exact-integers':
+            tokens = [b'0', b'-0', b'0000', b'-0000', b'1', b'-1',
+                      b'9007199254740991', b'9007199254740992',
+                      b'9007199254740993', b'-9007199254740992',
+                      b'-9007199254740993',
+                      b'0' * 100 + b'9007199254740992',
+                      b'-' + b'0' * 100 + b'9007199254740992']
+        else:
+            # Keep the raw scanner's truncation and the parser's rejection paths.
+            tokens = [b'1.25', b'-2.5', b'1e3', b'1e-3', b'1e+3',
+                      b'1_000', b'1,000', b'1..2', b'-', b'--1',
+                      b'9"', b'7,"costUSD":null',
+                      b'7,"costUSD":1e', b'7,"costUSD":--1']
+        rows = []
+        for i, token in enumerate(tokens):
+            raw = json.dumps(event(session=f'cost-{i}', inp=1000000, out=0,
+                                   create=0, read=0), separators=(',', ':')).encode()
+            rows.append(raw[:-1] + b',"costUSD":' + token + b'}')
+        write_rows(d, 'projects/cost/data.jsonl', rows)
+        return [d]
     if kind == 'stacked-prefix':
         d = root / 'one'
         write_rows(d, 'projects/p/data.jsonl', [
@@ -486,6 +508,8 @@ for name, kind, args in [
     ('epoch-negative-day', 'epoch-edge', ['--json', '--timezone', '-01:00']),
     ('negative-only-status', 'negative-status', ['statusline', '--json']),
     ('duplicate-cost-null', 'duplicate-cost-null', ['--json']),
+    ('cost-exact-integers', 'cost-exact-integers', ['sessions', '--json']),
+    ('cost-parser-fallback', 'cost-parser-fallback', ['sessions', '--json']),
     ('stacked-prefix', 'stacked-prefix', ['--json']),
     ('equal-session-ties', 'equal-sessions', ['sessions', '--json']),
     ('project-users-short', 'project-users-short', []),
