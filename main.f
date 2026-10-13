@@ -106,8 +106,12 @@ variable SET-CAP
 variable SET-COUNT
 
 : FALSE-FLAG ( -- bool ) 0 0= 0= ;
-: CAPACITY-FAIL ( -- ) s" zzusage-habu: input capacity exceeded" 1 die ;
-: WRITE-FAIL ( -- ) s" error: WriteFailed" 1 die ;
+: ERROR-EXIT ( ptr u8 n -- )
+   \ If stderr is closed, preserve the failure status without another write.
+   [: 2 >FD FD-NOSIGPIPE! ;] catch 0<> if 2drop s" " 1 die then
+   1 die ;
+: CAPACITY-FAIL ( -- ) s" zzusage-habu: input capacity exceeded" ERROR-EXIT ;
+: WRITE-FAIL ( -- ) s" error: WriteFailed" ERROR-EXIT ;
 : OUT ( ptr u8 n -- )
    begin dup 0 > while
       2dup 1 -rot write dup 0 <= if drop 2drop WRITE-FAIL then
@@ -120,7 +124,7 @@ variable SET-COUNT
       >r swap r@ + swap r> -
    repeat 2drop ;
 : HELP-LF ( -- ) LF-BYTE 1 HELP-OUT ;
-: ARG-FAIL ( -- ) s" zzusage-habu: invalid arguments" 1 die ;
+: ARG-FAIL ( -- ) s" zzusage-habu: invalid arguments" ERROR-EXIT ;
 : HELP ( -- )
    s" zzusage - Claude Code usage analyzer (Zig)" HELP-OUT HELP-LF
    HELP-LF

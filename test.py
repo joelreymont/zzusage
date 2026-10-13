@@ -602,6 +602,29 @@ def main():
                             'stderr': [x[1].decode(errors='replace') for x in outputs]})
             print(('PASS ' if passed else 'FAIL ') + name, flush=True)
 
+        # Reporting a stdout failure must also survive an unavailable stderr.
+        for kind in ('pipe', 'closed'):
+            root = suite / f'broken-stderr-{kind}'
+            root.mkdir()
+            outputs = []
+            for binary in binaries:
+                reader, writer = os.pipe()
+                os.close(reader)
+                script = 'exec 1>&-; ' + ('exec 2>&-; ' if kind == 'closed' else '')
+                script += 'exec "$@"'
+                try:
+                    cp = subprocess.run(['sh', '-c', script, 'sh', binary, '--json',
+                                         '--data-dir', str(root / 'missing')],
+                                        cwd=root, env={**os.environ, 'HOME': str(root)},
+                                        stdout=subprocess.PIPE, stderr=writer, timeout=10)
+                finally:
+                    os.close(writer)
+                outputs.append((cp.returncode, cp.stdout))
+            passed = outputs == [(1, b''), (1, b'')]
+            results.append({'name': f'broken-stderr-{kind}', 'passed': passed,
+                            'exit': [x[0] for x in outputs]})
+            print(('PASS ' if passed else 'FAIL ') + f'broken-stderr-{kind}', flush=True)
+
         # A sparse log can gain bytes between discovery and EOF. The append count is
         # intentionally nondeterministic; both programs must retain the first row.
         growing = []
