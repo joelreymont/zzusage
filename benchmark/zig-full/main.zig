@@ -426,6 +426,9 @@ fn parseIsoTimestamp(s: []const u8) i64 {
     if (s.len < 19) return 0;
     const year = std.fmt.parseInt(i32, s[0..4], 10) catch return 0;
     const month = std.fmt.parseInt(u8, s[5..7], 10) catch return 0;
+    // Month 13 keeps the source's overflow arithmetic. Larger values would
+    // index beyond epochFromDate's twelve-entry month table.
+    if (month > 13) return 0;
     const day = std.fmt.parseInt(u8, s[8..10], 10) catch return 0;
     const hour = std.fmt.parseInt(u8, s[11..13], 10) catch return 0;
     const minute = std.fmt.parseInt(u8, s[14..16], 10) catch return 0;
@@ -571,6 +574,9 @@ fn aggregate(comptime key_fmt: KeyFormat, allocator: Allocator, events: []const 
 
     for (events) |ev| {
         const adjusted_ts = ev.timestamp + @as(i64, tz_offset) * 60;
+        // The forward calendar renders -86400 as day zero. Any earlier date
+        // would cast a negative day to u8 in timestampToYMD.
+        if (adjusted_ts < -86400) continue;
         const key = switch (key_fmt) {
             .date => try formatDate(allocator, adjusted_ts),
             .month => try formatMonth(allocator, adjusted_ts),
@@ -633,13 +639,21 @@ fn aggregateStatusline(allocator: Allocator, events: []const UsageEvent, tz_offs
     if (events.len == 0) return .{ .date = null, .totals = .{} };
 
     var max_ts: i64 = 0;
-    for (events) |ev| max_ts = @max(max_ts, ev.timestamp);
+    var has_valid_date = false;
+    for (events) |ev| {
+        if (ev.timestamp + @as(i64, tz_offset) * 60 < -86400) continue;
+        has_valid_date = true;
+        max_ts = @max(max_ts, ev.timestamp);
+    }
+    if (!has_valid_date) return .{ .date = null, .totals = .{} };
 
     const target_date = try formatDate(allocator, max_ts + @as(i64, tz_offset) * 60);
     var totals = Totals{};
 
     for (events) |ev| {
-        const ev_date = try formatDate(allocator, ev.timestamp + @as(i64, tz_offset) * 60);
+        const adjusted_ts = ev.timestamp + @as(i64, tz_offset) * 60;
+        if (adjusted_ts < -86400) continue;
+        const ev_date = try formatDate(allocator, adjusted_ts);
         defer allocator.free(ev_date);
         if (mem.eql(u8, ev_date, target_date)) totals.add(ev);
     }

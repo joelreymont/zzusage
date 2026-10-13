@@ -381,6 +381,9 @@ variable MONTH-CURSOR
    TIMESTAMP-P @ 14 2 DIGITS {: minute:n :}
    TIMESTAMP-P @ 17 2 DIGITS {: second:n :}
    TIME-VALID @ 0= if 0 exit then
+   \ Month 13 retains the source's overflow arithmetic; later months would
+   \ index beyond its twelve-entry month table.
+   m 13 > if 0 TIME-VALID ! 0 exit then
    0 DAY-ACC ! 1970 YEAR-CURSOR !
    begin YEAR-CURSOR @ y < while
       YEAR-CURSOR @ DATE:LEAP-YEAR? if 366 else 365 then DAY-ACC +!
@@ -652,6 +655,11 @@ variable WY-POS
    HAS-INPUT @ 0= if exit then
    EVENT-TIME {: ts:n :}
    ts 0= if exit then
+   \ The source's forward date walk supports day zero at -86400. Earlier
+   \ adjusted dates have a negative day that cannot be rendered as u8.
+   MODE @ SESSIONS <> if
+      ts TIMEZONE-MIN @ 60 * + -86400 < if exit then
+   then
    ts EVENT-KEY FIND-ROW {: idx:n :}
    idx 1 MODEL-P @ MODEL-U @ SET-ADD
    MODE @ SESSIONS <> if idx 2 PROJECT-P @ PROJECT-U @ SET-ADD then

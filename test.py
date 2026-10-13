@@ -177,6 +177,20 @@ def fixture(root: Path, kind: str):
             event('1960-12-31T00:00:00Z', 'pre-epoch-year', inp=4),
         ])
         return [d]
+    if kind == 'unsafe-month':
+        d = root / 'one'
+        write_rows(d, 'projects/date/data.jsonl', [
+            event('2024-14-01T03:04:05Z', 'month-fourteen', inp=3),
+            event('2024-99-01T03:04:05Z', 'month-ninety-nine', inp=4),
+            event('2024-13-01T03:04:05Z', 'month-thirteen', inp=5),
+        ])
+        return [d]
+    if kind == 'negative-day-underflow':
+        d = root / 'one'
+        write_rows(d, 'projects/date/data.jsonl', [
+            event('1970-01-00T00:00:01Z', 'underflow', inp=7),
+        ])
+        return [d]
     if kind == 'invalid-numeric-dates':
         d = root / 'one'
         write_rows(d, 'projects/date/data.jsonl', [
@@ -420,6 +434,17 @@ for name, kind, args in [
     ('wide-output-text', 'wide-output', []),
     ('invalid-dates-json', 'invalid-dates', ['--json']),
     ('invalid-dates-text', 'invalid-dates', []),
+    ('unsafe-month-daily', 'unsafe-month', ['--json']),
+    ('unsafe-month-monthly', 'unsafe-month', ['monthly', '--json']),
+    ('unsafe-month-sessions', 'unsafe-month', ['sessions', '--json']),
+    ('negative-day-underflow-daily', 'negative-day-underflow',
+     ['--json', '--timezone', '-01:00']),
+    ('negative-day-underflow-monthly', 'negative-day-underflow',
+     ['monthly', '--json', '--timezone', '-01:00']),
+    ('negative-day-underflow-statusline', 'negative-day-underflow',
+     ['statusline', '--json', '--timezone', '-01:00']),
+    ('negative-day-underflow-sessions', 'negative-day-underflow',
+     ['sessions', '--json', '--timezone', '-01:00']),
     ('invalid-numeric-dates', 'invalid-numeric-dates', ['--json']),
     ('calendar-overflow', 'calendar-overflow', ['--json']),
     ('calendar-overflow-monthly', 'calendar-overflow', ['monthly', '--json']),
