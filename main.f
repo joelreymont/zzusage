@@ -6,6 +6,7 @@ require lib/date.f
 require lib/fmath.f
 require lib/f64-text.f
 require lib/process.f
+require lib/sort.f
 
 package ZU
 
@@ -81,6 +82,13 @@ DYNAMIC-BUFFER ROW-READ n
 DYNAMIC-BUFFER ROW-LAST n
 DYNAMIC-BUFFER ROW-COST r
 DYNAMIC-BUFFER ROW-ORDER n
+DYNAMIC-BUFFER ROW-RANK n
+DYNAMIC-BUFFER ROW-SLOTS n
+DYNAMIC-BUFFER ROW-SLOTS-OLD n
+DYNAMIC-BUFFER ROW-MODEL-HEAD n
+DYNAMIC-BUFFER ROW-MODEL-TAIL n
+DYNAMIC-BUFFER ROW-PROJECT-HEAD n
+DYNAMIC-BUFFER ROW-PROJECT-TAIL n
 DYNAMIC-BUFFER ROW-MODEL-SIZE n
 DYNAMIC-BUFFER ROW-MODEL-CAP n
 DYNAMIC-BUFFER ROW-PROJECT-SIZE n
@@ -91,6 +99,10 @@ DYNAMIC-BUFFER SET-ROW n
 DYNAMIC-BUFFER SET-KIND n
 DYNAMIC-BUFFER SET-OFF n
 DYNAMIC-BUFFER SET-U n
+DYNAMIC-BUFFER SET-NEXT n
+DYNAMIC-BUFFER SET-SLOTS n
+DYNAMIC-BUFFER SET-SLOTS-OLD n
+variable SET-CAP
 variable SET-COUNT
 
 : FALSE-FLAG ( -- bool ) 0 0= 0= ;
@@ -432,17 +444,137 @@ variable MONTH-CURSOR
    count ROW-IN-RESERVE count ROW-OUT-RESERVE
    count ROW-CREATE-RESERVE count ROW-READ-RESERVE
    count ROW-LAST-RESERVE count ROW-COST-RESERVE
-   count ROW-ORDER-RESERVE
+   count ROW-ORDER-RESERVE count ROW-RANK-RESERVE
+   count ROW-MODEL-HEAD-RESERVE count ROW-MODEL-TAIL-RESERVE
+   count ROW-PROJECT-HEAD-RESERVE count ROW-PROJECT-TAIL-RESERVE
    count ROW-MODEL-SIZE-RESERVE count ROW-MODEL-CAP-RESERVE
    count ROW-PROJECT-SIZE-RESERVE count ROW-PROJECT-CAP-RESERVE ;
 
 : SET$ ( n -- ptr u8 n ) {: idx:n :}
    idx SET-OFF @ idx SET-U @ POOL$ ;
 
+$A0761D6478BD642F constant WY-SECRET-0
+$E7037ED1A0B428DB constant WY-SECRET-1
+$8EBC6AF09C88C6E3 constant WY-SECRET-2
+$589965CC75374CC3 constant WY-SECRET-3
+$FFFFFFFF constant WY-HALF
+variable WY-STATE-0
+variable WY-STATE-1
+variable WY-STATE-2
+variable WY-A
+variable WY-B
+variable WY-POS
+
+: WY-MUL ( n n -- n n ) {: a:n b:n :}
+   a WY-HALF and b WY-HALF and * {: p00:n :}
+   a WY-HALF and b 32 rshift * {: p01:n :}
+   a 32 rshift b WY-HALF and * {: p10:n :}
+   a 32 rshift b 32 rshift * {: p11:n :}
+   p00 32 rshift p01 WY-HALF and + p10 WY-HALF and + {: middle:n :}
+   p00 WY-HALF and middle 32 lshift or
+   p11 p01 32 rshift + p10 32 rshift + middle 32 rshift + ;
+
+: WY-MIX ( n n -- n ) WY-MUL xor ;
+
+: WY-READ ( ptr u8 n n -- n ) {: a:ptr offset:n width:n :}
+   0 width 0 ?do
+      a offset i + + c@ i 8 * lshift or
+   loop ;
+
+: WY-SMALL ( ptr u8 n -- ) {: a:ptr u:n :}
+   u 4 >= if
+      u 3 rshift 2 lshift {: quarter:n :}
+      a 0 4 WY-READ 32 lshift a quarter 4 WY-READ or WY-A !
+      a u 4 - 4 WY-READ 32 lshift
+      a u 4 - quarter - 4 WY-READ or WY-B !
+      exit
+   then
+   u 0 > if
+      a c@ 16 lshift a u 1 rshift + c@ 8 lshift or
+      a u 1- + c@ or WY-A !
+   else 0 WY-A ! then
+   0 WY-B ! ;
+
+: WY-ROUND ( ptr u8 n -- ) {: a:ptr pos:n :}
+   a pos 8 WY-READ WY-SECRET-1 xor
+   a pos 8 + 8 WY-READ WY-STATE-0 @ xor WY-MIX WY-STATE-0 !
+   a pos 16 + 8 WY-READ WY-SECRET-2 xor
+   a pos 24 + 8 WY-READ WY-STATE-1 @ xor WY-MIX WY-STATE-1 !
+   a pos 32 + 8 WY-READ WY-SECRET-3 xor
+   a pos 40 + 8 WY-READ WY-STATE-2 @ xor WY-MIX WY-STATE-2 ! ;
+
+: WY-HASH ( ptr u8 n -- n ) {: a:ptr u:n :}
+   WY-SECRET-0 WY-SECRET-1 WY-MIX dup WY-STATE-0 !
+   dup WY-STATE-1 ! WY-STATE-2 !
+   u 16 <= if a u WY-SMALL else
+      0 WY-POS !
+      u 48 >= if
+         begin WY-POS @ 48 + u < while
+            a WY-POS @ WY-ROUND 48 WY-POS +!
+         repeat
+         WY-STATE-0 @ WY-STATE-1 @ xor WY-STATE-2 @ xor WY-STATE-0 !
+      then
+      begin WY-POS @ 16 + u < while
+         a WY-POS @ 8 WY-READ WY-SECRET-1 xor
+         a WY-POS @ 8 + 8 WY-READ WY-STATE-0 @ xor WY-MIX WY-STATE-0 !
+         16 WY-POS +!
+      repeat
+      a u 16 - 8 WY-READ WY-A !
+      a u 8 - 8 WY-READ WY-B !
+   then
+   WY-A @ WY-SECRET-1 xor
+   WY-B @ WY-STATE-0 @ xor WY-MUL {: low:n high:n :}
+   low WY-SECRET-0 xor u xor high WY-SECRET-1 xor WY-MIX ;
+
 : MAP-CAP-NEXT ( n n -- n ) {: cap:n size:n :}
    \ Zig grows before lookup, even when the key is already present.
    cap 0= if 8 exit then
    size cap 80 * 100 / >= if cap 2 * else cap then ;
+
+: ROW-SLOT ( ptr u8 n -- n ) {: a:ptr u:n :}
+   a u WY-HASH ROW-MAP-CAP @ 1- and
+   begin
+      dup ROW-SLOTS @ {: row:n :}
+      row -1 = if exit then
+      row ROW-KEY$ a u STR= if exit then
+      1+ ROW-MAP-CAP @ 1- and
+   again ;
+
+: ROW-GROW ( -- )
+   ROW-MAP-CAP @ {: old:n :}
+   old ROW-SLOTS-OLD-RESERVE
+   old 0 ?do i ROW-SLOTS @ i ROW-SLOTS-OLD ! loop
+   old 0= if 8 else old 2 * then dup ROW-MAP-CAP ! ROW-SLOTS-RESERVE
+   ROW-MAP-CAP @ 0 ?do -1 i ROW-SLOTS ! loop
+   old 0 ?do
+      i ROW-SLOTS-OLD @ dup -1 <> if
+         dup ROW-KEY$ ROW-SLOT ROW-SLOTS !
+      else drop then
+   loop ;
+
+: SET-SLOT ( n n ptr u8 n -- n ) {: row:n kind:n a:ptr u:n :}
+   a u WY-HASH row WY-SECRET-0 * xor kind xor SET-CAP @ 1- and
+   begin
+      dup SET-SLOTS @ {: entry:n :}
+      entry -1 = if exit then
+      entry SET-ROW @ row = entry SET-KIND @ kind = and if
+         entry SET$ a u STR= if exit then
+      then
+      1+ SET-CAP @ 1- and
+   again ;
+
+: SET-GROW ( -- )
+   SET-CAP @ {: old:n :}
+   old SET-SLOTS-OLD-RESERVE
+   old 0 ?do i SET-SLOTS @ i SET-SLOTS-OLD ! loop
+   old 0= if 8 else old 2 * then dup SET-CAP ! SET-SLOTS-RESERVE
+   SET-CAP @ 0 ?do -1 i SET-SLOTS ! loop
+   old 0 ?do
+      i SET-SLOTS-OLD @ dup -1 <> if
+         dup {: entry:n :}
+         entry SET-ROW @ entry SET-KIND @ entry SET$ SET-SLOT SET-SLOTS !
+      else drop then
+   loop ;
 
 : SET-ADD ( n n ptr u8 n -- ) {: row:n kind:n a:ptr u:n :}
    kind 1 = if
@@ -452,26 +584,37 @@ variable MONTH-CURSOR
       row ROW-PROJECT-CAP @ row ROW-PROJECT-SIZE @ MAP-CAP-NEXT
       row ROW-PROJECT-CAP !
    then
-   SET-COUNT @ 0 ?do
-      i SET-ROW @ row = i SET-KIND @ kind = and if
-         i SET$ a u STR= if unloop exit then
-      then
-   loop
-   SET-COUNT @ 1+ {: count:n :}
-   count SET-ROW-RESERVE count SET-KIND-RESERVE
+   SET-CAP @ SET-COUNT @ MAP-CAP-NEXT SET-CAP @ <> if SET-GROW then
+   row kind a u SET-SLOT {: slot:n :}
+   slot SET-SLOTS @ -1 <> if exit then
+   SET-COUNT @ {: entry:n :}
+   entry 1+ {: count:n :}
+   count SET-ROW-RESERVE count SET-KIND-RESERVE count SET-NEXT-RESERVE
    count SET-OFF-RESERVE count SET-U-RESERVE
-   row SET-COUNT @ SET-ROW !
-   kind SET-COUNT @ SET-KIND !
-   a u POOL-ADD SET-COUNT @ SET-OFF !
-   u SET-COUNT @ SET-U !
-   count SET-COUNT !
-   kind 1 = if 1 row ROW-MODEL-SIZE +! else 1 row ROW-PROJECT-SIZE +! then ;
+   row entry SET-ROW !
+   kind entry SET-KIND !
+   a u POOL-ADD entry SET-OFF !
+   u entry SET-U !
+   -1 entry SET-NEXT !
+   kind 1 = if
+      row ROW-MODEL-TAIL @ dup -1 <> if entry swap SET-NEXT !
+      else drop entry row ROW-MODEL-HEAD ! then
+      entry row ROW-MODEL-TAIL !
+      1 row ROW-MODEL-SIZE +!
+   else
+      row ROW-PROJECT-TAIL @ dup -1 <> if entry swap SET-NEXT !
+      else drop entry row ROW-PROJECT-HEAD ! then
+      entry row ROW-PROJECT-TAIL !
+      1 row ROW-PROJECT-SIZE +!
+   then
+   entry slot SET-SLOTS !
+   count SET-COUNT ! ;
 
 : FIND-ROW ( ptr u8 n -- n ) {: a:ptr u:n :}
-   ROW-MAP-CAP @ ROW-COUNT @ MAP-CAP-NEXT ROW-MAP-CAP !
-   ROW-COUNT @ 0 ?do
-      i ROW-KEY$ a u STR= if i unloop exit then
-   loop
+   \ Grow before lookup, including duplicates, just like Zig's StringHashMap.
+   ROW-MAP-CAP @ ROW-COUNT @ MAP-CAP-NEXT ROW-MAP-CAP @ <> if ROW-GROW then
+   a u ROW-SLOT {: slot:n :}
+   slot ROW-SLOTS @ dup -1 <> if exit then drop
    ROW-COUNT @ 1+ RESERVE-ROWS
    a u ROW-COUNT @ COPY-ROW-KEY
    0 ROW-COUNT @ ROW-IN !
@@ -484,7 +627,12 @@ variable MONTH-CURSOR
    0 ROW-COUNT @ ROW-MODEL-CAP !
    0 ROW-COUNT @ ROW-PROJECT-SIZE !
    0 ROW-COUNT @ ROW-PROJECT-CAP !
+   -1 ROW-COUNT @ ROW-MODEL-HEAD !
+   -1 ROW-COUNT @ ROW-MODEL-TAIL !
+   -1 ROW-COUNT @ ROW-PROJECT-HEAD !
+   -1 ROW-COUNT @ ROW-PROJECT-TAIL !
    0.0 ROW-COUNT @ ROW-COST !
+   ROW-COUNT @ slot ROW-SLOTS !
    ROW-COUNT @ dup 1+ ROW-COUNT ! ;
 
 : ADD-ROW ( n n -- ) {: idx:n ts:n :}
@@ -790,125 +938,28 @@ defer WALK-CURRENT ( -- )
    MODE @ SESSIONS = if s" sessions" exit then
    s" daily" ;
 
-$A0761D6478BD642F constant WY-SECRET-0
-$E7037ED1A0B428DB constant WY-SECRET-1
-$8EBC6AF09C88C6E3 constant WY-SECRET-2
-$589965CC75374CC3 constant WY-SECRET-3
-$FFFFFFFF constant WY-HALF
-variable WY-STATE-0
-variable WY-STATE-1
-variable WY-STATE-2
-variable WY-A
-variable WY-B
-variable WY-POS
-
-: WY-MUL ( n n -- n n ) {: a:n b:n :}
-   a WY-HALF and b WY-HALF and * {: p00:n :}
-   a WY-HALF and b 32 rshift * {: p01:n :}
-   a 32 rshift b WY-HALF and * {: p10:n :}
-   a 32 rshift b 32 rshift * {: p11:n :}
-   p00 32 rshift p01 WY-HALF and + p10 WY-HALF and + {: middle:n :}
-   p00 WY-HALF and middle 32 lshift or
-   p11 p01 32 rshift + p10 32 rshift + middle 32 rshift + ;
-
-: WY-MIX ( n n -- n ) WY-MUL xor ;
-
-: WY-READ ( ptr u8 n n -- n ) {: a:ptr offset:n width:n :}
-   0 width 0 ?do
-      a offset i + + c@ i 8 * lshift or
-   loop ;
-
-: WY-SMALL ( ptr u8 n -- ) {: a:ptr u:n :}
-   u 4 >= if
-      u 3 rshift 2 lshift {: quarter:n :}
-      a 0 4 WY-READ 32 lshift a quarter 4 WY-READ or WY-A !
-      a u 4 - 4 WY-READ 32 lshift
-      a u 4 - quarter - 4 WY-READ or WY-B !
-      exit
-   then
-   u 0 > if
-      a c@ 16 lshift a u 1 rshift + c@ 8 lshift or
-      a u 1- + c@ or WY-A !
-   else 0 WY-A ! then
-   0 WY-B ! ;
-
-: WY-ROUND ( ptr u8 n -- ) {: a:ptr pos:n :}
-   a pos 8 WY-READ WY-SECRET-1 xor
-   a pos 8 + 8 WY-READ WY-STATE-0 @ xor WY-MIX WY-STATE-0 !
-   a pos 16 + 8 WY-READ WY-SECRET-2 xor
-   a pos 24 + 8 WY-READ WY-STATE-1 @ xor WY-MIX WY-STATE-1 !
-   a pos 32 + 8 WY-READ WY-SECRET-3 xor
-   a pos 40 + 8 WY-READ WY-STATE-2 @ xor WY-MIX WY-STATE-2 ! ;
-
-: WY-HASH ( ptr u8 n -- n ) {: a:ptr u:n :}
-   WY-SECRET-0 WY-SECRET-1 WY-MIX dup WY-STATE-0 !
-   dup WY-STATE-1 ! WY-STATE-2 !
-   u 16 <= if a u WY-SMALL else
-      0 WY-POS !
-      u 48 >= if
-         begin WY-POS @ 48 + u < while
-            a WY-POS @ WY-ROUND 48 WY-POS +!
-         repeat
-         WY-STATE-0 @ WY-STATE-1 @ xor WY-STATE-2 @ xor WY-STATE-0 !
-      then
-      begin WY-POS @ 16 + u < while
-         a WY-POS @ 8 WY-READ WY-SECRET-1 xor
-         a WY-POS @ 8 + 8 WY-READ WY-STATE-0 @ xor WY-MIX WY-STATE-0 !
-         16 WY-POS +!
-      repeat
-      a u 16 - 8 WY-READ WY-A !
-      a u 8 - 8 WY-READ WY-B !
-   then
-   WY-A @ WY-SECRET-1 xor
-   WY-B @ WY-STATE-0 @ xor WY-MUL {: low:n high:n :}
-   low WY-SECRET-0 xor u xor high WY-SECRET-1 xor WY-MIX ;
-
 DYNAMIC-BUFFER HASH-SLOTS n
 DYNAMIC-BUFFER HASH-OLD n
 variable HASH-CAP
 variable HASH-SIZE
 variable ROW-POS
 
-: ROW-HASH-INSERT ( n -- ) {: row:n :}
-   row ROW-KEY$ WY-HASH HASH-CAP @ 1- and
-   begin dup HASH-SLOTS @ -1 <> while 1+ HASH-CAP @ 1- and repeat
-   row swap HASH-SLOTS !
-   1 HASH-SIZE +! ;
-
-: ROW-HASH-GROW ( -- )
-   HASH-CAP @ {: old:n :}
-   old HASH-OLD-RESERVE
-   old 0 ?do i HASH-SLOTS @ i HASH-OLD ! loop
-   old 0= if 8 else old 2 * then dup HASH-CAP ! HASH-SLOTS-RESERVE
-   HASH-CAP @ 0 ?do -1 i HASH-SLOTS ! loop
-   0 HASH-SIZE !
-   old 0 ?do i HASH-OLD @ dup -1 <> if ROW-HASH-INSERT else drop then loop ;
+: ORDER-BEFORE? ( n n -- bool ) {: x:n y:n :}
+   x y BEFORE? if true exit then
+   y x BEFORE? if false exit then
+   x ROW-RANK @ y ROW-RANK @ < ;
 
 : SORT-ROWS ( -- )
-   0 HASH-CAP ! 0 HASH-SIZE !
-   ROW-COUNT @ 0 ?do
-      HASH-CAP @ 0= if ROW-HASH-GROW else
-         HASH-SIZE @ HASH-CAP @ 80 * 100 / >= if ROW-HASH-GROW then
-      then
-      i ROW-HASH-INSERT
-   loop
-   \ Unique inserts reach each growth threshold in the same order. A duplicate
-   \ at the final threshold may have caused one further rehash.
-   begin HASH-CAP @ ROW-MAP-CAP @ < while ROW-HASH-GROW repeat
+   ROW-COUNT @ 0= if exit then
    0 ROW-POS !
-   HASH-CAP @ 0 ?do
-      i HASH-SLOTS @ dup -1 <> if
+   ROW-MAP-CAP @ 0 ?do
+      i ROW-SLOTS @ dup -1 <> if
+         ROW-POS @ over ROW-RANK !
          ROW-POS @ ROW-ORDER ! 1 ROW-POS +!
       else drop then
    loop
-   ROW-COUNT @ 1 ?do
-      i ROW-ORDER @ {: chosen:n :}
-      i begin dup 0 > if chosen over 1- ROW-ORDER @ BEFORE? else FALSE-FLAG then while
-         dup 1- ROW-ORDER @ over ROW-ORDER !
-         1-
-      repeat
-      chosen swap ROW-ORDER !
-   loop ;
+   \ A hash-slot rank makes the library heapsort preserve the source's tie order.
+   0 ROW-ORDER ROW-COUNT @ [: ORDER-BEFORE? ;] SORT:SORT! ;
 
 : HASH-INSERT ( n -- ) {: set-index:n :}
    set-index SET$ WY-HASH HASH-CAP @ 1- and {: start:n :}
@@ -929,14 +980,15 @@ variable ROW-POS
 
 : HASH-BUILD ( n n -- ) {: row:n kind:n :}
    0 HASH-CAP ! 0 HASH-SIZE !
-   SET-COUNT @ 0 ?do
-      i SET-ROW @ row = i SET-KIND @ kind = and if
-         HASH-CAP @ 0= if HASH-GROW else
-            HASH-SIZE @ HASH-CAP @ 80 * 100 / >= if HASH-GROW then
-         then
-         i HASH-INSERT
+   kind 1 = if row ROW-MODEL-HEAD @ else row ROW-PROJECT-HEAD @ then
+   begin dup -1 <> while
+      {: entry:n :}
+      HASH-CAP @ 0= if HASH-GROW else
+         HASH-SIZE @ HASH-CAP @ 80 * 100 / >= if HASH-GROW then
       then
-   loop
+      entry HASH-INSERT
+      entry SET-NEXT @
+   repeat drop
    \ Rehash through the capacity reached by all puts, including duplicates.
    kind 1 = if row ROW-MODEL-CAP @ else row ROW-PROJECT-CAP @ then
    begin HASH-CAP @ over < while HASH-GROW repeat drop ;

@@ -68,6 +68,19 @@ def fixture(root: Path, kind: str):
             rows.append(event('2025-01-01T00:00:01Z', 'nonempty'))
         write_rows(d, 'projects/p/data.jsonl', rows)
         return [d]
+    if kind.startswith('indexed-sessions-'):
+        d = root / 'one'
+        count = int(kind.rsplit('-', 1)[1])
+        rows = []
+        for i in range(count):
+            # Repeated keys cross map growth thresholds, with mixed timestamp ties
+            # and interleaved model membership for each session's text report.
+            for j in range(3):
+                rows.append(event(f'2026-01-{i % 28 + 1:02d}T12:00:{i % 5:02d}Z',
+                                  session=f's{i:06d}', model=f'm{(i + j) % 7}',
+                                  inp=1, out=0, create=0, read=0, cost=0))
+        write_rows(d, 'projects/p/data.jsonl', rows)
+        return [d]
     if kind == 'empty':
         a = root / 'one'
         (a / 'projects').mkdir(parents=True)
@@ -361,6 +374,9 @@ for name, kind, args in [
     ('many-models-text', 'many-models', []),
     ('many-dirs', 'many-dirs', ['--json']),
     ('many-rows', 'many-rows', ['--json']),
+    ('indexed-sessions-json', 'indexed-sessions-20000', ['sessions', '--json']),
+    ('indexed-sessions-text', 'indexed-sessions-2000', ['sessions']),
+    ('indexed-daily-sets', 'indexed-sessions-2000', []),
     ('growth-rows-6', 'growth-rows-6', ['sessions', '--json']),
     ('growth-rows-25', 'growth-rows-25', ['sessions', '--json']),
     ('growth-models-6', 'growth-models-6', []),
