@@ -264,6 +264,16 @@ def fixture(root: Path, kind: str):
         write_rows(d, 'projects/date/data.jsonl', [
             event('1970-01-00T12:00:00Z', inp=8)])
         return [d]
+    if kind == 'date-cache-sequence':
+        d = root / 'one'
+        stamps = ['1970-01-01T00:00:01Z', '1970-01-01T00:10:00Z',
+                  '1970-01-01T01:00:00Z', '1970-01-01T23:59:59Z',
+                  '1970-01-02T01:00:00Z', '1970-01-01T02:00:00Z',
+                  '2024-13-01T03:00:00Z', '2025-01-01T03:00:00Z',
+                  '9999-12-99T03:00:00Z', '9999-12-99T04:00:00Z']
+        write_rows(d, 'projects/date/data.jsonl', [
+            event(ts, session=f'day-{i}', inp=i + 1) for i, ts in enumerate(stamps)])
+        return [d]
     if kind == 'duplicate-cost-null':
         d = root / 'one'
         write_rows(d, 'projects/cost/data.jsonl', [
@@ -507,6 +517,10 @@ for name, kind, args in [
     ('session-mixed-ties', 'session-mixed-ties', ['sessions', '--json']),
     ('epoch-negative-day', 'epoch-edge', ['--json', '--timezone', '-01:00']),
     ('negative-only-status', 'negative-status', ['statusline', '--json']),
+    ('date-cache-epoch-zero', 'date-cache-sequence', ['--json']),
+    ('date-cache-daily', 'date-cache-sequence', ['--json', '--timezone', '-01:00']),
+    ('date-cache-monthly', 'date-cache-sequence', ['monthly', '--json', '--timezone', '-01:00']),
+    ('date-cache-status', 'date-cache-sequence', ['statusline', '--json', '--timezone', '-01:00']),
     ('duplicate-cost-null', 'duplicate-cost-null', ['--json']),
     ('cost-exact-integers', 'cost-exact-integers', ['sessions', '--json']),
     ('cost-parser-fallback', 'cost-parser-fallback', ['sessions', '--json']),

@@ -64,6 +64,8 @@ variable STATUS-TS
 variable DATE-REMAIN
 variable DATE-YEAR
 variable DATE-MONTH
+variable DATE-CACHE-VALID
+variable DATE-CACHE-DAY
 
 
 variable INPUT-N
@@ -435,7 +437,9 @@ variable MONTH-CURSOR
 \ The source calendar walks forward from 1970, even for negative epoch days.
 \ That makes -1 format as 1970-01-00 and carries oversized days into 10000.
 : FORMAT-SOURCE-DATE ( n -- ptr u8 n ) {: ts:n :}
-   ts 86400 / ts 0 < ts 86400 mod 0<> and if 1- then DATE-REMAIN !
+   ts 86400 / ts 0 < ts 86400 mod 0<> and if 1- then {: day:n :}
+   DATE-CACHE-VALID @ 0<> DATE-CACHE-DAY @ day = and if DATE-BUF DATE-U @ exit then
+   day DATE-REMAIN !
    1970 DATE-YEAR !
    begin CURRENT-YEAR-DAYS DATE-REMAIN @ <= while
       CURRENT-YEAR-DAYS negate DATE-REMAIN +! 1 DATE-YEAR +!
@@ -453,6 +457,7 @@ variable MONTH-CURSOR
    DATE-MONTH @ 2 DATE-BUF DATE-U @ DATE:WIDTH! 2 DATE-U +!
    45 DATE-BUF DATE-U @ + c! 1 DATE-U +!
    DATE-REMAIN @ 1+ $FF and 2 DATE-BUF DATE-U @ DATE:WIDTH! 2 DATE-U +!
+   day DATE-CACHE-DAY ! 1 DATE-CACHE-VALID !
    DATE-BUF DATE-U @ ;
 
 : POOL-ADD ( ptr u8 n -- n ) {: a:ptr u:n :}
