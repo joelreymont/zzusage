@@ -81,6 +81,12 @@ def fixture(root: Path, kind: str):
                                   inp=1, out=0, create=0, read=0, cost=0))
         write_rows(d, 'projects/p/data.jsonl', rows)
         return [d]
+    if kind == 'output-boundaries':
+        d = root / 'one'
+        write_rows(d, 'projects/p/data.jsonl', [
+            event(session='s' * size, inp=i + 1, cost=1.125)
+            for i, size in enumerate((1, 4088, 4095, 4096, 4097, 8193))])
+        return [d]
     if kind == 'empty':
         a = root / 'one'
         (a / 'projects').mkdir(parents=True)
@@ -414,6 +420,8 @@ for name, kind, args in [
     ('indexed-sessions-json', 'indexed-sessions-20000', ['sessions', '--json']),
     ('indexed-sessions-text', 'indexed-sessions-2000', ['sessions']),
     ('indexed-daily-sets', 'indexed-sessions-2000', []),
+    ('output-boundaries-json', 'output-boundaries', ['sessions', '--json']),
+    ('output-boundaries-text', 'output-boundaries', ['sessions']),
     ('growth-rows-6', 'growth-rows-6', ['sessions', '--json']),
     ('growth-rows-25', 'growth-rows-25', ['sessions', '--json']),
     ('growth-models-6', 'growth-models-6', []),
@@ -601,6 +609,26 @@ def main():
                             'exit': [x[0] for x in outputs],
                             'stderr': [x[1].decode(errors='replace') for x in outputs]})
             print(('PASS ' if passed else 'FAIL ') + name, flush=True)
+
+        # A reader that exits after a prefix must still get a report failure.
+        root = suite / 'early-closed-stdout'
+        root.mkdir()
+        dirs = fixture(root, 'indexed-sessions-20000')
+        outputs = []
+        for binary in binaries:
+            proc = subprocess.Popen([binary, 'sessions', '--json', '--data-dir', str(dirs[0])],
+                                    cwd=root, env={**os.environ, 'HOME': str(root)},
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            prefix = proc.stdout.read(37)
+            proc.stdout.close()
+            proc.stdout = None
+            _, stderr = proc.communicate(timeout=20)
+            outputs.append((proc.returncode, prefix, stderr))
+        passed = (outputs[0] == outputs[1] and outputs[0][0] == 1
+                  and len(outputs[0][1]) == 37 and outputs[0][2] == b'error: WriteFailed\n')
+        results.append({'name': 'early-closed-stdout', 'passed': passed,
+                        'exit': [x[0] for x in outputs]})
+        print(('PASS ' if passed else 'FAIL ') + 'early-closed-stdout', flush=True)
 
         # Reporting a stdout failure must also survive an unavailable stderr.
         for kind in ('pipe', 'closed'):

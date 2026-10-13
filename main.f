@@ -41,6 +41,9 @@ create U64-BUF 20 allot
 variable U64-INDEX
 DYNAMIC-BUFFER TEXT-BUF u8
 variable TEXT-U
+4096 constant OUT-CAP
+create OUT-BUF OUT-CAP allot
+variable OUT-U
 
 DYNAMIC-BUFFER DIR-A ptr u8
 DYNAMIC-BUFFER DIR-U n
@@ -112,11 +115,18 @@ variable SET-COUNT
    1 die ;
 : CAPACITY-FAIL ( -- ) s" zzusage-habu: input capacity exceeded" ERROR-EXIT ;
 : WRITE-FAIL ( -- ) s" error: WriteFailed" ERROR-EXIT ;
-: OUT ( ptr u8 n -- )
+: WRITE-ALL ( ptr u8 n -- )
    begin dup 0 > while
       2dup 1 -rot write dup 0 <= if drop 2drop WRITE-FAIL then
       >r swap r@ + swap r> -
    repeat 2drop ;
+: OUT-FLUSH ( -- )
+   OUT-U @ 0 > if OUT-BUF OUT-U @ WRITE-ALL 0 OUT-U ! then ;
+: OUT ( ptr u8 n -- ) {: a:ptr u:n :}
+   u OUT-CAP OUT-U @ - > if OUT-FLUSH then
+   u OUT-CAP >= if a u WRITE-ALL exit then
+   a OUT-BUF OUT-U @ + u BYTE-COPY
+   u OUT-U +! ;
 : OUT-LF ( -- ) LF-BYTE 1 OUT ;
 : HELP-OUT ( ptr u8 n -- )
    begin dup 0 > while
@@ -766,8 +776,6 @@ defer WALK-CURRENT ( -- )
    x ROW-KEY$ y ROW-KEY$ STR= if FALSE-FLAG exit then
    y ROW-KEY$ x ROW-KEY$ BYTE-LESS? ;
 
-: WR-START ( -- ) ;
-: WR-FLUSH ( -- ) ;
 : RAW ( ptr u8 n -- ) OUT ;
 : QUOTE ( -- ) QUOTE-BYTE 1 OUT ;
 : KEY ( ptr u8 n -- ) QUOTE OUT QUOTE COLON-BYTE 1 OUT ;
@@ -1219,14 +1227,13 @@ variable SET-SCAN-FIRST
 : REPORT-PERIOD ( -- )
    SORT-ROWS
    JSON-FLAG @ 0= if REPORT-TABLE exit then
-   WR-START
    s" {" RAW s" kind" KEY KIND$ STR s" ," RAW
-   s" rows" KEY s" [" RAW WR-FLUSH
+   s" rows" KEY s" [" RAW
    ROW-COUNT @ 0 ?do
       i 0 > if s" ," RAW then
-      i ROW-ORDER @ ROW-JSON WR-FLUSH
+      i ROW-ORDER @ ROW-JSON
    loop
-   s" ]," RAW s" totals" KEY -1 TOTALS-JSON s" }" RAW LF-BYTE 1 RAW WR-FLUSH ;
+   s" ]," RAW s" totals" KEY -1 TOTALS-JSON s" }" RAW LF-BYTE 1 RAW ;
 
 : STATUS-TOTALS ( n -- ) {: idx:n :}
    s" {" RAW
@@ -1269,7 +1276,6 @@ variable SET-SCAN-FIRST
       STATUS-TS @ TIMEZONE-MIN @ 60 * + FORMAT-SOURCE-DATE FIND-ROW STATUS-INDEX !
    then
    JSON-FLAG @ 0= if REPORT-STATUS-TEXT exit then
-   WR-START
    s" {" RAW s" kind" KEY s" statusline" STR s" ," RAW
    s" last_date" KEY
    ROW-COUNT @ 0= if
@@ -1280,7 +1286,7 @@ variable SET-SCAN-FIRST
       idx ROW-KEY$ STR s" ," RAW
       s" totals" KEY idx STATUS-TOTALS
    then
-   s" }" RAW LF-BYTE 1 RAW WR-FLUSH ;
+   s" }" RAW LF-BYTE 1 RAW ;
 
 
 public
@@ -1293,7 +1299,7 @@ public
    MODE @ HELP-MODE = if HELP exit then
    INSTALL-WALK
    COLLECT
-   MODE @ STATUSLINE = if REPORT-STATUS else REPORT-PERIOD then ;
+   MODE @ STATUSLINE = if REPORT-STATUS else REPORT-PERIOD then OUT-FLUSH ;
 ;package
 
 : MAIN ( -- ) ZU:MAIN ;
