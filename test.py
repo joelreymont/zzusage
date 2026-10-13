@@ -276,6 +276,22 @@ def fixture(root: Path, kind: str):
             event(f'2026-04-{i+1:02d}T00:00:00Z', f'carry-{i}', cost=c)
             for i, c in enumerate([9.995, 99.995, 999999.995, -9.995, -999999.995])])
         return [d]
+    if kind.startswith('ryu-cost-'):
+        d = root / 'one'
+        amounts = {
+            'ryu-cost-cent': b'100000000000000.125',
+            'ryu-cost-negative': b'-77754031789180.625',
+            'ryu-cost-tenth': b'562949953421312.2500',
+        }
+        if kind == 'ryu-cost-computed':
+            rows = [event(model='claude-2', inp=16028409016451547895,
+                          out=6917576337222619429, create=13820069486335603634,
+                          read=303860323287431297)]
+        else:
+            raw = json.dumps(event(), separators=(',', ':')).encode()
+            rows = [raw[:-1] + b',"costUSD":' + amounts[kind] + b'}']
+        write_rows(d, 'projects/cost/data.jsonl', rows)
+        return [d]
     if kind == 'large-cost':
         d = root / 'one'
         rows = []
@@ -369,6 +385,13 @@ for name, kind, args in [
     ('rounding-json', 'rounding', ['--json']), ('rounding-text', 'rounding', []),
     ('carry-rounding-json', 'carry-rounding', ['--json']),
     ('carry-rounding-text', 'carry-rounding', []),
+    ('ryu-cost-cent-json', 'ryu-cost-cent', ['--json']),
+    ('ryu-cost-cent-monthly', 'ryu-cost-cent', ['monthly', '--json']),
+    ('ryu-cost-cent-sessions', 'ryu-cost-cent', ['sessions', '--json']),
+    ('ryu-cost-cent-statusline', 'ryu-cost-cent', ['statusline', '--json']),
+    ('ryu-cost-negative', 'ryu-cost-negative', ['--json']),
+    ('ryu-cost-tenth', 'ryu-cost-tenth', ['--json']),
+    ('ryu-cost-computed', 'ryu-cost-computed', ['--json']),
     ('large-cost-json', 'large-cost', ['--json']),
     ('large-cost-text', 'large-cost', []),
     ('many-models-text', 'many-models', []),

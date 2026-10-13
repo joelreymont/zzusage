@@ -868,6 +868,22 @@ defer WALK-CURRENT ( -- )
    then
    value 0 0 TEXT-COST-FIXED ;
 
+\ Zig's Ryu shortest decimal chooses an even last digit at a shortest-decimal
+\ midpoint. F64-TEXT chooses away from zero. At these binary64 spacings the
+\ two shortest spellings straddle a cent boundary, so correct that bounded
+\ difference before emitting the two decimal places.
+: MONEY-RYU-TIE ( r n -- n ) {: value:r cents:n :}
+   value IEEE754:F64>BITS $7FFFFFFFFFFFFFFF and 52 rshift 1023 - {: exponent:n :}
+   exponent 46 = exponent 47 = or if
+      value fabs dup f>s s>f f- {: fraction:r :}
+      fraction 0.125 f= if 12 exit then
+      fraction 0.625 f= if 62 exit then
+   then
+   exponent 49 = exponent 50 = or if
+      value fabs dup f>s s>f f- 0.25 f= if 20 exit then
+   then
+   cents ;
+
 : MONEY ( r -- )
    {: value:r :}
    value IEEE754:F64>BITS {: bits:n :}
@@ -883,7 +899,8 @@ defer WALK-CURRENT ( -- )
    start begin dup len < if DECIMAL-BUF over + c@ 46 <> else FALSE-FLAG then while 1+ repeat {: dot:n :}
    DECIMAL-BUF len dot 1+ MONEY-DIGIT 10 *
    DECIMAL-BUF len dot 2 + MONEY-DIGIT +
-   DECIMAL-BUF len dot 3 + MONEY-DIGIT 5 >= if 1+ then {: cents:n :}
+   DECIMAL-BUF len dot 3 + MONEY-DIGIT 5 >= if 1+ then
+   value swap MONEY-RYU-TIE {: cents:n :}
    cents 100 >= if
       start dot MONEY-CARRY-ONE if s" 1" RAW then
    then
