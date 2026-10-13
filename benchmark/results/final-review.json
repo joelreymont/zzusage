@@ -1,0 +1,92 @@
+{
+  "timestamp_utc": "2026-10-13T09:12:14.630756+00:00",
+  "scope": "Independent read-only focused follow-up of duplicate-triggered hash growth and actual-EOF reference reading; previous settled scope not reopened",
+  "decision": "accepted: both prior blockers resolved; no confirmed findings in the reviewed changes",
+  "snapshot": {
+    "main.f": {
+      "bytes": 40628,
+      "sha256": "72ecf902ae7fb484595c72010c63fe3834a99c0c94859a13771688512b9b7399"
+    },
+    "test.py": {
+      "bytes": 26188,
+      "sha256": "f7e6c1265ee1338d08b81be1244fffe5070bb319581759a3a625c65a29aeeb6e"
+    },
+    "benchmark/zig-full/main.zig": {
+      "bytes": 44907,
+      "sha256": "eda21398bf7d187182bd57644ed5a7dac80c04038c010023b939e9b3e6e0dd24"
+    },
+    "bin/zzusage": {
+      "bytes": 115836,
+      "sha256": "fa40f85d48ba311756d24ac382f94320876b1155b54a2e8a11ed966a003fdb7a"
+    },
+    "benchmark/bin/zzusage-zig-full-small": {
+      "bytes": 277864,
+      "sha256": "8fe5756d5309423ee66b965148230f6c021373c8a5f925c76395b652862b4d9f"
+    }
+  },
+  "reasoning": [
+    {
+      "location": "main.f:441-487,884-939",
+      "conclusion": "Capacity advances before deduplication for row/model/project maps. Replaying unique insertions preserves every intermediate rehash state: a growth caused by duplicates precedes the same next unique insertion. The final recorded-capacity rehash accounts for duplicates after the last unique insertion. This matches pinned Zig 0.15.2 getOrPut growth and old-slot iteration order."
+    },
+    {
+      "location": "benchmark/zig-full/main.zig:272-300; installed Zig std/Io/File.zig:464-475; std/Io/Threaded.zig:9907-9957",
+      "conclusion": "readStreaming uses real sequential readv on this macOS host, without cached file size. The loop continues until EndOfStream; the one-byte probe after cap bytes distinguishes inclusive cap from cap+1. Temporary zero-byte successful reads are retried per API contract. Pinned 0.15.2 readToEndAlloc similarly reads to real EOF and rejects only beyond the cap."
+    }
+  ],
+  "evidence": {
+    "existing_suite_path": "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zzusage-hb/benchmark/results/full-suite-small.json",
+    "existing_suite_sha256": "97e5ddbd1e884fc3307ec5895f230f94889f0c3d55d88f8f9a2ab82c5cc6eafd",
+    "suite_passed": 100,
+    "suite_total": 100,
+    "focused_cases": [
+      {
+        "name": "growth-rows-6",
+        "passed": true
+      },
+      {
+        "name": "growth-rows-25",
+        "passed": true
+      },
+      {
+        "name": "growth-models-6",
+        "passed": true
+      },
+      {
+        "name": "growth-models-25",
+        "passed": true
+      },
+      {
+        "name": "growth-projects-6",
+        "passed": true
+      },
+      {
+        "name": "file-cap-minus-one",
+        "passed": true
+      },
+      {
+        "name": "file-cap-exact",
+        "passed": true
+      },
+      {
+        "name": "file-cap-plus-one",
+        "passed": true
+      }
+    ],
+    "comparison": "test.py:413-432 compares exit/stdout/stderr exactly; deterministic growth output is not normalized",
+    "source_sha256s_match_parent_brief": true
+  },
+  "boundaries": [
+    "No application launches, builds, compiler invocations or fresh dynamic probes in this review; suite results are inspected worker evidence.",
+    "Growing sparse-log test asserts initial-event retention only, not a synchronized post-open append. Actual-EOF acceptance rests on the independently traced I/O implementation.",
+    "Review covers only the specified fixes and affected behavior; it does not restate whole-port parity certification."
+  ],
+  "primary_sources": [
+    "https://raw.githubusercontent.com/ziglang/zig/0.15.2/lib/std/hash_map.zig",
+    "https://raw.githubusercontent.com/ziglang/zig/0.15.2/lib/std/fs/File.zig",
+    "https://raw.githubusercontent.com/ziglang/zig/0.15.2/lib/std/Io/DeprecatedReader.zig",
+    "/opt/homebrew/Cellar/zig/0.17.0/lib/zig/std/Io/File.zig",
+    "/opt/homebrew/Cellar/zig/0.17.0/lib/zig/std/Io/Threaded.zig"
+  ],
+  "read_only_state": "No source, tests, binaries, documentation, original data or app state modified. Only this temporary review receipt was written."
+}

@@ -1,0 +1,64 @@
+{
+  "target": "zzusage",
+  "source": "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/out/zzusage/no-unwind/zzusage",
+  "source_bytes": 261512,
+  "commands": [
+    [
+      "/usr/bin/strip",
+      "-u",
+      "-r",
+      "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/out/zzusage/minimal/zzusage"
+    ],
+    [
+      "/usr/bin/codesign",
+      "--force",
+      "--sign",
+      "-",
+      "--identifier",
+      "zzusage",
+      "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/out/zzusage/minimal/zzusage"
+    ],
+    [
+      "/usr/bin/codesign",
+      "--verify",
+      "--strict",
+      "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/out/zzusage/minimal/zzusage"
+    ]
+  ],
+  "output": "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/out/zzusage/minimal/zzusage",
+  "bytes": 236480,
+  "sha256": "abe6d769d371053be498b85c305b92d6c41a143c647049e8185c160a631a97d2",
+  "signature_verified": true,
+  "compiler_build": {
+    "bytes": 261512,
+    "command": [
+      "/opt/homebrew/bin/zig",
+      "build-exe",
+      "-j1",
+      "-O",
+      "small",
+      "-fstrip",
+      "-lc",
+      "-fno-unwind-tables",
+      "--cache-dir",
+      "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/cache",
+      "--global-cache-dir",
+      "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/global-cache",
+      "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zzusage-hb/benchmark/zig-full/main.zig",
+      "-femit-bin=/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/out/zzusage/no-unwind/zzusage"
+    ],
+    "exit_code": 0,
+    "output": "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zig-size-options/out/zzusage/no-unwind/zzusage",
+    "seconds": 2.747,
+    "sha256": "9c408fb65dfa67af9f8b9db14a8edf87ace7fd17bd7e79d0d893b74b1adb6135",
+    "source": "/Users/joel/Documents/Codex/2026-10-12/task-5/full-ports/zzusage-hb/benchmark/zig-full/main.zig",
+    "source_files_sha256": {
+      "main.zig": "eda21398bf7d187182bd57644ed5a7dac80c04038c010023b939e9b3e6e0dd24"
+    },
+    "source_sha256": "eda21398bf7d187182bd57644ed5a7dac80c04038c010023b939e9b3e6e0dd24",
+    "stderr": "",
+    "stdout": "",
+    "target": "zzusage",
+    "variant": "no-unwind"
+  }
+}

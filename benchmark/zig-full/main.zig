@@ -1,7 +1,8 @@
 const std = @import("std");
-const fs = std.fs;
+const fs = std.Io.Dir;
 const mem = std.mem;
 const Allocator = mem.Allocator;
+var app_io: std.Io = undefined;
 
 // ============================================================================
 // Pricing Data
@@ -218,10 +219,9 @@ const Args = struct {
     }
 };
 
-fn parseArgs(allocator: Allocator) !Args {
+fn parseArgs(allocator: Allocator, init: std.process.Init) !Args {
     var args = Args{};
-    var arg_iter = try std.process.argsWithAllocator(allocator);
-    defer arg_iter.deinit();
+    var arg_iter = init.minimal.args.iterate();
     _ = arg_iter.next();
 
     while (arg_iter.next()) |arg| {
@@ -245,7 +245,7 @@ fn parseArgs(allocator: Allocator) !Args {
     }
 
     if (args.data_dirs.items.len == 0) {
-        if (std.posix.getenv("HOME")) |home| {
+        if (init.environ_map.get("HOME")) |home| {
             try args.data_dirs.append(allocator, try std.fmt.allocPrint(allocator, "{s}/.config/claude", .{home}));
             try args.data_dirs.append(allocator, try std.fmt.allocPrint(allocator, "{s}/.claude", .{home}));
             args.owns_data_dirs = true;
@@ -270,9 +270,33 @@ fn parseTimezoneOffset(tz: []const u8) i32 {
 // comptime dupe_strings: true frees content after parsing (strings duped to allocator)
 //                        false keeps content in arena (strings reference content directly)
 fn parseJsonlFile(comptime dupe_strings: bool, allocator: Allocator, path: []const u8, events: *std.ArrayListUnmanaged(UsageEvent), project: []const u8) void {
-    const file = fs.openFileAbsolute(path, .{}) catch return;
-    defer file.close();
-    const content = file.readToEndAlloc(allocator, 512 * 1024 * 1024) catch return;
+    const file = fs.cwd().openFile(app_io, path, .{}) catch return;
+    defer file.close(app_io);
+
+    // Read through EOF: 0.17's allocating file reader stops at a cached size,
+    // while the pinned 0.15.2 reader includes bytes appended during the read.
+    const cap = 512 * 1024 * 1024;
+    var bytes: std.ArrayList(u8) = .empty;
+    defer bytes.deinit(allocator);
+    var chunk: [65536]u8 = undefined;
+    while (bytes.items.len < cap) {
+        const room = @min(chunk.len, cap - bytes.items.len);
+        const n = file.readStreaming(app_io, &.{chunk[0..room]}) catch |err| switch (err) {
+            error.EndOfStream => break,
+            else => return,
+        };
+        bytes.appendSlice(allocator, chunk[0..n]) catch return;
+    }
+    if (bytes.items.len == cap) {
+        while (true) {
+            const n = file.readStreaming(app_io, &.{chunk[0..1]}) catch |err| switch (err) {
+                error.EndOfStream => break,
+                else => return,
+            };
+            if (n != 0) return;
+        }
+    }
+    const content = bytes.toOwnedSlice(allocator) catch return;
     defer if (dupe_strings) allocator.free(content);
 
     var pos: usize = 0;
@@ -458,7 +482,7 @@ const CollectResult = struct {
 };
 
 fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []const []const u8) !CollectResult {
-    var files = std.ArrayListUnmanaged(FileTask){};
+    var files: std.ArrayListUnmanaged(FileTask) = .empty;
     defer {
         for (files.items) |f| allocator.free(f.path);
         files.deinit(allocator);
@@ -468,12 +492,12 @@ fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []con
         const projects_path = try std.fmt.allocPrint(allocator, "{s}/projects", .{base_dir});
         defer allocator.free(projects_path);
 
-        var dir = fs.openDirAbsolute(projects_path, .{ .iterate = true }) catch continue;
-        defer dir.close();
+        var dir = fs.openDirAbsolute(app_io, projects_path, .{ .iterate = true }) catch continue;
+        defer dir.close(app_io);
         var walker = dir.walk(allocator) catch continue;
         defer walker.deinit();
 
-        while (walker.next() catch null) |entry| {
+        while (walker.next(app_io) catch null) |entry| {
             if (entry.kind != .file or !mem.endsWith(u8, entry.basename, ".jsonl")) continue;
             const full_path = try std.fmt.allocPrint(allocator, "{s}/{s}", .{ projects_path, entry.path });
             const project = try string_arena.dupe(u8, extractProjectName(entry.path));
@@ -484,9 +508,9 @@ fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []con
     // Use CPU count for threads
     const num_threads = @min(files.items.len, std.Thread.getCpuCount() catch 4);
     if (num_threads <= 1 or files.items.len < 10) {
-        var events = std.ArrayListUnmanaged(UsageEvent){};
+        var events: std.ArrayListUnmanaged(UsageEvent) = .empty;
         for (files.items) |f| parseJsonlFile(true, string_arena, f.path, &events, f.project);
-        return .{ .events = events, .thread_data = null, .allocator = allocator };
+        return .{ .events = events, .thread_data = null, .allocator = string_arena };
     }
 
     var work_index = std.atomic.Value(usize).init(0);
@@ -494,7 +518,7 @@ fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []con
     for (thread_data) |*td| {
         // page_allocator has less contention than c_allocator for multi-threaded use
         td.arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-        td.events = .{};
+        td.events = .empty;
         td.events.ensureTotalCapacity(td.arena.allocator(), 100_000) catch {};
     }
 
@@ -511,7 +535,7 @@ fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []con
         total_events += thread_data[i].events.items.len;
     }
 
-    var events = std.ArrayListUnmanaged(UsageEvent){};
+    var events: std.ArrayListUnmanaged(UsageEvent) = .empty;
     try events.ensureTotalCapacity(allocator, total_events);
     for (thread_data) |td| events.appendSliceAssumeCapacity(td.events.items);
 
@@ -561,7 +585,7 @@ fn aggregate(comptime key_fmt: KeyFormat, allocator: Allocator, events: []const 
         try row.projects.put(ev.project, {});
     }
 
-    var rows = std.ArrayList(Row){};
+    var rows: std.ArrayList(Row) = .empty;
     var iter = map.valueIterator();
     while (iter.next()) |row_ptr| try rows.append(allocator, row_ptr.*.*);
 
@@ -590,7 +614,7 @@ fn aggregateSessions(allocator: Allocator, events: []const UsageEvent) !std.Arra
         try row.models.put(ev.model, {});
     }
 
-    var rows = std.ArrayList(SessionRow){};
+    var rows: std.ArrayList(SessionRow) = .empty;
     var iter = map.valueIterator();
     while (iter.next()) |row_ptr| try rows.append(allocator, row_ptr.*.*);
 
@@ -708,7 +732,7 @@ fn shortenProjectName(name: []const u8) []const u8 {
 }
 
 fn formatModels(allocator: Allocator, models: std.StringHashMap(void)) ![]const u8 {
-    var list = std.ArrayList([]const u8){};
+    var list: std.ArrayList([]const u8) = .empty;
     defer list.deinit(allocator);
 
     var iter = models.keyIterator();
@@ -761,7 +785,7 @@ fn Table(comptime num_cols: usize) type {
         allocator: Allocator,
 
         pub fn init(allocator: Allocator, headers: [num_cols][]const u8) Self {
-            return .{ .headers = headers, .rows = std.ArrayList([num_cols][]const u8){}, .allocator = allocator };
+            return .{ .headers = headers, .rows = .empty, .allocator = allocator };
         }
 
         pub fn addRow(self: *Self, cells: [num_cols][]const u8) !void {
@@ -773,9 +797,9 @@ fn Table(comptime num_cols: usize) type {
         }
 
         pub fn print(self: *Self, title: []const u8) !void {
-            const stdout = fs.File.stdout();
+            const stdout = std.Io.File.stdout();
             var buf: [8192]u8 = undefined;
-            var writer = stdout.writer(&buf);
+            var writer = stdout.writerStreaming(app_io, &buf);
             const w = &writer.interface;
 
             // Title
@@ -936,9 +960,9 @@ fn runStatusline(allocator: Allocator, args: Args, events: []const UsageEvent) !
         return;
     }
 
-    const stdout = fs.File.stdout();
+    const stdout = std.Io.File.stdout();
     var buf: [4096]u8 = undefined;
-    var writer = stdout.writer(&buf);
+    var writer = stdout.writerStreaming(app_io, &buf);
     const w = &writer.interface;
 
     if (result.date) |date| {
@@ -978,9 +1002,9 @@ fn truncateStr(s: []const u8, max_len: usize) []const u8 {
 // ============================================================================
 
 fn outputJson(kind: []const u8, rows: []const Row) !void {
-    const stdout = fs.File.stdout();
+    const stdout = std.Io.File.stdout();
     var buf: [4096]u8 = undefined;
-    var writer = stdout.writer(&buf);
+    var writer = stdout.writerStreaming(app_io, &buf);
     const w = &writer.interface;
 
     try w.print("{{\"kind\":\"{s}\",\"rows\":[", .{kind});
@@ -1006,9 +1030,9 @@ fn outputJson(kind: []const u8, rows: []const Row) !void {
 }
 
 fn outputSessionsJson(rows: []const SessionRow) !void {
-    const stdout = fs.File.stdout();
+    const stdout = std.Io.File.stdout();
     var buf: [4096]u8 = undefined;
-    var writer = stdout.writer(&buf);
+    var writer = stdout.writerStreaming(app_io, &buf);
     const w = &writer.interface;
 
     try w.writeAll("{\"kind\":\"sessions\",\"rows\":[");
@@ -1035,9 +1059,9 @@ fn outputSessionsJson(rows: []const SessionRow) !void {
 }
 
 fn outputStatuslineJson(date: ?[]const u8, totals: Totals) !void {
-    const stdout = fs.File.stdout();
+    const stdout = std.Io.File.stdout();
     var buf: [4096]u8 = undefined;
-    var writer = stdout.writer(&buf);
+    var writer = stdout.writerStreaming(app_io, &buf);
     const w = &writer.interface;
 
     if (date) |d| {
@@ -1060,8 +1084,11 @@ fn outputStatuslineJson(date: ?[]const u8, totals: Totals) !void {
 // Main
 // ============================================================================
 
-fn printHelp() void {
-    fs.File.stdout().writeAll(
+fn printHelp() !void {
+    const stdout = std.Io.File.stdout();
+    var buf: [4096]u8 = undefined;
+    var writer = stdout.writerStreaming(app_io, &buf);
+    writer.interface.writeAll(
         \\zzusage - Claude Code usage analyzer (Zig)
         \\
         \\Usage: zzusage [command] [options]
@@ -1084,10 +1111,12 @@ fn printHelp() void {
         \\  --help              Show this help
         \\
     ) catch {};
+    writer.interface.flush() catch {};
 }
 
-pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+pub fn main(init: std.process.Init) !void {
+    app_io = init.io;
+    var gpa: std.heap.SafeAllocator = .init(std.heap.page_allocator, .{});
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
@@ -1095,23 +1124,28 @@ pub fn main() !void {
     var event_arena = std.heap.ArenaAllocator.init(allocator);
     defer event_arena.deinit();
 
-    var args = try parseArgs(allocator);
+    var args = try parseArgs(allocator, init);
     defer args.deinit(allocator);
 
     if (args.command == .help) {
-        printHelp();
+        try printHelp();
         return;
     }
 
     var result = try collectEvents(allocator, event_arena.allocator(), args.data_dirs.items);
     defer result.deinit();
 
+    // Report keys, rows, and maps live for one command; release them together.
+    var report_arena = std.heap.ArenaAllocator.init(allocator);
+    defer report_arena.deinit();
+    const report_allocator = report_arena.allocator();
+
     switch (args.command) {
-        .daily, .weekly => try runPeriodReport(.date, allocator, args, result.events.items),
-        .monthly => try runPeriodReport(.month, allocator, args, result.events.items),
-        .sessions => try runSessions(allocator, args, result.events.items),
-        .statusline => try runStatusline(allocator, args, result.events.items),
-        .blocks => try runPeriodReport(.date, allocator, args, result.events.items),
-        .help => printHelp(),
+        .daily, .weekly => try runPeriodReport(.date, report_allocator, args, result.events.items),
+        .monthly => try runPeriodReport(.month, report_allocator, args, result.events.items),
+        .sessions => try runSessions(report_allocator, args, result.events.items),
+        .statusline => try runStatusline(report_allocator, args, result.events.items),
+        .blocks => try runPeriodReport(.date, report_allocator, args, result.events.items),
+        .help => try printHelp(),
     }
 }

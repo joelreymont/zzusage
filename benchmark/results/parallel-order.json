@@ -1,0 +1,15 @@
+{
+  "daily-text": {
+    "runs": 40,
+    "distinct_stdout": 40,
+    "distinct_projects": []
+  },
+  "sessions-json": {
+    "runs": 40,
+    "distinct_stdout": 2,
+    "distinct_projects": [
+      "p19",
+      "p21"
+    ]
+  }
+}
