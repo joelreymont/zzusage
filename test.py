@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import resource
 import subprocess
 import sys
 import tempfile
@@ -395,6 +396,10 @@ def snapshot(root: Path):
             for p in root.rglob('*') if p.is_file()}
 
 
+def limit_fds():
+    resource.setrlimit(resource.RLIMIT_NOFILE, (24, 24))
+
+
 def main():
     if len(sys.argv) != 3:
         raise SystemExit('usage: python3 test.py FULL_ZIG_BINARY HABU_BINARY')
@@ -431,6 +436,43 @@ def main():
                             'habu': {'exit': outputs[1][0], 'stdout': outputs[1][1].decode(errors='replace'),
                                      'stderr': outputs[1][2].decode(errors='replace')}})
             print(('PASS ' if passed else 'FAIL ') + name + ('' if passed else ' (' + ', '.join(diffs) + ')'), flush=True)
+
+        root = suite / 'walk-fd-cleanup'
+        root.mkdir()
+        dirs = []
+        blocked = []
+        for i in range(12):
+            d = root / str(i)
+            denied = d / 'projects/a/b/denied'
+            denied.mkdir(parents=True)
+            blocked.append((denied, denied.stat().st_mode & 0o777))
+            dirs.append(d)
+        good = root / 'good'
+        write_rows(good, 'projects/p/data.jsonl', [event(inp=1, out=0, create=0, read=0)])
+        dirs.append(good)
+        argv = ['--json', *(piece for d in dirs for piece in ('--data-dir', str(d)))]
+        outputs = []
+        try:
+            for denied, _ in blocked:
+                denied.chmod(0)
+            for binary in binaries:
+                cp = subprocess.run([binary, *argv], cwd=root, capture_output=True, timeout=60,
+                                    env={**os.environ, 'HOME': str(root)}, preexec_fn=limit_fds)
+                outputs.append((cp.returncode, cp.stdout, cp.stderr))
+        finally:
+            for denied, mode in blocked:
+                denied.chmod(mode)
+        try:
+            report = json.loads(outputs[0][1])
+            retained = any(row['input_tokens'] == 1 for row in report['rows'])
+        except (ValueError, KeyError, TypeError):
+            retained = False
+        passed = outputs[0] == outputs[1] and outputs[0][0] == 0 and retained
+        results.append({'name': 'walk-fd-cleanup', 'passed': passed,
+                        'retained': retained, 'exit': [x[0] for x in outputs],
+                        'stdout_equal': outputs[0][1] == outputs[1][1],
+                        'stderr_equal': outputs[0][2] == outputs[1][2]})
+        print(('PASS ' if passed else 'FAIL ') + 'walk-fd-cleanup', flush=True)
 
         for name, args, closed in [
             ('long-home-help', ['--help'], False),

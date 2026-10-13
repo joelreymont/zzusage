@@ -495,7 +495,10 @@ fn collectEvents(allocator: Allocator, string_arena: Allocator, data_dirs: []con
         var dir = fs.openDirAbsolute(app_io, projects_path, .{ .iterate = true }) catch continue;
         defer dir.close(app_io);
         var walker = dir.walk(allocator) catch continue;
-        defer walker.deinit();
+        defer {
+            while (walker.inner.stack.items.len > 0) walker.leave(app_io);
+            walker.deinit();
+        }
 
         while (walker.next(app_io) catch null) |entry| {
             if (entry.kind != .file or !mem.endsWith(u8, entry.basename, ".jsonl")) continue;
