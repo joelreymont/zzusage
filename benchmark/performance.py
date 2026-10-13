@@ -80,7 +80,7 @@ def main():
     parser.add_argument('zig', type=Path)
     parser.add_argument('habu', type=Path)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--baseline', type=Path, help='Prior Habu binary; runs only the priced session case')
+    parser.add_argument('--baseline', type=Path, help='Prior Habu binary; runs the same five workloads')
     parser.add_argument('--repeats', type=int, default=3)
     parser.add_argument('--timeout', type=float, default=20)
     parser.add_argument('--note', default='', help='Host load and coordination provenance')
@@ -123,7 +123,7 @@ def main():
             before = [digest(path) for path in paths]
             runs = []
             labels = ['zig', 'habu']
-            if args.baseline and name == '100000-priced-sessions':
+            if args.baseline:
                 labels.append('baseline')
             for repeat in range(args.repeats):
                 for label in (labels if repeat % 2 == 0 else list(reversed(labels))):
