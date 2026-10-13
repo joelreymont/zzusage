@@ -1,0 +1,25 @@
+{
+  "result": "No actionable findings",
+  "application_revision": "89c6b4d0",
+  "runner_reviewed_revision": "2f2f5c3b",
+  "runner_followup": "Timer uses os.kill directly, leaving wait4 as the sole child reaper. No application changes followed review.",
+  "reviewer": "independent Astra review lane",
+  "dynamic_platform": "macOS arm64",
+  "checks": [
+    "Row grow/rehash against Zig HashMap: before lookup, 80% threshold, ascending old-slot reinsertion, linear probing",
+    "Stable rank plus heapsort preserves equal-time order",
+    "Per-row membership chains preserve insertion order",
+    "Empty session rendering, stdout failures, walker cleanup, date guards",
+    "Bounded binary64 midpoint classes affecting cent output",
+    "950 monetary values, 72 date-boundary cases, eight integrated reports across 1288 events and 259 sessions"
+  ],
+  "linux": "Signal handling checked in pinned compiler lowering, not executed",
+  "evidence": [
+    "money-result.json",
+    "date-result.json",
+    "index-result.json",
+    "stderr-result.json"
+  ],
+  "followup_revision": "8f19ee79",
+  "followup_result": "No findings: all 45 available/broken/closed stream-state combinations matched Zig for help and four report modes."
+}

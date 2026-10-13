@@ -1,0 +1,88 @@
+{
+  "events": 1288,
+  "sessions": 259,
+  "input_bytes": 171965,
+  "all_equal": true,
+  "results": [
+    {
+      "mode": "sessions",
+      "output": "text",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 132640
+    },
+    {
+      "mode": "sessions",
+      "output": "json",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 31040
+    },
+    {
+      "mode": "daily",
+      "output": "text",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 8708
+    },
+    {
+      "mode": "daily",
+      "output": "json",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 526
+    },
+    {
+      "mode": "monthly",
+      "output": "text",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 6997
+    },
+    {
+      "mode": "monthly",
+      "output": "json",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 211
+    },
+    {
+      "mode": "statusline",
+      "output": "text",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 177
+    },
+    {
+      "mode": "statusline",
+      "output": "json",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 180
+    }
+  ]
+}

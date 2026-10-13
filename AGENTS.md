@@ -37,4 +37,6 @@ API adaptations and allocator ownership repairs documented in
   append counts are inherently variable.
 
 The saved macOS arm64 measurements and scoped review are listed in
-`benchmark/evidence.md`; neither runtime speed nor peak memory was measured.
+`benchmark/evidence.md`; runtime and peak memory are measured separately from
+binary size. The independent adversarial audit and deliberate malformed-date guards are in `benchmark/audit.md`
+and `full-parity.md`.

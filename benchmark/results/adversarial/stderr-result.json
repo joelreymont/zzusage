@@ -1,0 +1,655 @@
+{
+  "cases": 45,
+  "all_equal": true,
+  "all_expected_status": true,
+  "results": [
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "available",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "available",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "available",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "pipe",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "pipe",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "pipe",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "closed",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "closed",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "stdout": "closed",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "available",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "available",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "available",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "pipe",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "pipe",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "pipe",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "closed",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "closed",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "stdout": "closed",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "available",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "available",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "available",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "pipe",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "pipe",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "pipe",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "closed",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "closed",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "sessions"
+      ],
+      "stdout": "closed",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "available",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "available",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "available",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "pipe",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "pipe",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "pipe",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "closed",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "closed",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "stdout": "closed",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "available",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "available",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "available",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "expected_exit": 0,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "pipe",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "pipe",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "pipe",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "closed",
+      "stderr": "available",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "closed",
+      "stderr": "pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "stdout": "closed",
+      "stderr": "closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ],
+      "expected_exit": 1,
+      "expected_status": true
+    }
+  ]
+}

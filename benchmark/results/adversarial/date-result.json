@@ -1,0 +1,794 @@
+[
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"1970-01-00\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"1970-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"1970-01-01\",\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"1970-01-00\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"1970-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"1970-01-01\",\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:00",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"1970-01-00\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:00",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"1970-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:00",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:00",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"1970-01-01\",\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "-00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "-00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "-00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "-00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"1970-01-00\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"1970-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1970-01-00T00:00:01Z",
+    "timezone": "+00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"1970-01-01\",\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"1970-01-00\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"1970-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"1970-01-01\",\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"1970-01-00\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"1970-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "1960-00-00T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"1970-01-01\",\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2025-01-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"2025-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"2025-01-01\",\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2024-12-31\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"2024-12\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"2024-12-31\",\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2025-01-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[{\"key\":\"2025-01\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[{\"session_id\":\"s\",\"project\":\"p\",\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}],\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-13-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":\"2025-01-01\",\"totals\":{\"input_tokens\":1,\"output_tokens\":0,\"cache_creation_tokens\":0,\"cache_read_tokens\":0,\"total_tokens\":1,\"cost_usd\":1.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-14-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:00",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "-00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "daily",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"daily\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "monthly",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"monthly\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "sessions",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"sessions\",\"rows\":[],\"totals\":{\"input_tokens\":0,\"output_tokens\":0,\"total_tokens\":0,\"cost_usd\":0.00}}\n"
+  },
+  {
+    "timestamp": "2024-99-01T00:00:00Z",
+    "timezone": "+00:01",
+    "mode": "statusline",
+    "same": true,
+    "exit": [
+      0,
+      0
+    ],
+    "output": "{\"kind\":\"statusline\",\"last_date\":null,\"totals\":{}}\n"
+  }
+]

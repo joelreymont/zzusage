@@ -1,0 +1,30 @@
+{
+  "main.f": {
+    "bytes": 43927,
+    "sha256": "08be18cfb61010d7cb9b71f4fd5312a788aacfedea31dcc7ff63de376d5ce05d"
+  },
+  "benchmark/zig-full/main.zig": {
+    "bytes": 45659,
+    "sha256": "ebb9abe8537208b28beefc704e00dcbf9a02e6122aba351d56cbafd4fb822853"
+  },
+  "test.py": {
+    "bytes": 34413,
+    "sha256": "db89e7848be152f7cee372e7aba95d15455f51f9c62542b69df75a79d8904223"
+  },
+  "benchmark/performance.py": {
+    "bytes": 5873,
+    "sha256": "532c0bb14fd0079a2f4c556ec98c478d0e58ca3cf050ab264989e6a498346fb1"
+  },
+  "bin/zzusage": {
+    "bytes": 115836,
+    "sha256": "75960883946bfcbe4ba9181da6c3e06643a5a0bebd4db268d8837360e30fdf6f"
+  },
+  "benchmark/bin/zzusage-zig-full-small": {
+    "bytes": 277912,
+    "sha256": "1a74d7c7598a63be80bda00fa7d604fa13e1ebac41dec419c934080225acbb4b"
+  },
+  "benchmark/bin/zzusage-zig-smallest": {
+    "bytes": 236480,
+    "sha256": "e0368efb53c045b5abc895f60376bdf0dafd1536c560a39243e2eca1972d58ec"
+  }
+}

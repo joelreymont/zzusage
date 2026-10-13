@@ -57,7 +57,7 @@ consumes its argument but does not change sorting, as in the original CLI.
 The compiled pricing table follows the pinned Zig source; it is not a live
 statement of provider billing rates.
 
-## Verification and size
+## Verification, size, and performance
 
 The full differential runner creates synthetic Claude logs and sets a separate
 `HOME` for every child process. It compares exit status, stdout bytes, stderr
@@ -74,21 +74,23 @@ To repeat the smallest Zig comparison on macOS, run
 `sh benchmark/build-zig-smallest.sh`, then pass
 `benchmark/bin/zzusage-zig-smallest` as the first test argument. Results from
 new runs go to `.build/test-results/`; set `ZZUSAGE_TEST_OUTPUT_DIR` to choose
-another output directory. The saved 100-case runs and parity ledger are in
+another output directory. The saved 131-case runs and parity ledger are in
 [benchmark/evidence.md](benchmark/evidence.md) and
 [full-parity.md](full-parity.md).
 
 | macOS arm64 executable | File bytes | Saved differential result |
 |---|---:|---:|
-| Habu AOT, release `c53b4d2c` | 115,836 | 100/100 versus each Zig build |
-| Zig 0.17.0, stripped `-O small` | 277,864 | 100/100 |
-| Zig 0.17.0, smallest measured configuration | 236,480 | 100/100 |
+| Habu AOT, release `c53b4d2c` | 115,836 | 131/131 versus each Zig build |
+| Zig 0.17.0, stripped `-O small` | 277,912 | 131/131 |
+| Zig 0.17.0, smallest measured configuration | 236,480 | 131/131 |
 
 The Habu executable is 51.0% smaller than the smallest measured Zig binary.
-These are on-disk Mach-O sizes, not memory use or speed measurements. The
+These are on-disk Mach-O sizes. The [runtime measurements](benchmark/evidence.md)
+show lower peak memory but substantially slower execution than Zig, even after
+removing quadratic sessions aggregation. The
 original Zig scanner uses multiple workers at ten or more files, so row order
 and the first project attached to a shared session ID can vary between runs.
-Habu scans serially. The 99 byte comparisons use deterministic fixtures; the
+Habu scans serially. The suite contains 130 deterministic checks; the
 concurrent-append case checks initial-event retention without requiring an
 equal append count. The suite never normalizes otherwise deterministic output.
 

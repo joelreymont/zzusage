@@ -1,0 +1,2433 @@
+{
+  "binaries": [
+    "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/benchmark/bin/zzusage-zig-smallest",
+    "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/bin/zzusage"
+  ],
+  "passed": 131,
+  "total": 131,
+  "cases": [
+    {
+      "name": "default-text",
+      "kind": "base",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "default-json",
+      "kind": "base",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "daily-text",
+      "kind": "base",
+      "args": [
+        "daily"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "daily-json",
+      "kind": "base",
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "weekly-text",
+      "kind": "base",
+      "args": [
+        "weekly"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "weekly-json",
+      "kind": "base",
+      "args": [
+        "weekly",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "blocks-text",
+      "kind": "base",
+      "args": [
+        "blocks"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "blocks-json",
+      "kind": "base",
+      "args": [
+        "blocks",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "monthly-text",
+      "kind": "base",
+      "args": [
+        "monthly"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "monthly-json",
+      "kind": "base",
+      "args": [
+        "monthly",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "sessions-text",
+      "kind": "base",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "sessions-json",
+      "kind": "base",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "statusline-text",
+      "kind": "base",
+      "args": [
+        "statusline"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "statusline-json",
+      "kind": "base",
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "help",
+      "kind": "empty",
+      "args": [
+        "--help"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "help-command",
+      "kind": "empty",
+      "args": [
+        "help"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "help-overridden",
+      "kind": "empty",
+      "args": [
+        "help",
+        "daily"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unknown-flags",
+      "kind": "base",
+      "args": [
+        "nonsense",
+        "--what",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "order-ignored",
+      "kind": "base",
+      "args": [
+        "daily",
+        "--order",
+        "asc"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "order-consumes",
+      "kind": "base",
+      "args": [
+        "daily",
+        "--order",
+        "monthly"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "missing-order-value",
+      "kind": "empty",
+      "args": [
+        "--order"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "missing-data-dir-value",
+      "kind": "empty",
+      "args": [
+        "--data-dir"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "missing-timezone-value",
+      "kind": "empty",
+      "args": [
+        "--timezone"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "bad-timezone",
+      "kind": "base",
+      "args": [
+        "daily",
+        "--timezone",
+        "bad",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "timezone-plus",
+      "kind": "base",
+      "args": [
+        "daily",
+        "--timezone",
+        "+02:00",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "timezone-minus",
+      "kind": "base",
+      "args": [
+        "statusline",
+        "--timezone",
+        "-05:30"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "compact-breakdown",
+      "kind": "base",
+      "args": [
+        "--compact",
+        "--breakdown"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "home-json",
+      "kind": "home",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "home-text",
+      "kind": "home",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "home-empty-json",
+      "kind": "home-empty",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "home-empty-text",
+      "kind": "home-empty",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "missing-root",
+      "kind": "missing",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-daily-json",
+      "kind": "empty",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-daily-text",
+      "kind": "empty",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-sessions-json",
+      "kind": "empty",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-sessions-text",
+      "kind": "empty",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-status-json",
+      "kind": "empty",
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-status-text",
+      "kind": "empty",
+      "args": [
+        "statusline"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "duplicate-dir",
+      "kind": "duplicate",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "no-final-lf",
+      "kind": "no-lf",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "pricing-json",
+      "kind": "price",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "pricing-text",
+      "kind": "price",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "rounding-json",
+      "kind": "rounding",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "rounding-text",
+      "kind": "rounding",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "carry-rounding-json",
+      "kind": "carry-rounding",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "carry-rounding-text",
+      "kind": "carry-rounding",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "ryu-cost-cent-json",
+      "kind": "ryu-cost-cent",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "ryu-cost-cent-monthly",
+      "kind": "ryu-cost-cent",
+      "args": [
+        "monthly",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "ryu-cost-cent-sessions",
+      "kind": "ryu-cost-cent",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "ryu-cost-cent-statusline",
+      "kind": "ryu-cost-cent",
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "ryu-cost-negative",
+      "kind": "ryu-cost-negative",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "ryu-cost-tenth",
+      "kind": "ryu-cost-tenth",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "ryu-cost-computed",
+      "kind": "ryu-cost-computed",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "large-cost-json",
+      "kind": "large-cost",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "large-cost-text",
+      "kind": "large-cost",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "many-models-text",
+      "kind": "many-models",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "many-dirs",
+      "kind": "many-dirs",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "many-rows",
+      "kind": "many-rows",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "indexed-sessions-json",
+      "kind": "indexed-sessions-20000",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "indexed-sessions-text",
+      "kind": "indexed-sessions-2000",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "indexed-daily-sets",
+      "kind": "indexed-sessions-2000",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "growth-rows-6",
+      "kind": "growth-rows-6",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "growth-rows-25",
+      "kind": "growth-rows-25",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "growth-models-6",
+      "kind": "growth-models-6",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "growth-models-25",
+      "kind": "growth-models-25",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "growth-projects-6",
+      "kind": "growth-projects-6",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "large-file",
+      "kind": "large-file",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "long-fields-json",
+      "kind": "long-fields",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "long-fields-text",
+      "kind": "long-fields",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "deep-dir",
+      "kind": "deep",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "hidden-dir",
+      "kind": "hidden",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "symlinks",
+      "kind": "symlink",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "threaded-json",
+      "kind": "threaded",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "threaded-text",
+      "kind": "threaded",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "malformed-json-bytes",
+      "kind": "malformed",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unsigned-counter",
+      "kind": "unsigned",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unsigned-text",
+      "kind": "unsigned",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unsigned-priced-json",
+      "kind": "unsigned-priced",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unsigned-priced-text",
+      "kind": "unsigned-priced",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "deep-nesting",
+      "kind": "deep-nesting",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "wide-output-text",
+      "kind": "wide-output",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "invalid-dates-json",
+      "kind": "invalid-dates",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "invalid-dates-text",
+      "kind": "invalid-dates",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unsafe-month-daily",
+      "kind": "unsafe-month",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unsafe-month-monthly",
+      "kind": "unsafe-month",
+      "args": [
+        "monthly",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "unsafe-month-sessions",
+      "kind": "unsafe-month",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "negative-day-underflow-daily",
+      "kind": "negative-day-underflow",
+      "args": [
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "negative-day-underflow-monthly",
+      "kind": "negative-day-underflow",
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "negative-day-underflow-statusline",
+      "kind": "negative-day-underflow",
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "negative-day-underflow-sessions",
+      "kind": "negative-day-underflow",
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "invalid-numeric-dates",
+      "kind": "invalid-numeric-dates",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "calendar-overflow",
+      "kind": "calendar-overflow",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "calendar-overflow-monthly",
+      "kind": "calendar-overflow",
+      "args": [
+        "monthly",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "signed-dates-daily",
+      "kind": "signed-dates",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "signed-dates-sessions",
+      "kind": "signed-dates",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "session-ties-26",
+      "kind": "session-ties-26",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "session-ties-50",
+      "kind": "session-ties-50",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "session-ties-100",
+      "kind": "session-ties-100",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "session-mixed-ties",
+      "kind": "session-mixed-ties",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "epoch-negative-day",
+      "kind": "epoch-edge",
+      "args": [
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "negative-only-status",
+      "kind": "negative-status",
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "duplicate-cost-null",
+      "kind": "duplicate-cost-null",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "stacked-prefix",
+      "kind": "stacked-prefix",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "equal-session-ties",
+      "kind": "equal-sessions",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "project-users-short",
+      "kind": "project-users-short",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "project-private-tail",
+      "kind": "project-private-tail",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "binary-rounding",
+      "kind": "binary-rounding",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "wide-ansi-cost",
+      "kind": "wide-ansi-cost",
+      "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "wide-status-cost",
+      "kind": "wide-status-cost",
+      "args": [
+        "statusline"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-missing-text",
+      "kind": "empty-session-missing",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-missing-json",
+      "kind": "empty-session-missing",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-null-text",
+      "kind": "empty-session-null",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-null-json",
+      "kind": "empty-session-null",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-string-text",
+      "kind": "empty-session-string",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-string-json",
+      "kind": "empty-session-string",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-mixed-text",
+      "kind": "empty-session-mixed",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "empty-session-mixed-json",
+      "kind": "empty-session-mixed",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "walk-fd-cleanup",
+      "passed": true,
+      "retained": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_equal": true,
+      "stderr_equal": true
+    },
+    {
+      "name": "long-home-help",
+      "passed": true,
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "long-home-empty-json",
+      "passed": true,
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "closed-stdout-help",
+      "passed": true,
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "closed-stdout-json",
+      "passed": true,
+      "zig": {
+        "exit": 1,
+        "stderr": "error: WriteFailed\n",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 1,
+        "stderr": "error: WriteFailed\n",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "broken-stdout-help",
+      "passed": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stderr": [
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "broken-stdout-daily",
+      "passed": true,
+      "exit": [
+        1,
+        1
+      ],
+      "stderr": [
+        "error: WriteFailed\n",
+        "error: WriteFailed\n"
+      ]
+    },
+    {
+      "name": "broken-stdout-sessions",
+      "passed": true,
+      "exit": [
+        1,
+        1
+      ],
+      "stderr": [
+        "error: WriteFailed\n",
+        "error: WriteFailed\n"
+      ]
+    },
+    {
+      "name": "broken-stderr-pipe",
+      "passed": true,
+      "exit": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "broken-stderr-closed",
+      "passed": true,
+      "exit": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "growing-sparse-log",
+      "passed": true,
+      "runs": [
+        {
+          "binary": "zig",
+          "passed": true,
+          "exit": 0,
+          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000035,\"output_tokens\":0,\"total_tokens\":1000035,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000035,\"output_tokens\":0,\"total_tokens\":1000035,\"cost_usd\":3.00}}\n",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "passed": true,
+          "exit": 0,
+          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000081,\"output_tokens\":0,\"total_tokens\":1000081,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000081,\"output_tokens\":0,\"total_tokens\":1000081,\"cost_usd\":3.00}}\n",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "name": "file-cap-minus-one",
+      "passed": true,
+      "bytes": 536870911,
+      "retained": [
+        true,
+        true
+      ],
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_equal": true,
+      "stderr_equal": true
+    },
+    {
+      "name": "file-cap-exact",
+      "passed": true,
+      "bytes": 536870912,
+      "retained": [
+        true,
+        true
+      ],
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_equal": true,
+      "stderr_equal": true
+    },
+    {
+      "name": "file-cap-plus-one",
+      "passed": true,
+      "bytes": 536870913,
+      "retained": [
+        false,
+        false
+      ],
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_equal": true,
+      "stderr_equal": true
+    }
+  ],
+  "saved_output": "Verbose stdout omitted here; test.py compares exact bytes and writes full diagnostic output under ignored .build."
+}
