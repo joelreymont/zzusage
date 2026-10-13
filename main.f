@@ -632,7 +632,9 @@ defer WALK-CURRENT ( -- )
    TEXT-U @ 1+ TEXT-BUF-RESERVE
    c TEXT-U @ TEXT-BUF c!
    TEXT-U @ 1+ TEXT-U ! ;
-: TEXT$ ( -- ptr u8 n ) 0 TEXT-BUF TEXT-U @ ;
+: TEXT$ ( -- ptr u8 n )
+   TEXT-U @ 0= if LF-BYTE 0 exit then
+   0 TEXT-BUF TEXT-U @ ;
 : TEXT-NUM ( n -- ) U$ TEXT-ADD ;
 : TEXT-RESET ( -- ) 0 TEXT-U ! ;
 

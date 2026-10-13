@@ -55,6 +55,19 @@ def base_fixture(root: Path):
 
 
 def fixture(root: Path, kind: str):
+    if kind.startswith('empty-session-'):
+        d = root / 'one'
+        row = event()
+        row.pop('sessionId')
+        if kind == 'empty-session-null':
+            row['sessionId'] = None
+        elif kind == 'empty-session-string':
+            row['sessionId'] = ''
+        rows = [row]
+        if kind == 'empty-session-mixed':
+            rows.append(event('2025-01-01T00:00:01Z', 'nonempty'))
+        write_rows(d, 'projects/p/data.jsonl', rows)
+        return [d]
     if kind == 'empty':
         a = root / 'one'
         (a / 'projects').mkdir(parents=True)
@@ -394,6 +407,12 @@ for name, kind, args in [
 def snapshot(root: Path):
     return {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
             for p in root.rglob('*') if p.is_file()}
+
+
+for empty_kind in ('missing', 'null', 'string', 'mixed'):
+    for output in ([], ['--json']):
+        CASES.append((f'empty-session-{empty_kind}-' + ('json' if output else 'text'),
+                      f'empty-session-{empty_kind}', ['sessions', *output]))
 
 
 def limit_fds():
