@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import resource
@@ -80,6 +81,24 @@ def fixture(root: Path, kind: str):
                                   session=f's{i:06d}', model=f'm{(i + j) % 7}',
                                   inp=1, out=0, create=0, read=0, cost=0))
         write_rows(d, 'projects/p/data.jsonl', rows)
+        return [d]
+    if kind == 'fast-cent-boundaries':
+        d = root / 'one'
+        values = [0.0, -0.0, math.ulp(0.0), -math.ulp(0.0)]
+        cents = [0, 1, 14, 100, 123456]
+        for exponent in (-10, 0, 4, 16, 30, 40, 41, 42, 43):
+            base = int(2.0 ** exponent * 100)
+            cents.extend(range(max(0, base - 2), base + 3))
+        for count in cents:
+            midpoint = (float(count) + 0.5) / 100
+            for value in (math.nextafter(midpoint, -math.inf), midpoint,
+                          math.nextafter(midpoint, math.inf)):
+                values.extend((value, -value))
+        for value in (math.nextafter(2.0 ** 43, -math.inf), 2.0 ** 43,
+                      math.nextafter(2.0 ** 43, math.inf)):
+            values.extend((value, -value))
+        write_rows(d, 'projects/p/data.jsonl', [
+            event(session=f'cent-{i}', cost=value) for i, value in enumerate(values)])
         return [d]
     if kind == 'output-boundaries':
         d = root / 'one'
@@ -422,6 +441,8 @@ for name, kind, args in [
     ('indexed-daily-sets', 'indexed-sessions-2000', []),
     ('output-boundaries-json', 'output-boundaries', ['sessions', '--json']),
     ('output-boundaries-text', 'output-boundaries', ['sessions']),
+    ('fast-cent-boundaries-sessions', 'fast-cent-boundaries', ['sessions', '--json']),
+    ('fast-cent-boundaries-totals', 'fast-cent-boundaries', ['daily', '--json']),
     ('growth-rows-6', 'growth-rows-6', ['sessions', '--json']),
     ('growth-rows-25', 'growth-rows-25', ['sessions', '--json']),
     ('growth-models-6', 'growth-models-6', []),

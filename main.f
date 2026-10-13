@@ -904,6 +904,23 @@ defer WALK-CURRENT ( -- )
    then
    cents ;
 
+: MONEY-FRACTION ( n -- ) {: fraction:n :}
+   fraction 10 / 48 + MONEY-BUF c!
+   fraction 10 mod 48 + MONEY-BUF 1+ c!
+   MONEY-BUF 2 RAW ;
+
+\ Below 2^43, binary64 spacing is less than .001. A half-cent decimal's
+\ nearest float therefore has that unique shortest three-decimal spelling.
+\ Comparing against the rounded half-cent threshold preserves Zig's decimal
+\ tie rounding, including values such as 1.005 whose binary value is lower.
+: MONEY-SMALL ( r -- ) {: value:r :}
+   value IEEE754:F64>BITS 0< if s" -" RAW then
+   value fabs {: magnitude:r :}
+   magnitude 100.0 f* f>s {: base:n :}
+   magnitude base s>f 0.5 f+ 100.0 f/ f>=
+   if base 1+ else base then {: cents:n :}
+   cents 100 / U s" ." RAW cents 100 mod MONEY-FRACTION ;
+
 : MONEY ( r -- )
    {: value:r :}
    value IEEE754:F64>BITS {: bits:n :}
@@ -911,6 +928,7 @@ defer WALK-CURRENT ( -- )
       bits $000FFFFFFFFFFFFF and 0<> if s" nan" RAW exit then
       bits 0< if s" -inf" RAW else s" inf" RAW then exit
    then
+   value fabs 8796093022208.0 f< if value MONEY-SMALL exit then
    value
    DECIMAL-BUF F64-TEXT:MAX-BYTES F64-TEXT:FORMAT MATCH result
       ok OF ENDOF err OF drop CAPACITY-FAIL ENDOF
@@ -926,10 +944,7 @@ defer WALK-CURRENT ( -- )
    then
    DECIMAL-BUF start + dot start - RAW
    s" ." RAW
-   cents 100 mod {: fraction:n :}
-   fraction 10 / 48 + MONEY-BUF c!
-   fraction 10 mod 48 + MONEY-BUF 1+ c!
-   MONEY-BUF 2 RAW ;
+   cents 100 mod MONEY-FRACTION ;
 
 : ROW-TOTAL-TOKENS ( n -- n ) {: idx:n :}
    idx ROW-IN @ idx ROW-OUT @ + idx ROW-CREATE @ + idx ROW-READ @ + ;
