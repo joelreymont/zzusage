@@ -1,0 +1,1924 @@
+{
+  "cases": 104,
+  "numeric_tokens": 188,
+  "all_equal": true,
+  "all_exit_zero": true,
+  "results": [
+    {
+      "args": [
+        "sessions"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 19556,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 24548,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "daily"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1250,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "daily",
+        "--json"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 224,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "monthly"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1207,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "monthly",
+        "--json"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 223,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "statusline"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 183,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "statusline",
+        "--json"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 189,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "costs",
+      "tokens": 188
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1830,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 929,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1520,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 613,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 2282,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1878,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 178,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 187,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1745,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 828,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1520,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 613,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 2282,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1878,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 178,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 187,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1745,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 828,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1520,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 613,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 2282,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1878,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 178,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 187,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "transitions"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1830,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 929,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1520,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 613,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 2282,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1878,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 178,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 187,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1745,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 828,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1520,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 613,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 2282,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1878,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 178,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 187,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1745,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 828,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1520,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 613,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 2282,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1878,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 178,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 187,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "reversed"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1205,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 218,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1162,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 217,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1226,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 354,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 177,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 186,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1288,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 319,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1162,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 217,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1226,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 354,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 177,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 186,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1205,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 218,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1162,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 217,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1226,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 354,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 177,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 186,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "epoch-first"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1205,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 218,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1162,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 217,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1226,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 354,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 171,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+00:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 174,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1205,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 218,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1162,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 217,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1226,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 354,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 177,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 186,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "daily",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1288,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "daily",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 319,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "monthly",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1162,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 217,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "sessions",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 1226,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "sessions",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 354,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "statusline",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 177,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    },
+    {
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "+01:00"
+      ],
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 186,
+      "stderr": [
+        "",
+        ""
+      ],
+      "case": "negative-only"
+    }
+  ]
+}

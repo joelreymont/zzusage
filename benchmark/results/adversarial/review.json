@@ -21,11 +21,19 @@
     "stderr-result.json",
     "buffer-result.json",
     "cent-fast-design-result.json",
-    "cent-fast-implementation-result.json"
+    "cent-fast-implementation-result.json",
+    "residual-review.json"
   ],
   "followup_revision": "8f19ee79",
   "followup_result": "No findings: all 45 available/broken/closed stream-state combinations matched Zig for help and four report modes.",
   "optimization_revision": "82c12e09",
   "optimization_result": "No findings: bounded output buffer and strict abs(value) < 2^43 fixed-cent path independently reviewed. 11 buffer/error probes; 2785 midpoint-neighbor values and 950 fallback values matched actual Zig/Habu output including totals.",
-  "performance_followup": "No concrete evidence bugs: verified baseline source against 55e3a1cd, all three binary hashes/sizes, identical input per case, exact successful output, unchanged input, 82.8598-second duration, and recomputed median ratios. No new builds or timings. Results remain specific to synthetic workloads and recorded background load."
+  "performance_followup": "No concrete evidence bugs: verified baseline source against 55e3a1cd, all three binary hashes/sizes, identical input per case, exact successful output, unchanged input, 82.8598-second duration, and recomputed median ratios. No new builds or timings. Results remain specific to synthetic workloads and recorded background load.",
+  "residual_revisions": [
+    "28900197bd65",
+    "9cb9d64559aa"
+  ],
+  "residual_result": "No findings: exact bounded integer conversion, unchanged fallback and negative zero; valid last-day cache with preserved floor division and date buffer state. 104 independent exact exit/stdout/stderr comparisons over 188 numeric tokens and date transitions.",
+  "residual_evidence_review": "No findings: five-workload baseline expansion, pinned hashes and raw nested timers checked. F64 library allocation boundary is supported by source and syscall samples; future allocation improvement remains unmeasured. No controlled timing claim from diagnostic probes.",
+  "final_performance_followup": "No findings: independent read-only review verified 45 successful runs against the log, exact per-case stdout hashes and lengths, empty stderr, no timeouts, unchanged inputs, on-disk source/binary identities, all medians and ratios, and 47.724118-second duration (13:11:42.322\u201313:12:30.046 UTC). No builds or target runs. Compiler workers paused while unrelated PID 53955 remained active (95.0% CPU sample). The small priced-case median change is not an isolated causal effect."
 }

@@ -1,0 +1,61 @@
+{
+  "source_sha256": "5ae37e4ad83a4f1ea20b957db671f989bb128d676e5f8c248492680a5fc4f336",
+  "diagnostic_source_sha256": "744d4ffbe0965da642b10a14c2f3a17349abcfdf24480b54c78052e984e2f715",
+  "diagnostic_binary_sha256": "4b6969186313c23ec7e80ac15e5f52df54601149b0c14c7fbb0a2d9bd9b1b54a",
+  "habu_binary_sha256": "58f8670681f651e3acd3c470b7f67edec679f5117faf2f1d54c77afc2fbb05b0",
+  "note": "Single post-fix phase attribution; nested timers add overhead; no controlled wall comparison.",
+  "fixtures": {
+    "explicit": {
+      "fixture_sha256": "2bda880a4256fd64e298262de56eb32e7eb7d70e7bf93ac85314b528fbf77056",
+      "records": 482800,
+      "bytes": 67109200,
+      "runs": {
+        "instrumented": {
+          "seconds": 1.6509472499999998,
+          "exit": 0,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stdout_bytes": 224
+        },
+        "habu": {
+          "seconds": 1.0506312500000003,
+          "exit": 0,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stdout_bytes": 224
+        },
+        "zig": {
+          "seconds": 0.3478899999999996,
+          "exit": 0,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stdout_bytes": 224
+        }
+      },
+      "exact_output_equal": true
+    },
+    "omitted": {
+      "fixture_sha256": "ed17145f31a54b24fd5ecfa1a5da23f401ac3e3d24fb8aed3ddf2ebad90c0942",
+      "records": 482800,
+      "bytes": 61315600,
+      "runs": {
+        "instrumented": {
+          "seconds": 1.3620173750000006,
+          "exit": 0,
+          "stdout_sha256": "9fece352e4118585f9f73aea41e4eee80b0c102939a347001380a7d1b1be023b",
+          "stdout_bytes": 224
+        },
+        "habu": {
+          "seconds": 1.0476184159999988,
+          "exit": 0,
+          "stdout_sha256": "9fece352e4118585f9f73aea41e4eee80b0c102939a347001380a7d1b1be023b",
+          "stdout_bytes": 224
+        },
+        "zig": {
+          "seconds": 0.4417588330000015,
+          "exit": 0,
+          "stdout_sha256": "9fece352e4118585f9f73aea41e4eee80b0c102939a347001380a7d1b1be023b",
+          "stdout_bytes": 224
+        }
+      },
+      "exact_output_equal": true
+    }
+  }
+}

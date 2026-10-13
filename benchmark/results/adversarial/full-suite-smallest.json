@@ -3,8 +3,8 @@
     "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/benchmark/bin/zzusage-zig-smallest",
     "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/bin/zzusage"
   ],
-  "passed": 136,
-  "total": 136,
+  "passed": 142,
+  "total": 142,
   "cases": [
     {
       "name": "default-text",
@@ -2023,9 +2023,133 @@
       }
     },
     {
+      "name": "date-cache-epoch-zero",
+      "kind": "date-cache-sequence",
+      "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "date-cache-daily",
+      "kind": "date-cache-sequence",
+      "args": [
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "date-cache-monthly",
+      "kind": "date-cache-sequence",
+      "args": [
+        "monthly",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "date-cache-status",
+      "kind": "date-cache-sequence",
+      "args": [
+        "statusline",
+        "--json",
+        "--timezone",
+        "-01:00"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
       "name": "duplicate-cost-null",
       "kind": "duplicate-cost-null",
       "args": [
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "cost-exact-integers",
+      "kind": "cost-exact-integers",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "cost-parser-fallback",
+      "kind": "cost-parser-fallback",
+      "args": [
+        "sessions",
         "--json"
       ],
       "passed": true,
@@ -2458,14 +2582,14 @@
           "binary": "zig",
           "passed": true,
           "exit": 0,
-          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000060,\"output_tokens\":0,\"total_tokens\":1000060,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000060,\"output_tokens\":0,\"total_tokens\":1000060,\"cost_usd\":3.00}}\n",
+          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000057,\"output_tokens\":0,\"total_tokens\":1000057,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000057,\"output_tokens\":0,\"total_tokens\":1000057,\"cost_usd\":3.00}}\n",
           "stderr": ""
         },
         {
           "binary": "habu",
           "passed": true,
           "exit": 0,
-          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000180,\"output_tokens\":0,\"total_tokens\":1000180,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000180,\"output_tokens\":0,\"total_tokens\":1000180,\"cost_usd\":3.00}}\n",
+          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000101,\"output_tokens\":0,\"total_tokens\":1000101,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000101,\"output_tokens\":0,\"total_tokens\":1000101,\"cost_usd\":3.00}}\n",
           "stderr": ""
         }
       ]

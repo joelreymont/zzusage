@@ -1,0 +1,477 @@
+{
+  "started_unix": 1791894629.025176,
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "note": "Compiler workers paused for a coordinated90-second window; host not otherwise idle, known unrelated installed-Habu PID53955 remained active (previously ~37.5% CPU). Existing executables only. Baseline is application checkpoint55e3a1cd before output buffering and bounded cent formatting. Identical input per case, alternating three repetitions.",
+  "max_seconds_per_child": 20,
+  "binaries": {
+    "zig": {
+      "path": "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/benchmark/bin/zzusage-zig-full-small",
+      "bytes": 277912,
+      "sha256": "1a74d7c7598a63be80bda00fa7d604fa13e1ebac41dec419c934080225acbb4b"
+    },
+    "habu": {
+      "path": "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/bin/zzusage",
+      "bytes": 115836,
+      "sha256": "f2f40102651c0a02e9243b19729ce54b6679c4e6f45c53f5b7da068334b5ec1b"
+    },
+    "baseline": {
+      "path": "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/.build/profile/checkpoint",
+      "bytes": 115836,
+      "sha256": "ed0a7698d684069b4a8be770711a195009462982d029c9afd2d7b899bf6cac41"
+    }
+  },
+  "cases": [
+    {
+      "case": "one-file-64MiB",
+      "command": "daily",
+      "records": 482800,
+      "files": 1,
+      "bytes": 67109200,
+      "runs": [
+        {
+          "binary": "zig",
+          "repeat": 1,
+          "wall_s": 0.379241542,
+          "cpu_s": 0.36473199999999995,
+          "peak_rss_bytes": 267010048,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 1,
+          "wall_s": 3.3140573339999997,
+          "cpu_s": 3.2010959999999997,
+          "peak_rss_bytes": 136019968,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 2,
+          "wall_s": 3.818275792,
+          "cpu_s": 3.6040259999999997,
+          "peak_rss_bytes": 136019968,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 2,
+          "wall_s": 0.401782667,
+          "cpu_s": 0.383241,
+          "peak_rss_bytes": 267010048,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 3,
+          "wall_s": 0.4190766660000005,
+          "cpu_s": 0.40125,
+          "peak_rss_bytes": 267010048,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 3,
+          "wall_s": 3.5667677500000003,
+          "cpu_s": 3.416207,
+          "peak_rss_bytes": 136019968,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        }
+      ],
+      "input_unchanged": true,
+      "exact_output_equal": true
+    },
+    {
+      "case": "16-files-64MiB",
+      "command": "daily",
+      "records": 482800,
+      "files": 16,
+      "bytes": 67109200,
+      "runs": [
+        {
+          "binary": "zig",
+          "repeat": 1,
+          "wall_s": 0.2399207909999994,
+          "cpu_s": 0.40276799999999996,
+          "peak_rss_bytes": 177569792,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 1,
+          "wall_s": 3.7305389589999987,
+          "cpu_s": 3.494665,
+          "peak_rss_bytes": 10190848,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 2,
+          "wall_s": 3.728236958,
+          "cpu_s": 3.5222239999999996,
+          "peak_rss_bytes": 10190848,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 2,
+          "wall_s": 0.26172775000000215,
+          "cpu_s": 0.393664,
+          "peak_rss_bytes": 174997504,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 3,
+          "wall_s": 0.26179066699999964,
+          "cpu_s": 0.431619,
+          "peak_rss_bytes": 177569792,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 3,
+          "wall_s": 3.8933606249999997,
+          "cpu_s": 3.633399,
+          "peak_rss_bytes": 10190848,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 224,
+          "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+          "stderr": ""
+        }
+      ],
+      "input_unchanged": true,
+      "exact_output_equal": true
+    },
+    {
+      "case": "20000-sessions",
+      "command": "sessions",
+      "records": 20000,
+      "files": 1,
+      "bytes": 2680000,
+      "runs": [
+        {
+          "binary": "zig",
+          "repeat": 1,
+          "wall_s": 0.026458500000000384,
+          "cpu_s": 0.023348,
+          "peak_rss_bytes": 24952832,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 2140120,
+          "stdout_sha256": "c0c7151d8b731a87413c3a69d7d72c388746adca917370d63e28806039fc5a4e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 1,
+          "wall_s": 0.21472645799999768,
+          "cpu_s": 0.203268,
+          "peak_rss_bytes": 9977856,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 2140120,
+          "stdout_sha256": "c0c7151d8b731a87413c3a69d7d72c388746adca917370d63e28806039fc5a4e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 2,
+          "wall_s": 0.22540279199999702,
+          "cpu_s": 0.21078199999999997,
+          "peak_rss_bytes": 9961472,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 2140120,
+          "stdout_sha256": "c0c7151d8b731a87413c3a69d7d72c388746adca917370d63e28806039fc5a4e",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 2,
+          "wall_s": 0.027982333999997167,
+          "cpu_s": 0.024529999999999996,
+          "peak_rss_bytes": 24936448,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 2140120,
+          "stdout_sha256": "c0c7151d8b731a87413c3a69d7d72c388746adca917370d63e28806039fc5a4e",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 3,
+          "wall_s": 0.026543791999998234,
+          "cpu_s": 0.023710000000000002,
+          "peak_rss_bytes": 24952832,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 2140120,
+          "stdout_sha256": "c0c7151d8b731a87413c3a69d7d72c388746adca917370d63e28806039fc5a4e",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 3,
+          "wall_s": 0.22107912500000282,
+          "cpu_s": 0.210083,
+          "peak_rss_bytes": 9994240,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 2140120,
+          "stdout_sha256": "c0c7151d8b731a87413c3a69d7d72c388746adca917370d63e28806039fc5a4e",
+          "stderr": ""
+        }
+      ],
+      "input_unchanged": true,
+      "exact_output_equal": true
+    },
+    {
+      "case": "100000-sessions",
+      "command": "sessions",
+      "records": 100000,
+      "files": 1,
+      "bytes": 13400000,
+      "runs": [
+        {
+          "binary": "zig",
+          "repeat": 1,
+          "wall_s": 0.12673945799999942,
+          "cpu_s": 0.11531,
+          "peak_rss_bytes": 105529344,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 10700123,
+          "stdout_sha256": "f9636ea27c0acfac91171c3fee62aad4968042f76ca54ae188a8dd5f50b05840",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 1,
+          "wall_s": 1.2277469580000009,
+          "cpu_s": 1.161104,
+          "peak_rss_bytes": 41009152,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 10700123,
+          "stdout_sha256": "f9636ea27c0acfac91171c3fee62aad4968042f76ca54ae188a8dd5f50b05840",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 2,
+          "wall_s": 1.2522989169999974,
+          "cpu_s": 1.153497,
+          "peak_rss_bytes": 41009152,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 10700123,
+          "stdout_sha256": "f9636ea27c0acfac91171c3fee62aad4968042f76ca54ae188a8dd5f50b05840",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 2,
+          "wall_s": 0.13880458299999887,
+          "cpu_s": 0.119683,
+          "peak_rss_bytes": 105512960,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 10700123,
+          "stdout_sha256": "f9636ea27c0acfac91171c3fee62aad4968042f76ca54ae188a8dd5f50b05840",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 3,
+          "wall_s": 0.12459199999999981,
+          "cpu_s": 0.116364,
+          "peak_rss_bytes": 105512960,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 10700123,
+          "stdout_sha256": "f9636ea27c0acfac91171c3fee62aad4968042f76ca54ae188a8dd5f50b05840",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 3,
+          "wall_s": 1.1997500000000016,
+          "cpu_s": 1.140819,
+          "peak_rss_bytes": 41009152,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 10700123,
+          "stdout_sha256": "f9636ea27c0acfac91171c3fee62aad4968042f76ca54ae188a8dd5f50b05840",
+          "stderr": ""
+        }
+      ],
+      "input_unchanged": true,
+      "exact_output_equal": true
+    },
+    {
+      "case": "100000-priced-sessions",
+      "command": "sessions",
+      "records": 100000,
+      "files": 1,
+      "bytes": 21000001,
+      "runs": [
+        {
+          "binary": "zig",
+          "repeat": 1,
+          "wall_s": 0.21898170800000116,
+          "cpu_s": 0.21264999999999998,
+          "peak_rss_bytes": 133529600,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 1,
+          "wall_s": 0.888723541000001,
+          "cpu_s": 0.8490599999999999,
+          "peak_rss_bytes": 48414720,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "baseline",
+          "repeat": 1,
+          "wall_s": 17.120030625,
+          "cpu_s": 15.405487,
+          "peak_rss_bytes": 48562176,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "baseline",
+          "repeat": 2,
+          "wall_s": 16.269387249999994,
+          "cpu_s": 15.174099,
+          "peak_rss_bytes": 48611328,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 2,
+          "wall_s": 0.8698399160000037,
+          "cpu_s": 0.8354379999999999,
+          "peak_rss_bytes": 48463872,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 2,
+          "wall_s": 0.252105499999999,
+          "cpu_s": 0.23727399999999998,
+          "peak_rss_bytes": 133529600,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "zig",
+          "repeat": 3,
+          "wall_s": 0.32738158300000464,
+          "cpu_s": 0.272543,
+          "peak_rss_bytes": 133529600,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "habu",
+          "repeat": 3,
+          "wall_s": 0.9041240410000029,
+          "cpu_s": 0.858442,
+          "peak_rss_bytes": 48480256,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        },
+        {
+          "binary": "baseline",
+          "repeat": 3,
+          "wall_s": 15.650978042000006,
+          "cpu_s": 14.648135,
+          "peak_rss_bytes": 48660480,
+          "exit": 0,
+          "timed_out": false,
+          "stdout_bytes": 11500133,
+          "stdout_sha256": "da99838ed8f8f64be6eec4ad39ee59056c26082b2f93e40c02715dcdbeb00db9",
+          "stderr": ""
+        }
+      ],
+      "input_unchanged": true,
+      "exact_output_equal": true
+    }
+  ],
+  "completed_unix": 1791894711.8849652
+}

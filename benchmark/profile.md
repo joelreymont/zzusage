@@ -53,7 +53,7 @@ Each run wrote the same 11,500,133 bytes. Raw phase results:
 The final counters show one file pass and 100,000 parse, timestamp, row lookup,
 membership and pricing calls. There is no repeated history scan. The capacity
 counter records checks, not that many allocations. No measured allocator
-bottleneck or compiler/runtime defect was established.
+bottleneck or compiler/runtime defect was established at this stage.
 
 A separate [scan probe](results/adversarial/profile/scan-phase-metrics.txt)
 used the final instrumented executable on the benchmark's 482,800-record
@@ -99,8 +99,14 @@ with the uninstrumented executable. CPU samples were captured with macOS
 for diagnosis; the separate [performance runner](performance.py) measures
 unaltered executables.
 
-The final same-input, same-batch comparison measured the indexed checkpoint
+The output/cent same-input, same-batch comparison measured the indexed checkpoint
 at 16.269 s and the optimized application at 0.889 s: **18.31× faster**. Zig
 still took 0.252 s, and the scan-heavy cases retain larger gaps. The complete
 wall/CPU/RSS observations and the known background-load qualification are in
+[saved batch](results/adversarial/performance-output-and-cent.json) and
 [evidence.md](evidence.md). Runtime parity is not claimed.
+
+Further residual analysis identified and repaired per-cost native allocation
+and repeated date rendering. See [residual.md](residual.md) for CPU samples,
+a standalone Habu reproduction, post-fix phase attribution, and the boundary
+between these application fixes and possible Habu library work.

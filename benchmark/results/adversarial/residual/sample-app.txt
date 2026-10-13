@@ -1,0 +1,377 @@
+Analysis of sampling zzusage (pid 34728) every 1 millisecond
+Process:         zzusage [34728]
+Path:            /Users/USER/Documents/*/zzusage
+Load Address:    0x102314000
+Identifier:      zzusage
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  Python [34718]
+Target Type:     live task
+
+Date/Time:       2026-10-13 15:51:39.774 +0300
+Launch Time:     2026-10-13 15:51:39.731 +0300
+OS Version:      macOS 27.0.1 (26A434)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         65.8M
+Physical footprint (peak):  129.3M
+Idle exit:                  untracked
+----
+
+Call graph:
+    1544 Thread_129394270   DispatchQueue_1: com.apple.main-thread  (serial)
+      247 ???  (in zzusage)  load address 0x102314000 + 0xa448  [0x10231e448]
+      189 ???  (in zzusage)  load address 0x102314000 + 0xa2a0  [0x10231e2a0]
+      167 ???  (in zzusage)  load address 0x102314000 + 0x6664  [0x10231a664]
+      56 ???  (in zzusage)  load address 0x102314000 + 0x4484  [0x102318484]
+      45 ???  (in zzusage)  load address 0x102314000 + 0x516c  [0x10231916c]
+      38 ???  (in zzusage)  load address 0x102314000 + 0x89c4  [0x10231c9c4]
+      35 ???  (in zzusage)  load address 0x102314000 + 0x4628  [0x102318628]
+      25 ???  (in zzusage)  load address 0x102314000 + 0xad9c  [0x10231ed9c]
+      23 ???  (in zzusage)  load address 0x102314000 + 0x71c0  [0x10231b1c0]
+      23 ???  (in zzusage)  load address 0x102314000 + 0xca80  [0x102320a80]
+      23 ???  (in zzusage)  load address 0x102314000 + 0xf28c  [0x10232328c]
+      21 ???  (in zzusage)  load address 0x102314000 + 0x11f38  [0x102325f38]
+      19 ???  (in zzusage)  load address 0x102314000 + 0x2264  [0x102316264]
+      19 ???  (in zzusage)  load address 0x102314000 + 0x5434  [0x102319434]
+      19 ???  (in zzusage)  load address 0x102314000 + 0xea64  [0x102322a64]
+      19 ???  (in zzusage)  load address 0x102314000 + 0x11f50  [0x102325f50]
+      18 ???  (in zzusage)  load address 0x102314000 + 0x7afc  [0x10231bafc]
+      16 ???  (in zzusage)  load address 0x102314000 + 0x5198  [0x102319198]
+      14 ???  (in zzusage)  load address 0x102314000 + 0x49a8  [0x1023189a8]
+      14 ???  (in zzusage)  load address 0x102314000 + 0x9fec  [0x10231dfec]
+      13 ???  (in zzusage)  load address 0x102314000 + 0x518c  [0x10231918c]
+      13 ???  (in zzusage)  load address 0x102314000 + 0x51b4  [0x1023191b4]
+      13 ???  (in zzusage)  load address 0x102314000 + 0x5418  [0x102319418]
+      13 ???  (in zzusage)  load address 0x102314000 + 0x6594  [0x10231a594]
+      13 ???  (in zzusage)  load address 0x102314000 + 0xc9bc  [0x1023209bc]
+      13 ???  (in zzusage)  load address 0x102314000 + 0xea94  [0x102322a94]
+      12 ???  (in zzusage)  load address 0x102314000 + 0xeb48  [0x102322b48]
+      11 ???  (in zzusage)  load address 0x102314000 + 0x49fc  [0x1023189fc]
+      11 ???  (in zzusage)  load address 0x102314000 + 0x8ce8  [0x10231cce8]
+      10 ???  (in zzusage)  load address 0x102314000 + 0x5160  [0x102319160]
+      9 ???  (in zzusage)  load address 0x102314000 + 0x2248  [0x102316248]
+      9 ???  (in zzusage)  load address 0x102314000 + 0xca40  [0x102320a40]
+      8 ???  (in zzusage)  load address 0x102314000 + 0x5154  [0x102319154]
+      8 ???  (in zzusage)  load address 0x102314000 + 0x5170  [0x102319170]
+      8 ???  (in zzusage)  load address 0x102314000 + 0xea78  [0x102322a78]
+      7 ???  (in zzusage)  load address 0x102314000 + 0x38f4  [0x1023178f4]
+      7 ???  (in zzusage)  load address 0x102314000 + 0x6644  [0x10231a644]
+      7 ???  (in zzusage)  load address 0x102314000 + 0x9ffc  [0x10231dffc]
+      7 ???  (in zzusage)  load address 0x102314000 + 0xb764  [0x10231f764]
+      7 ???  (in zzusage)  load address 0x102314000 + 0xf250  [0x102323250]
+      7 ???  (in zzusage)  load address 0x102314000 + 0x11f88  [0x102325f88]
+      6 ???  (in zzusage)  load address 0x102314000 + 0x2250  [0x102316250]
+      6 ???  (in zzusage)  load address 0x102314000 + 0x899c  [0x10231c99c]
+      6 ???  (in zzusage)  load address 0x102314000 + 0x89b8  [0x10231c9b8]
+      6 ???  (in zzusage)  load address 0x102314000 + 0xe5b0  [0x1023225b0]
+      6 ???  (in zzusage)  load address 0x102314000 + 0xeaa8  [0x102322aa8]
+      5 ???  (in zzusage)  load address 0x102314000 + 0x38e8  [0x1023178e8]
+      5 ???  (in zzusage)  load address 0x102314000 + 0x5428  [0x102319428]
+      5 ???  (in zzusage)  load address 0x102314000 + 0x6570  [0x10231a570]
+      5 ???  (in zzusage)  load address 0x102314000 + 0x71b8  [0x10231b1b8]
+      5 ???  (in zzusage)  load address 0x102314000 + 0x73c8  [0x10231b3c8]
+      5 ???  (in zzusage)  load address 0x102314000 + 0xd9e8  [0x1023219e8]
+      5 ???  (in zzusage)  load address 0x102314000 + 0xf898  [0x102323898]
+      5 ???  (in zzusage)  load address 0x102314000 + 0xf8fc  [0x1023238fc]
+      5 ???  (in zzusage)  load address 0x102314000 + 0x138c0  [0x1023278c0]
+      4 ???  (in zzusage)  load address 0x102314000 + 0xed0c  [0x102322d0c]
+      + 4 fesetround  (in libsystem_m.dylib) + 28,12,...  [0x1a899dfe8,0x1a899dfd8,...]
+      4 ???  (in zzusage)  load address 0x102314000 + 0x3af0  [0x102317af0]
+      4 ???  (in zzusage)  load address 0x102314000 + 0x515c  [0x10231915c]
+      4 ???  (in zzusage)  load address 0x102314000 + 0x6574  [0x10231a574]
+      4 ???  (in zzusage)  load address 0x102314000 + 0x8964  [0x10231c964]
+      4 ???  (in zzusage)  load address 0x102314000 + 0x89b4  [0x10231c9b4]
+      4 ???  (in zzusage)  load address 0x102314000 + 0xbbac  [0x10231fbac]
+      4 ???  (in zzusage)  load address 0x102314000 + 0xf24c  [0x10232324c]
+      4 ???  (in zzusage)  load address 0x102314000 + 0xf2c0  [0x1023232c0]
+      4 ???  (in zzusage)  load address 0x102314000 + 0x1077c  [0x10232477c]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x199c  [0x10231599c]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x3918  [0x102317918]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x3970  [0x102317970]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x3a54  [0x102317a54]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x4984  [0x102318984]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x4a28  [0x102318a28]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x51b8  [0x1023191b8]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x6668  [0x10231a668]
+      3 ???  (in zzusage)  load address 0x102314000 + 0x89c0  [0x10231c9c0]
+      3 ???  (in zzusage)  load address 0x102314000 + 0xad94  [0x10231ed94]
+      3 ???  (in zzusage)  load address 0x102314000 + 0xe5c8  [0x1023225c8]
+      3 ???  (in zzusage)  load address 0x102314000 + 0xeb28  [0x102322b28]
+      3 ???  (in zzusage)  load address 0x102314000 + 0xf894  [0x102323894]
+      3 ???  (in zzusage)  load address 0x102314000 + 0xf984  [0x102323984]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x14f2c  [0x102328f2c]
+      + 2 strtod_l  (in libsystem_c.dylib) + 40  [0x197cb7bd8]
+      +   2 _ffpp_strtoencf64_l  (in libsystem_c.dylib) + 88  [0x197ce7280]
+      +     2 fastParse64  (in libsystem_c.dylib) + 224  [0x197ce76f8]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x224c  [0x10231624c]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x3b38  [0x102317b38]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x66dc  [0x10231a6dc]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x6710  [0x10231a710]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x8980  [0x10231c980]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x8d0c  [0x10231cd0c]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xb718  [0x10231f718]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xb728  [0x10231f728]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xb770  [0x10231f770]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xd994  [0x102321994]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xeb84  [0x102322b84]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xeba0  [0x102322ba0]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xf4f8  [0x1023234f8]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xf980  [0x102323980]
+      2 ???  (in zzusage)  load address 0x102314000 + 0xf9b4  [0x1023239b4]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x10744  [0x102324744]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x10918  [0x102324918]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x111ac  [0x1023251ac]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x11794  [0x102325794]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x11870  [0x102325870]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x12994  [0x102326994]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x137e4  [0x1023277e4]
+      2 ???  (in zzusage)  load address 0x102314000 + 0x144b8  [0x1023284b8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x18d8  [0x1023158d8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x19a8  [0x1023159a8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x2244  [0x102316244]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x362c  [0x10231762c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x38d4  [0x1023178d4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x39a8  [0x1023179a8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x3a9c  [0x102317a9c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x3af8  [0x102317af8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x3bd8  [0x102317bd8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x3f80  [0x102317f80]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x3fc0  [0x102317fc0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x4488  [0x102318488]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x4968  [0x102318968]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x496c  [0x10231896c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x4970  [0x102318970]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x4978  [0x102318978]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x497c  [0x10231897c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x4988  [0x102318988]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x4998  [0x102318998]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x49e8  [0x1023189e8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x4a24  [0x102318a24]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x5158  [0x102319158]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x5174  [0x102319174]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x51a8  [0x1023191a8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x5414  [0x102319414]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x543c  [0x10231943c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x5614  [0x102319614]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x562c  [0x10231962c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x56f0  [0x1023196f0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x65b4  [0x10231a5b4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x6630  [0x10231a630]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x6648  [0x10231a648]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x6734  [0x10231a734]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x6768  [0x10231a768]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x6a70  [0x10231aa70]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x7af0  [0x10231baf0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x7af8  [0x10231baf8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x89b0  [0x10231c9b0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x89d4  [0x10231c9d4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x89f0  [0x10231c9f0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x89f8  [0x10231c9f8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x8d24  [0x10231cd24]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x9fe8  [0x10231dfe8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xb0f0  [0x10231f0f0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xb730  [0x10231f730]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xb7fc  [0x10231f7fc]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xbb50  [0x10231fb50]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xbba4  [0x10231fba4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xc3b0  [0x1023203b0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xc99c  [0x10232099c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xc9a0  [0x1023209a0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xca48  [0x102320a48]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xcab8  [0x102320ab8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xccb8  [0x102320cb8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xd8a8  [0x1023218a8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xd9a8  [0x1023219a8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xd9ac  [0x1023219ac]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xda7c  [0x102321a7c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xdad0  [0x102321ad0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xde5c  [0x102321e5c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xe5f0  [0x1023225f0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xe77c  [0x10232277c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xeac0  [0x102322ac0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xeb30  [0x102322b30]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xeb38  [0x102322b38]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf164  [0x102323164]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf240  [0x102323240]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf2cc  [0x1023232cc]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf4c0  [0x1023234c0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf4c4  [0x1023234c4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf534  [0x102323534]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf5a8  [0x1023235a8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf8a4  [0x1023238a4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf8c0  [0x1023238c0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xf9d0  [0x1023239d0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0xfbfc  [0x102323bfc]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x10784  [0x102324784]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x107b4  [0x1023247b4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x107cc  [0x1023247cc]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x107f0  [0x1023247f0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x110e0  [0x1023250e0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x1112c  [0x10232512c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11170  [0x102325170]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11320  [0x102325320]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x1160c  [0x10232560c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11674  [0x102325674]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11798  [0x102325798]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x117a0  [0x1023257a0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11848  [0x102325848]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11924  [0x102325924]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x119f4  [0x1023259f4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11b50  [0x102325b50]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11db8  [0x102325db8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11efc  [0x102325efc]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x11f30  [0x102325f30]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x139b0  [0x1023279b0]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x142e8  [0x1023282e8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x14444  [0x102328444]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x1445c  [0x10232845c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x144a4  [0x1023284a4]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x14cb8  [0x102328cb8]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x14d9c  [0x102328d9c]
+      1 ???  (in zzusage)  load address 0x102314000 + 0x14f24  [0x102328f24]
+
+Total number in stack (recursive counted multiple, when >=5):
+
+Sort by top of stack, same collapsed (when >= 5):
+        ???  (in zzusage)  load address 0x102314000 + 0xa448  [0x10231e448]        247
+        ???  (in zzusage)  load address 0x102314000 + 0xa2a0  [0x10231e2a0]        189
+        ???  (in zzusage)  load address 0x102314000 + 0x6664  [0x10231a664]        167
+        ???  (in zzusage)  load address 0x102314000 + 0x4484  [0x102318484]        56
+        ???  (in zzusage)  load address 0x102314000 + 0x516c  [0x10231916c]        45
+        ???  (in zzusage)  load address 0x102314000 + 0x89c4  [0x10231c9c4]        38
+        ???  (in zzusage)  load address 0x102314000 + 0x4628  [0x102318628]        35
+        ???  (in zzusage)  load address 0x102314000 + 0xad9c  [0x10231ed9c]        25
+        ???  (in zzusage)  load address 0x102314000 + 0x71c0  [0x10231b1c0]        23
+        ???  (in zzusage)  load address 0x102314000 + 0xca80  [0x102320a80]        23
+        ???  (in zzusage)  load address 0x102314000 + 0xf28c  [0x10232328c]        23
+        ???  (in zzusage)  load address 0x102314000 + 0x11f38  [0x102325f38]        21
+        ???  (in zzusage)  load address 0x102314000 + 0x11f50  [0x102325f50]        19
+        ???  (in zzusage)  load address 0x102314000 + 0x2264  [0x102316264]        19
+        ???  (in zzusage)  load address 0x102314000 + 0x5434  [0x102319434]        19
+        ???  (in zzusage)  load address 0x102314000 + 0xea64  [0x102322a64]        19
+        ???  (in zzusage)  load address 0x102314000 + 0x7afc  [0x10231bafc]        18
+        ???  (in zzusage)  load address 0x102314000 + 0x5198  [0x102319198]        16
+        ???  (in zzusage)  load address 0x102314000 + 0x49a8  [0x1023189a8]        14
+        ???  (in zzusage)  load address 0x102314000 + 0x9fec  [0x10231dfec]        14
+        ???  (in zzusage)  load address 0x102314000 + 0x518c  [0x10231918c]        13
+        ???  (in zzusage)  load address 0x102314000 + 0x51b4  [0x1023191b4]        13
+        ???  (in zzusage)  load address 0x102314000 + 0x5418  [0x102319418]        13
+        ???  (in zzusage)  load address 0x102314000 + 0x6594  [0x10231a594]        13
+        ???  (in zzusage)  load address 0x102314000 + 0xc9bc  [0x1023209bc]        13
+        ???  (in zzusage)  load address 0x102314000 + 0xea94  [0x102322a94]        13
+        ???  (in zzusage)  load address 0x102314000 + 0xeb48  [0x102322b48]        12
+        ???  (in zzusage)  load address 0x102314000 + 0x49fc  [0x1023189fc]        11
+        ???  (in zzusage)  load address 0x102314000 + 0x8ce8  [0x10231cce8]        11
+        ???  (in zzusage)  load address 0x102314000 + 0x5160  [0x102319160]        10
+        ???  (in zzusage)  load address 0x102314000 + 0x2248  [0x102316248]        9
+        ???  (in zzusage)  load address 0x102314000 + 0xca40  [0x102320a40]        9
+        ???  (in zzusage)  load address 0x102314000 + 0x5154  [0x102319154]        8
+        ???  (in zzusage)  load address 0x102314000 + 0x5170  [0x102319170]        8
+        ???  (in zzusage)  load address 0x102314000 + 0xea78  [0x102322a78]        8
+        ???  (in zzusage)  load address 0x102314000 + 0x11f88  [0x102325f88]        7
+        ???  (in zzusage)  load address 0x102314000 + 0x38f4  [0x1023178f4]        7
+        ???  (in zzusage)  load address 0x102314000 + 0x6644  [0x10231a644]        7
+        ???  (in zzusage)  load address 0x102314000 + 0x9ffc  [0x10231dffc]        7
+        ???  (in zzusage)  load address 0x102314000 + 0xb764  [0x10231f764]        7
+        ???  (in zzusage)  load address 0x102314000 + 0xf250  [0x102323250]        7
+        ???  (in zzusage)  load address 0x102314000 + 0x2250  [0x102316250]        6
+        ???  (in zzusage)  load address 0x102314000 + 0x899c  [0x10231c99c]        6
+        ???  (in zzusage)  load address 0x102314000 + 0x89b8  [0x10231c9b8]        6
+        ???  (in zzusage)  load address 0x102314000 + 0xe5b0  [0x1023225b0]        6
+        ???  (in zzusage)  load address 0x102314000 + 0xeaa8  [0x102322aa8]        6
+        ???  (in zzusage)  load address 0x102314000 + 0x138c0  [0x1023278c0]        5
+        ???  (in zzusage)  load address 0x102314000 + 0x38e8  [0x1023178e8]        5
+        ???  (in zzusage)  load address 0x102314000 + 0x5428  [0x102319428]        5
+        ???  (in zzusage)  load address 0x102314000 + 0x6570  [0x10231a570]        5
+        ???  (in zzusage)  load address 0x102314000 + 0x71b8  [0x10231b1b8]        5
+        ???  (in zzusage)  load address 0x102314000 + 0x73c8  [0x10231b3c8]        5
+        ???  (in zzusage)  load address 0x102314000 + 0xd9e8  [0x1023219e8]        5
+        ???  (in zzusage)  load address 0x102314000 + 0xf898  [0x102323898]        5
+        ???  (in zzusage)  load address 0x102314000 + 0xf8fc  [0x1023238fc]        5
+
+Binary Images:
+       0x102314000 -        0x10232a373 +zzusage (???) /Users/*/Documents/*/zzusage
+       0x1979a0000 -        0x1979ef5f7  libobjc.A.dylib (973.1) <C0680DF6-9900-3C29-A071-95A031686EF8> /usr/lib/libobjc.A.dylib
+       0x1979f0000 -        0x1979fa23f  libsharedcache.dylib (0) <BBF95357-BEBF-3D89-8900-2BBB14A667C5> /usr/lib/libsharedcache.dylib
+       0x1979fb000 -        0x197a21d3b  libdyld.dylib (27062) <62863BCA-DD60-3D32-A9DB-89099BA6F3D7> /usr/lib/system/libdyld.dylib
+       0x197a22000 -        0x197ae16e3  dyld (1.0.0 - 27062) <D341DDCB-7969-3A9C-8E03-0CF4751398A9> /usr/lib/dyld
+       0x197ae2000 -        0x197ae501f  libsystem_blocks.dylib (98.1) <6F304731-D95D-3501-B4AD-F2934F7F2446> /usr/lib/system/libsystem_blocks.dylib
+       0x197ae6000 -        0x197b3b0df  libxpc.dylib (3298.1.1) <0791121F-B5FC-3F84-BF04-115E86D2D882> /usr/lib/system/libxpc.dylib
+       0x197b3c000 -        0x197b5bc13  libsystem_trace.dylib (1966.1.1) <B48A8E3E-A12A-3342-8321-428B555E965E> /usr/lib/system/libsystem_trace.dylib
+       0x197b5c000 -        0x197c10f27  libcorecrypto.dylib (2109.0.22) <807AA6C9-5D8A-3CA5-B4CE-FACE5296EF6A> /usr/lib/system/libcorecrypto.dylib
+       0x197c11000 -        0x197c66c5f  libsystem_malloc.dylib (886.0.8) <2339CB57-FE5A-3154-A206-A76059C749EB> /usr/lib/system/libsystem_malloc.dylib
+       0x197c67000 -        0x197cad19f  libdispatch.dylib (1605.0.2) <022BF08F-0B3A-3225-9E65-16D1553CE90D> /usr/lib/system/libdispatch.dylib
+       0x197cae000 -        0x197cb0d2b  libsystem_featureflags.dylib (108) <20C1CAB2-1F13-3426-8146-9CAE9FF2A33D> /usr/lib/system/libsystem_featureflags.dylib
+       0x197cb1000 -        0x197d33ca3  libsystem_c.dylib (1786.0.3) <FBA7B23E-AA60-3A90-9AA4-A7A2E0AD63EE> /usr/lib/system/libsystem_c.dylib
+       0x197d34000 -        0x197dc9033  libc++.1.dylib (2200.27) <1E9BA4AA-B5DA-3CF3-80AC-4B880049573F> /usr/lib/libc++.1.dylib
+       0x197dca000 -        0x197de3eff  libc++abi.dylib (2200.27) <A21743EE-6E1C-3E74-97EA-7AF793DE4BDF> /usr/lib/libc++abi.dylib
+       0x197de4000 -        0x197e229ab  libsystem_kernel.dylib (13432.1.9) <F63BF418-8F75-34A4-AAF1-8CAF2B9B6A05> /usr/lib/system/libsystem_kernel.dylib
+       0x197e23000 -        0x197e2f91b  libsystem_pthread.dylib (553.0.1) <5A1828C3-CBC2-3B85-BD07-C8ED10021A41> /usr/lib/system/libsystem_pthread.dylib
+       0x197e30000 -        0x197e394f3  libsystem_platform.dylib (402.0.1.0.1) <080E4444-A0FB-3913-9756-4E470015F32F> /usr/lib/system/libsystem_platform.dylib
+       0x197e3a000 -        0x197e68903  libsystem_info.dylib (603) <BC387AEB-1CEF-3513-92D7-D7F913596711> /usr/lib/system/libsystem_info.dylib
+       0x19bf92000 -        0x19bf9bb13  libsystem_darwin.dylib (1786.0.3) <4E66C888-993C-3E6A-A8DA-A949C01C5B67> /usr/lib/system/libsystem_darwin.dylib
+       0x19c3ec000 -        0x19c3fdb8b  libsystem_notify.dylib (368) <58FD36D8-37A7-311C-80F2-8E64DD8710CF> /usr/lib/system/libsystem_notify.dylib
+       0x19e549000 -        0x19e563d93  libsystem_networkextension.dylib (2340.1.2) <22E1D190-486F-324F-ABA4-F36AB841BFE9> /usr/lib/system/libsystem_networkextension.dylib
+       0x19e5f1000 -        0x19e608247  libsystem_asl.dylib (409) <B4D449B7-A821-3A9A-8019-E917B291F10A> /usr/lib/system/libsystem_asl.dylib
+       0x19f59c000 -        0x19f59cf2f  libobjcMsgSend.dylib (973.1) <41179EDE-DC97-3BBE-8848-6400D12C1436> /usr/lib/objc/libobjcMsgSend.dylib
+       0x1a06e8000 -        0x1a06efedf  libsystem_symptoms.dylib (2394.0.4) <60EE7884-9F4E-3184-A6AC-FA40A7A0297D> /usr/lib/system/libsystem_symptoms.dylib
+       0x1a4a80000 -        0x1a4abaaeb  libsystem_containermanager.dylib (833.0.8.0.1) <08A57205-555D-3792-8931-9D5B585AF326> /usr/lib/system/libsystem_containermanager.dylib
+       0x1a60d3000 -        0x1a60d7317  libsystem_configuration.dylib (1446) <F3EB66A7-7A24-3AE5-B6E8-9A37BB00F119> /usr/lib/system/libsystem_configuration.dylib
+       0x1a60d8000 -        0x1a60dee03  libsystem_sandbox.dylib (3051.0.52) <1E892B56-092E-3832-BDE3-DCE356D7A4FA> /usr/lib/system/libsystem_sandbox.dylib
+       0x1a759c000 -        0x1a759cf2f  libobjcMsgSend1.dylib (973.1) <B40D9B2A-E1EE-37ED-8004-711A1F263DE1> /usr/lib/objc/libobjcMsgSend1.dylib
+       0x1a7cbc000 -        0x1a7cbef93  libquarantine.dylib (217.0.4) <7FD4AE22-86EF-382B-83F5-ADF9336C1160> /usr/lib/system/libquarantine.dylib
+       0x1a83ce000 -        0x1a83d41e7  libsystem_coreservices.dylib (203) <57248E07-11A5-3857-918E-4A3A63B69FE8> /usr/lib/system/libsystem_coreservices.dylib
+       0x1a8996000 -        0x1a89d3b27  libsystem_m.dylib (3326.0.1) <A3FB340F-3ED5-30F4-8B64-9D5860F64D35> /usr/lib/system/libsystem_m.dylib
+       0x1a89d5000 -        0x1a89d84f7  libmacho.dylib (27062) <50DEADEC-3E99-3519-AFC3-4A3FEB3F14C3> /usr/lib/system/libmacho.dylib
+       0x1a89f2000 -        0x1a89fe707  libcommonCrypto.dylib (600041) <41C99F45-C5E6-39DB-B1F2-A1BEA9D242A4> /usr/lib/system/libcommonCrypto.dylib
+       0x1a89ff000 -        0x1a8a08c87  libunwind.dylib (2200.5) <3070AB81-B082-39E8-8A00-EF88DDE9AC47> /usr/lib/system/libunwind.dylib
+       0x1a8a10000 -        0x1a8a1a7eb  libcopyfile.dylib (260.0.3) <72D95AF9-BF5E-3A84-81A6-BCC5BDB99857> /usr/lib/system/libcopyfile.dylib
+       0x1a8a1b000 -        0x1a8a1e8bf  libcompiler_rt.dylib (103.4) <DFB5CE7F-A36E-36AA-BECE-1392D3D43607> /usr/lib/system/libcompiler_rt.dylib
+       0x1a8a1f000 -        0x1a8a24077  libsystem_collections.dylib (1786.0.3) <1E8022D4-5A37-3A7A-8936-603E6FA88358> /usr/lib/system/libsystem_collections.dylib
+       0x1a8a25000 -        0x1a8a27f1f  libsystem_secinit.dylib (182) <DE037464-4C5D-3E96-A33F-2A4557CC6A20> /usr/lib/system/libsystem_secinit.dylib
+       0x1a8a28000 -        0x1a8a2a97f  libremovefile.dylib (96) <E6E6DFCF-6B2C-3F30-A59D-816CAB1190CE> /usr/lib/system/libremovefile.dylib
+       0x1a8a2b000 -        0x1a8a2be27  libkeymgr.dylib (31) <5EC997EF-3ADA-360B-9FCD-5F940C83FA4E> /usr/lib/system/libkeymgr.dylib
+       0x1a8a2c000 -        0x1a8a34af7  libsystem_dnssd.dylib (3111.0.5.0.1) <DE22096F-1E5B-3D6E-8164-771582DD6391> /usr/lib/system/libsystem_dnssd.dylib
+       0x1a8a35000 -        0x1a8a39f1b  libcache.dylib (95) <80BAE197-E285-3F6E-A1EE-B77FE37D7E5D> /usr/lib/system/libcache.dylib
+       0x1a8a3a000 -        0x1a8a3b8f3  libSystem.B.dylib (1359) <4FDC9AA6-B344-37FE-B8C6-A4C94A038F57> /usr/lib/libSystem.B.dylib
+       0x1af59c000 -        0x1af59cf2f  libobjcMsgSend2.dylib (973.1) <BD27A84B-C9AE-3282-BBEA-3B6119837B5A> /usr/lib/objc/libobjcMsgSend2.dylib
+       0x1b759c000 -        0x1b759cf2f  libobjcMsgSend3.dylib (973.1) <C0860D68-DDFC-3BD7-8B06-DB0645CBBED4> /usr/lib/objc/libobjcMsgSend3.dylib
+       0x1bf59c000 -        0x1bf59cf2f  libobjcMsgSend4.dylib (973.1) <A6153BF5-622B-3B01-81B6-F64A365EF613> /usr/lib/objc/libobjcMsgSend4.dylib
+       0x1c759c000 -        0x1c759cf2f  libobjcMsgSend5.dylib (973.1) <3913A71C-B29A-3AEA-820B-BEC40AC1861A> /usr/lib/objc/libobjcMsgSend5.dylib
+       0x1cf59c000 -        0x1cf59cf2f  libobjcMsgSend6.dylib (973.1) <9BC523A3-E167-3F6C-8CAE-0F3EBA671791> /usr/lib/objc/libobjcMsgSend6.dylib
+       0x1d759c000 -        0x1d759cf2f  libobjcMsgSend7.dylib (973.1) <248B7BCE-5B4C-34C7-A340-43D5228628C5> /usr/lib/objc/libobjcMsgSend7.dylib
+       0x1df59c000 -        0x1df59cf2f  libobjcMsgSend8.dylib (973.1) <3E041BAD-A8E8-3069-B741-78CD1A45B176> /usr/lib/objc/libobjcMsgSend8.dylib
+       0x1e759c000 -        0x1e759cf2f  libobjcMsgSend9.dylib (973.1) <34A67969-21A0-39D6-BB81-8FDA5A2409DB> /usr/lib/objc/libobjcMsgSend9.dylib
+       0x1ef59c000 -        0x1ef59cf2f  libobjcMsgSend10.dylib (973.1) <678186C0-8EAD-3B35-8CBB-00285B41E4A0> /usr/lib/objc/libobjcMsgSend10.dylib
+       0x1f759c000 -        0x1f759cf2f  libobjcMsgSend11.dylib (973.1) <E05CB08C-E956-36FA-8967-AE8E346A8D2C> /usr/lib/objc/libobjcMsgSend11.dylib
+       0x21f59c000 -        0x21f59cf2f  libobjcMsgSend12.dylib (973.1) <10AB03AA-FF1F-3FDC-9DFB-BFC40042C501> /usr/lib/objc/libobjcMsgSend12.dylib
+       0x22759c000 -        0x22759cf2f  libobjcMsgSend13.dylib (973.1) <ABF53427-FA6F-3D0D-8F9D-7AD795CA5C92> /usr/lib/objc/libobjcMsgSend13.dylib
+       0x22f59c000 -        0x22f59cf2f  libobjcMsgSend14.dylib (973.1) <9A844C46-A6DA-34D4-8EBF-2AD775C30684> /usr/lib/objc/libobjcMsgSend14.dylib
+       0x23759c000 -        0x23759cf2f  libobjcMsgSend15.dylib (973.1) <7C995666-2B2D-3284-AA0A-EBF7C922838E> /usr/lib/objc/libobjcMsgSend15.dylib
+       0x23f59c000 -        0x23f59cf2f  libobjcMsgSend16.dylib (973.1) <B6C0E14B-53AE-3E22-9ED5-1729C49F46F2> /usr/lib/objc/libobjcMsgSend16.dylib
+       0x24759c000 -        0x24759cf2f  libobjcMsgSend17.dylib (973.1) <07B4CF85-251B-301B-832B-20B315A59E19> /usr/lib/objc/libobjcMsgSend17.dylib
+       0x24f59c000 -        0x24f59cf2f  libobjcMsgSend18.dylib (973.1) <43E575B7-04DB-3999-A633-1A3B638BA6E3> /usr/lib/objc/libobjcMsgSend18.dylib
+       0x25759c000 -        0x25759cf2f  libobjcMsgSend19.dylib (973.1) <736F4D85-76F7-3B28-8D87-C07E8F7A0EF4> /usr/lib/objc/libobjcMsgSend19.dylib
+       0x25f59c000 -        0x25f59cf2f  libobjcMsgSend20.dylib (973.1) <74E67C8B-6BCA-3184-A18E-A97F370052C6> /usr/lib/objc/libobjcMsgSend20.dylib
+       0x26759c000 -        0x26759cf2f  libobjcMsgSend21.dylib (973.1) <CC0D732F-98E7-3888-9E15-70984DA2FB04> /usr/lib/objc/libobjcMsgSend21.dylib
+       0x26f59c000 -        0x26f59cf2f  libobjcMsgSend22.dylib (973.1) <85A60286-5DE3-32BA-B18C-2A498B065C88> /usr/lib/objc/libobjcMsgSend22.dylib
+       0x27759c000 -        0x27759cf2f  libobjcMsgSend23.dylib (973.1) <5452A0D2-6B19-39BE-ADDD-80B7BCDE3A98> /usr/lib/objc/libobjcMsgSend23.dylib
+       0x27f59c000 -        0x27f59cf2f  libobjcMsgSend24.dylib (973.1) <94BBF2D6-722B-350D-8557-4D25A8E8D53A> /usr/lib/objc/libobjcMsgSend24.dylib
+       0x28759c000 -        0x28759cf2f  libobjcMsgSend25.dylib (973.1) <35481387-5A8E-3AE4-86A6-94CEB3CC8726> /usr/lib/objc/libobjcMsgSend25.dylib
+       0x29f59c000 -        0x29f59cf2f  libobjcMsgSend26.dylib (973.1) <9E0C8664-E7F4-39D1-AAFC-BD92B255E4E8> /usr/lib/objc/libobjcMsgSend26.dylib
+       0x2a759c000 -        0x2a759cf2f  libobjcMsgSend27.dylib (973.1) <FD424935-55A9-3650-955A-EED3441A1D19> /usr/lib/objc/libobjcMsgSend27.dylib
+       0x2af59c000 -        0x2af59cf2f  libobjcMsgSend28.dylib (973.1) <09BA7B97-7DF7-3C7F-932A-B6847662FC49> /usr/lib/objc/libobjcMsgSend28.dylib
+       0x2b759c000 -        0x2b759cf2f  libobjcMsgSend29.dylib (973.1) <36D5BA3F-2139-30B0-8558-556764BE9813> /usr/lib/objc/libobjcMsgSend29.dylib
+       0x2bf59c000 -        0x2bf59cf2f  libobjcMsgSend30.dylib (973.1) <9F05564A-9D12-372C-98FC-E9F0E6BE4F04> /usr/lib/objc/libobjcMsgSend30.dylib
+       0x2c42b6000 -        0x2c42bcfe5  libRosetta.dylib (385) <E359944B-D230-33F9-A04E-0C3B17C3326E> /usr/lib/libRosetta.dylib
+       0x2c4ca5000 -        0x2c4ca875b  libsystem_darwindirectory.dylib (129.0.1) <61264923-2AA5-3658-B8C4-550C71E9D4B3> /usr/lib/system/libsystem_darwindirectory.dylib
+       0x2c4ca9000 -        0x2c4cb3d9b  libsystem_eligibility.dylib (446.1.3) <EDDE8E9C-A2CF-3931-BBB3-321CB852EB30> /usr/lib/system/libsystem_eligibility.dylib
+       0x2c4cb4000 -        0x2c4cbd42b  libsystem_sanitizers.dylib (32) <7138ED99-7AA0-34EA-B35B-20EF6ADB1EED> /usr/lib/system/libsystem_sanitizers.dylib
+       0x2c4cbe000 -        0x2c4cbea13  libsystem_trial.dylib (511) <6AE48824-EC44-3A8C-B501-BE57DBE892E7> /usr/lib/system/libsystem_trial.dylib
+       0x2c759c000 -        0x2c759cf2f  libobjcMsgSend31.dylib (973.1) <0985E20F-78C3-3466-A2B2-DBB95F7104A3> /usr/lib/objc/libobjcMsgSend31.dylib
+       0x2cf59c000 -        0x2cf59cf2f  libobjcMsgSend32.dylib (973.1) <0D309D58-D576-3E5D-AD4B-6D55AB491702> /usr/lib/objc/libobjcMsgSend32.dylib
+       0x2d759c000 -        0x2d759cf2f  libobjcMsgSend33.dylib (973.1) <346E0484-48FA-369B-8A64-93B5F5341CFE> /usr/lib/objc/libobjcMsgSend33.dylib
+       0x2df59c000 -        0x2df59cf2f  libobjcMsgSend34.dylib (973.1) <6A31F809-BCBE-3E01-A367-E91FDACCE324> /usr/lib/objc/libobjcMsgSend34.dylib

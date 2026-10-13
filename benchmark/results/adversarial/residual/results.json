@@ -1,0 +1,54 @@
+{
+  "explicit": {
+    "records": 482800,
+    "bytes": 67109200,
+    "line_bytes": 139,
+    "runs": {
+      "instrumented": {
+        "seconds": 4.341044667,
+        "exit": 0,
+        "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+        "stdout_bytes": 224
+      },
+      "zig": {
+        "seconds": 0.4639715000000013,
+        "exit": 0,
+        "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+        "stdout_bytes": 224
+      },
+      "habu": {
+        "seconds": 3.5570030829999997,
+        "exit": 0,
+        "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+        "stdout_bytes": 224
+      }
+    },
+    "exact_output_equal": true
+  },
+  "omitted": {
+    "records": 482800,
+    "bytes": 61315600,
+    "line_bytes": 127,
+    "runs": {
+      "instrumented": {
+        "seconds": 2.0789469999999994,
+        "exit": 0,
+        "stdout_sha256": "9fece352e4118585f9f73aea41e4eee80b0c102939a347001380a7d1b1be023b",
+        "stdout_bytes": 224
+      },
+      "zig": {
+        "seconds": 0.41677312499999886,
+        "exit": 0,
+        "stdout_sha256": "9fece352e4118585f9f73aea41e4eee80b0c102939a347001380a7d1b1be023b",
+        "stdout_bytes": 224
+      },
+      "habu": {
+        "seconds": 1.6977840419999985,
+        "exit": 0,
+        "stdout_sha256": "9fece352e4118585f9f73aea41e4eee80b0c102939a347001380a7d1b1be023b",
+        "stdout_bytes": 224
+      }
+    },
+    "exact_output_equal": true
+  }
+}

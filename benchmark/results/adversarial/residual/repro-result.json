@@ -1,0 +1,18 @@
+{
+  "habu_release": "c53b4d2c",
+  "source_sha256": "0cb99f3e8dc9d90ebe58b50ca0ee0c4c378b631241593f7f169060bb6c0a8872",
+  "binary_sha256": "92affca07f1b74119195fc90a2154f7d81d0e52419d70f431370c35b8714a77c",
+  "pairs": 241400,
+  "conversions": 482800,
+  "inputs": [
+    "0",
+    "1.25"
+  ],
+  "exit": 0,
+  "elapsed_monotonic_ns": 1446492209,
+  "checksum_i64": -3719973292208029696,
+  "expected_checksum_i64": -3719973292208029696,
+  "checksum_matches": true,
+  "synthetic_home": "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/.build/residual-profile/home",
+  "note": "Single diagnostic run; no controlled speed comparison."
+}

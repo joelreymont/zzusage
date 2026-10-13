@@ -1,0 +1,17 @@
+{
+  "sampled_binary": "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/.build/profile/before-parser",
+  "binary_sha256": "f2f40102651c0a02e9243b19729ce54b6679c4e6f45c53f5b7da068334b5ec1b",
+  "fixture_root": "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/.build/residual-profile/explicit",
+  "synthetic_home": "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/.build/residual-profile/home",
+  "target_exit": 0,
+  "target_stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e",
+  "sample_duration_seconds": 2,
+  "sample_interval_ms": 1,
+  "main_thread_samples": 1544,
+  "leading_offsets": {
+    "+0xa448": 247,
+    "+0xa2a0": 189,
+    "+0x6664": 167
+  },
+  "disassembly_matches_saved_binary": "identical except first path line"
+}

@@ -74,25 +74,27 @@ To repeat the smallest Zig comparison on macOS, run
 `sh benchmark/build-zig-smallest.sh`, then pass
 `benchmark/bin/zzusage-zig-smallest` as the first test argument. Results from
 new runs go to `.build/test-results/`; set `ZZUSAGE_TEST_OUTPUT_DIR` to choose
-another output directory. The saved 136-case runs and parity ledger are in
+another output directory. The saved 142-case runs and parity ledger are in
 [benchmark/evidence.md](benchmark/evidence.md) and
 [full-parity.md](full-parity.md).
 
 | macOS arm64 executable | File bytes | Saved differential result |
 |---|---:|---:|
-| Habu AOT, release `c53b4d2c` | 115,836 | 136/136 versus each Zig build |
-| Zig 0.17.0, stripped `-O small` | 277,912 | 136/136 |
-| Zig 0.17.0, smallest measured configuration | 236,480 | 136/136 |
+| Habu AOT, release `c53b4d2c` | 115,836 | 142/142 versus each Zig build |
+| Zig 0.17.0, stripped `-O small` | 277,912 | 142/142 |
+| Zig 0.17.0, smallest measured configuration | 236,480 | 142/142 |
 
 The Habu executable is 51.0% smaller than the smallest measured Zig binary.
 These are on-disk Mach-O sizes. The [runtime measurements](benchmark/evidence.md)
-show lower peak memory but slower execution than Zig. The final report
-optimizations reduced the representative priced-session workload from 16.269 s
-to 0.889 s; Zig took 0.252 s on the same input. These synthetic measurements
-and their background-load qualification are documented separately from size. The
+show lower peak memory but slower execution than Zig. Output buffering and
+cent formatting made the priced-session report 18.31× faster in one comparison.
+A later comparison measured a further 2.65–3.04× scan improvement from exact
+integer-cost parsing and a date cache. The final priced report took 0.813 s
+versus Zig's 0.242 s; final scans took 3.34–5.01× Zig's time. Each comparison
+and its background-load qualification are documented separately from size. The
 original Zig scanner uses multiple workers at ten or more files, so row order
 and the first project attached to a shared session ID can vary between runs.
-Habu scans serially. The suite contains 135 deterministic checks; the
+Habu scans serially. The suite contains 141 deterministic checks; the
 concurrent-append case checks initial-event retention without requiring an
 equal append count. The suite never normalizes otherwise deterministic output.
 

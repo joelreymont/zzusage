@@ -3,20 +3,20 @@ class	bytes	zero	percent
 macho/header	32	20	0.0
 macho/load-commands	664	424	0.5
 macho/header-pad	3400	3400	2.9
-app/code	82964	11270	71.6
-app/data-cell-bitmap	615	515	0.5
+app/code	83668	11336	72.2
+app/data-cell-bitmap	615	516	0.5
 app/data-cell-values	3295	0	2.8
 app/row-align-pad	2	2	0.0
-app/relocation-rows	24	10	0.0
+app/relocation-rows	24	9	0.0
 image/text-pad	0	0	0.0
-macho/text-pad	7308	7308	6.3
+macho/text-pad	6604	6604	5.7
 macho/got	16	12	0.0
 macho/data-pad	16368	16368	14.1
 macho/chained-fixups	104	74	0.0
 macho/signature-pad	0	0	0.0
 macho/code-signature	1044	86	0.9
-total	115836	39489	100.0
+total	115836	38851	100.0
 
-restored DATA window: 1000192 bytes from 3295 carried in 464 cells; 996897 bytes do not travel
+restored DATA window: 1000216 bytes from 3295 carried in 464 cells; 996921 bytes do not travel
   relocation rows 3, declared address cells this image rebinds at startup
-hb-build size: /Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/bin/zzusage 115836 bytes = code 82964, names 0, data 3295 written + 0 zero, padding 27078, other 2499 (stripped)
+hb-build size: /Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/bin/zzusage 115836 bytes = code 83668, names 0, data 3295 written + 0 zero, padding 26374, other 2499 (stripped)
