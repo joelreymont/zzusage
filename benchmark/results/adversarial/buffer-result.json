@@ -1,0 +1,110 @@
+{
+  "cases": 11,
+  "all_equal": true,
+  "results": [
+    {
+      "mode": "sessions",
+      "json": false,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 1678
+    },
+    {
+      "mode": "sessions",
+      "json": true,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 37773
+    },
+    {
+      "mode": "daily",
+      "json": false,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 1654
+    },
+    {
+      "mode": "daily",
+      "json": true,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 817
+    },
+    {
+      "mode": "monthly",
+      "json": false,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 1432
+    },
+    {
+      "mode": "monthly",
+      "json": true,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 193
+    },
+    {
+      "mode": "statusline",
+      "json": false,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 171
+    },
+    {
+      "mode": "statusline",
+      "json": true,
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "bytes": 174
+    },
+    {
+      "mode": "stdout-pipe",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ]
+    },
+    {
+      "mode": "stdout-stderr-pipes",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ]
+    },
+    {
+      "mode": "both-closed",
+      "same": true,
+      "exit": [
+        1,
+        1
+      ]
+    }
+  ]
+}

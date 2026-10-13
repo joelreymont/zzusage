@@ -1,0 +1,15 @@
+{
+  "records": 482800,
+  "bytes": 67109200,
+  "result": {
+    "zig": {
+      "exit": 0,
+      "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e"
+    },
+    "instrumented": {
+      "exit": 0,
+      "stdout_sha256": "7e1e3317ac6a726f7410a0b297d72b4d9c7b0590d10e99e2b4b573a6851dd60e"
+    }
+  },
+  "note": "Phase attribution only; instrumented, no controlled timing window."
+}

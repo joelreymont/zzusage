@@ -1,0 +1,14 @@
+[
+  {
+    "data": "data",
+    "exact": true,
+    "stdout_bytes": 11500133,
+    "sha256": "5602151587e537c216e19b6fbc3c43c9a98e6a2b5f5bc045b9aa61ed35bce5b8"
+  },
+  {
+    "data": "money-fast-data",
+    "exact": true,
+    "stdout_bytes": 11402024,
+    "sha256": "6d474772d177942fd1bd40c3de8242b7722b6ed3e1893057bcba4680e35f94b0"
+  }
+]

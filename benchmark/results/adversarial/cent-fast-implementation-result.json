@@ -1,0 +1,34 @@
+{
+  "cases": 2,
+  "all_equal": true,
+  "results": [
+    {
+      "case": "cent-fast-design",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 310816,
+      "sha256": "4371317d8063343775eed9f259ef858964c26978ee50d60e2cbf5f250d4fb7d7",
+      "stderr": [
+        "",
+        ""
+      ]
+    },
+    {
+      "case": "money",
+      "same": true,
+      "exit": [
+        0,
+        0
+      ],
+      "stdout_bytes": 109725,
+      "sha256": "32dd4b84974e08cb0574ffa2b1698bce733b0f7b8c56cd3058a197c50d51d564",
+      "stderr": [
+        "",
+        ""
+      ]
+    }
+  ]
+}

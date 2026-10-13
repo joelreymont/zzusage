@@ -3,8 +3,8 @@
     "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/benchmark/bin/zzusage-zig-full-small",
     "/Users/joel/Documents/Codex/2026-10-13/task-4/.jj-ws/zzusage-repair/bin/zzusage"
   ],
-  "passed": 131,
-  "total": 131,
+  "passed": 136,
+  "total": 136,
   "cases": [
     {
       "name": "default-text",
@@ -1160,6 +1160,85 @@
       "name": "indexed-daily-sets",
       "kind": "indexed-sessions-2000",
       "args": [],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "output-boundaries-json",
+      "kind": "output-boundaries",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "output-boundaries-text",
+      "kind": "output-boundaries",
+      "args": [
+        "sessions"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "fast-cent-boundaries-sessions",
+      "kind": "fast-cent-boundaries",
+      "args": [
+        "sessions",
+        "--json"
+      ],
+      "passed": true,
+      "different": [],
+      "zig": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      },
+      "habu": {
+        "exit": 0,
+        "stderr": "",
+        "stdout_omitted": true
+      }
+    },
+    {
+      "name": "fast-cent-boundaries-totals",
+      "kind": "fast-cent-boundaries",
+      "args": [
+        "daily",
+        "--json"
+      ],
       "passed": true,
       "different": [],
       "zig": {
@@ -2348,6 +2427,14 @@
       ]
     },
     {
+      "name": "early-closed-stdout",
+      "passed": true,
+      "exit": [
+        1,
+        1
+      ]
+    },
+    {
       "name": "broken-stderr-pipe",
       "passed": true,
       "exit": [
@@ -2371,14 +2458,14 @@
           "binary": "zig",
           "passed": true,
           "exit": 0,
-          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000032,\"output_tokens\":0,\"total_tokens\":1000032,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000032,\"output_tokens\":0,\"total_tokens\":1000032,\"cost_usd\":3.00}}\n",
+          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000026,\"output_tokens\":0,\"total_tokens\":1000026,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000026,\"output_tokens\":0,\"total_tokens\":1000026,\"cost_usd\":3.00}}\n",
           "stderr": ""
         },
         {
           "binary": "habu",
           "passed": true,
           "exit": 0,
-          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000069,\"output_tokens\":0,\"total_tokens\":1000069,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000069,\"output_tokens\":0,\"total_tokens\":1000069,\"cost_usd\":3.00}}\n",
+          "stdout_prefix": "{\"kind\":\"daily\",\"rows\":[{\"key\":\"2026-01-02\",\"input_tokens\":1000139,\"output_tokens\":0,\"total_tokens\":1000139,\"cost_usd\":3.00}],\"totals\":{\"input_tokens\":1000139,\"output_tokens\":0,\"total_tokens\":1000139,\"cost_usd\":3.00}}\n",
           "stderr": ""
         }
       ]
@@ -2429,5 +2516,5 @@
       "stderr_equal": true
     }
   ],
-  "saved_output": "Verbose stdout omitted here; test.py compares exact bytes and writes full diagnostic output under ignored .build."
+  "saved_output": "Verbose stdout omitted; test.py compares exact raw bytes and writes full results under ignored .build/test-results/."
 }

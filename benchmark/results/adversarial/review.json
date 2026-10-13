@@ -18,8 +18,14 @@
     "money-result.json",
     "date-result.json",
     "index-result.json",
-    "stderr-result.json"
+    "stderr-result.json",
+    "buffer-result.json",
+    "cent-fast-design-result.json",
+    "cent-fast-implementation-result.json"
   ],
   "followup_revision": "8f19ee79",
-  "followup_result": "No findings: all 45 available/broken/closed stream-state combinations matched Zig for help and four report modes."
+  "followup_result": "No findings: all 45 available/broken/closed stream-state combinations matched Zig for help and four report modes.",
+  "optimization_revision": "82c12e09",
+  "optimization_result": "No findings: bounded output buffer and strict abs(value) < 2^43 fixed-cent path independently reviewed. 11 buffer/error probes; 2785 midpoint-neighbor values and 950 fallback values matched actual Zig/Habu output including totals.",
+  "performance_followup": "No concrete evidence bugs: verified baseline source against 55e3a1cd, all three binary hashes/sizes, identical input per case, exact successful output, unchanged input, 82.8598-second duration, and recomputed median ratios. No new builds or timings. Results remain specific to synthetic workloads and recorded background load."
 }

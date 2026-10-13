@@ -3,25 +3,26 @@
 The independent [adversarial audit](audit.md) found failures missed by the
 original 100-case suite. The repaired code was freshly built with pinned Habu
 `c53b4d2c` and Zig 0.17.0 on macOS arm64. The full synthetic suite passed
-**131/131 against each Zig size configuration**, including exact exit/stdout/
+**136/136 against each Zig size configuration**, including exact exit/stdout/
 stderr comparisons and one nondeterministic append-retention check:
 [small](results/adversarial/full-suite-small.json),
 [smallest](results/adversarial/full-suite-smallest.json).
 Verbose stdout is omitted in these saved summaries; `test.py` generates it
 in ignored `.build/test-results/`. Input integrity is checked by the runner.
 The [independent repair review](results/adversarial/review.json) found no
-remaining defects, including its follow-up stdout/stderr failure matrix.
+actionable findings in the reviewed repairs, including the output buffer,
+bounded cent formatter, and stdout/stderr failure matrix.
 
 ## Binary size
 
 | Executable | Bytes | SHA-256 |
 |---|---:|---|
-| Habu AOT | 115,836 | `75960883946bfcbe4ba9181da6c3e06643a5a0bebd4db268d8837360e30fdf6f` |
+| Habu AOT | 115,836 | `f2f40102651c0a02e9243b19729ce54b6679c4e6f45c53f5b7da068334b5ec1b` |
 | Zig stripped small | 277,912 | `1a74d7c7598a63be80bda00fa7d604fa13e1ebac41dec419c934080225acbb4b` |
 | Zig smallest | 236,480 | `e0368efb53c045b5abc895f60376bdf0dafd1536c560a39243e2eca1972d58ec` |
 
 The Habu executable remains **115,836 bytes**, 51.0% smaller than the smallest
-measured Zig build. Its application code grew from 78,092 to 82,332 bytes and
+measured Zig build. Its application code grew from 78,092 to 82,964 bytes and
 carried data from 2,984 to 3,295 bytes; Mach-O padding absorbed the growth.
 See [size breakdown](results/adversarial/habu-build.txt) and
 [source/binary hashes](results/adversarial/builds.json). Size alone says
@@ -34,39 +35,54 @@ alternating repetitions per workload, `perf_counter` wall time and `wait4`
 per-child peak RSS. Each process had synthetic HOME and an explicit bounded
 input root. Every exit, stdout hash and stderr matched; input hashes stayed
 unchanged. The one-file and 16-file tests used **identical data**: 482,800
-records totaling 67,109,200 bytes. Synthetic records explicitly cost zero;
-these measurements isolate scan/aggregation/output workloads and do not
-represent a mix of model pricing or arbitrary monetary formatting.
+records totaling 67,109,200 bytes. Those scans and the two unpriced session
+cases use explicit zero costs. The priced case has 100,000 distinct sessions,
+nested usage fields, three model families, cache tokens, and varied timestamps
+(21,000,001 input bytes).
 
 | Workload | Zig median seconds | Habu median seconds | Zig median MiB RSS | Habu median MiB RSS |
 |---|---:|---:|---:|---:|
-| one-file-64MiB | 0.375 | 3.404 | 254.62 | 129.72 |
-| 16-files-64MiB | 0.209 | 3.103 | 169.36 | 9.72 |
-| 20000-sessions | 0.023 | 2.604 | 23.80 | 9.53 |
-| 100000-sessions | 0.100 | 13.511 | 100.62 | 39.14 |
+| one-file-64MiB | 0.402 | 3.567 | 254.64 | 129.72 |
+| 16-files-64MiB | 0.262 | 3.731 | 169.34 | 9.72 |
+| 20000-sessions | 0.027 | 0.221 | 23.80 | 9.52 |
+| 100000-sessions | 0.127 | 1.228 | 100.62 | 39.11 |
+| 100000-priced-sessions | 0.252 | 0.889 | 127.34 | 46.22 |
 
-The 70.17-second batch ran inside a coordinated 90-second pause of compiler
+The priced workload also ran the indexed application checkpoint `55e3a1cd`
+on **the same input in the same batch**. Its median was 16.269 seconds and
+46.36 MiB RSS: output buffering and bounded cent formatting therefore made
+this report **18.31× faster**, with identical output. CPU samples and inclusive
+phase timers identified both application causes; see [profiling](profile.md).
+The earlier scaling-only measurements remain available as
+[checkpoint evidence](results/adversarial/performance-scaling-only.json).
+
+The 82.86-second batch ran inside a coordinated 90-second pause of compiler
 workers. **The host was not otherwise idle**: a known unrelated installed-Habu
 process (PID 53955, previously sampled around 37.5% CPU) remained active.
 These are workload observations under that load, not isolated-machine claims.
 No filesystem-cache flush was performed. Raw repetitions, CPU time and
 provenance are in [performance.json](results/adversarial/performance.json).
+The independent reviewer checked the runner, source/binary identities, raw
+results and median calculations without rerunning the timings.
 
 The indexed implementation removes the demonstrated quadratic row/set/sort
-paths: increasing sessions fivefold increased elapsed time about 5.2-fold in
-this batch. Habu nevertheless remains approximately 9–15× slower on these
-scan workloads and 112–135× slower on these session reports. Its serial scan
-uses less peak memory, particularly when the same data is split into files;
-Zig's parallel scanner is faster at 16 files. This is **not runtime parity**.
-The old audit's 20k-session timings (10.6–10.9 s) and 100k timeout used a
-different, price-bearing record shape, so they are failure evidence rather
-than a controlled before/after speedup ratio for this batch.
+paths: increasing zero-cost sessions fivefold increased elapsed time 5.55-fold
+in this batch. Habu still took **3.53×** Zig's time on priced sessions,
+**8.33–9.69×** on zero-cost sessions, and **8.88–14.25×** on scans. It uses less
+peak memory, particularly when the same data is split into files; Zig's
+parallel scanner is faster at 16 files. This is **not runtime parity**.
+The original audit's 20k-session timings (10.6–10.9 s) and 100k timeout used a
+different record shape; they establish the original scaling defect rather
+than a controlled speedup ratio for this batch. No compiler/runtime defect
+was established, and no Habu changes or numeric compatibility expansion
+were made.
 
 To repeat on a coordinated host:
 
 ```sh
 python3 benchmark/performance.py benchmark/bin/zzusage-zig-full-small bin/zzusage \
   --output .build/performance.json --note 'Describe current host load here'
+# Optionally add --baseline /absolute/path/to/the/checkpoint-binary.
 ```
 
 # Original migration measurements (historical)
