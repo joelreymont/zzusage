@@ -17,7 +17,7 @@ not a controlled before/after speedup. Outputs matched Zig within each case.
 [Results](results/adversarial/residual/results.json) and
 [phase counters](results/adversarial/residual/explicit-metrics.txt) retain details.
 
-Pinned Habu `lib/f64-text.f` validates grammar, obtains a small work buffer
+Habu `c53b4d2c` `lib/f64-text.f` validates grammar, obtains a small work buffer
 through `MEM-ALLOC-BYTES`, copies and NUL-terminates the spelling, saves/sets
 rounding mode around `strtod_l`, restores it, and releases the buffer.
 `lib/memory.f` implements that allocation with `map-anon`; release uses
@@ -110,12 +110,12 @@ at the two straightforward causes supported by these measurements.
 [parse-probe.f](parse-probe.f) performs 241,400 pairs of `F64-TEXT:PARSE` calls
 on `0` and `1.25`, consumes their IEEE bits into a checksum, and reports
 monotonic nanoseconds. The saved [diagnostic result](results/adversarial/residual/repro-result.json)
-records 482,800 conversions in 1,446,492,209 ns, exit zero, and the expected
+records, from the probe source on Habu `c53b4d2c`, 482,800 conversions in 1,446,492,209 ns, exit zero, and the expected
 checksum. This isolates the library conversion cost without scanning logs or
 running zzusage; it is not a controlled comparison with another parser.
 
 ```sh
-HABU_ROOT=/absolute/path/to/habu/c53b4d2c python3 benchmark/parse-probe.py
+python3 benchmark/parse-probe.py
 ```
 
 The runner builds in ignored `.build/parse-probe`, sets synthetic HOME, runs

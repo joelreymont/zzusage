@@ -10,10 +10,10 @@ requests. The original Zig implementation remains on the
 
 ## Build and install
 
-Install Habu release `c53b4d2c` at `$HOME/.local/lib/habu/c53b4d2c`, or set
-`HABU_ROOT` to a release directory containing `bin/hb` and `tools/hb-build.f`.
-The measured compiler binary has SHA-256
-`ccf0798dd4e11a3ea4308386704bd09a5f183750d18b802b9b2d9c28d6af2b96`.
+Install Habu at its stable path `$HOME/.local/lib/habu/current`, or set
+`HABU_ROOT` to a Habu tree containing `bin/hb` and `tools/hb-build.f`.
+The measurements below used Habu release `c53b4d2c`, whose compiler binary has
+SHA-256 `ccf0798dd4e11a3ea4308386704bd09a5f183750d18b802b9b2d9c28d6af2b96`.
 The recorded build and sizes below are for macOS arm64; other targets have not
 been measured here.
 

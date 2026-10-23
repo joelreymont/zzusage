@@ -1,4 +1,4 @@
-"""Build and run the bounded standalone F64 parse probe with pinned Habu."""
+"""Build and run the bounded standalone F64 parse probe with the installed Habu tree."""
 from pathlib import Path
 import hashlib
 import json
@@ -7,7 +7,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / '.build/parse-probe'
-HABU = Path(os.environ.get('HABU_ROOT', str(Path.home() / '.local/lib/habu/c53b4d2c'))).resolve()
+HABU = Path(os.environ.get('HABU_ROOT', str(Path.home() / '.local/lib/habu/current'))).resolve()
 task_home = OUT / 'home'
 for path in [task_home, OUT / 'cache', OUT / 'tmp']:
     path.mkdir(parents=True, exist_ok=True)

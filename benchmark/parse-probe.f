@@ -1,8 +1,8 @@
-\ Standalone conversion probe for pinned Habu c53b4d2c.
+\ Standalone conversion probe for the installed Habu tree.
 \ Each pass parses both decimal spellings and consumes their IEEE bits.
-require lib/f64-text.f
-require lib/time.f
-require lib/ieee754.f
+require src/lib/f64-text.f
+require src/lib/time.f
+require src/lib/ieee754.f
 
 package F64-REPRO
 using F64-TEXT

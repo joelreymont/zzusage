@@ -2,7 +2,7 @@
 
 This branch contains the Habu full CLI port of the original Zig application.
 The original is preserved on the `zig` branch. `main.f` is the application;
-`build.sh` compiles it with pinned Habu release `c53b4d2c` (see README).
+`build.sh` compiles it with the installed Habu tree (see README).
 `benchmark/zig-full/main.zig` is the Zig 0.17.0 differential reference, with
 API adaptations and allocator ownership repairs documented in
 `benchmark/zig-scope.txt`.

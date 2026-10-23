@@ -1,12 +1,12 @@
 \ Local JSONL usage reports, matching zzusage's CLI.
-require lib/string.f
-require lib/fs.f
-require lib/fs-list.f
-require lib/date.f
-require lib/fmath.f
-require lib/f64-text.f
-require lib/process.f
-require lib/sort.f
+require src/lib/string.f
+require src/lib/fs.f
+require src/lib/fs-list.f
+require src/lib/date.f
+require src/lib/fmath.f
+require src/lib/f64-text.f
+require src/lib/process.f
+require src/lib/sort.f
 
 package ZU
 

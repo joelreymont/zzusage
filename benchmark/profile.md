@@ -91,7 +91,7 @@ To generate a diagnostic source copy:
 python3 benchmark/profile-phases.py main.f .build/profile/phase.f
 ```
 
-Build the copy with the pinned Habu `tools/hb-build.f` recipe used by
+Build the copy with the Habu `tools/hb-build.f` recipe used by
 `build.sh`, choosing an ignored output path. Run it only with a synthetic HOME
 and explicit synthetic `--data-dir`; save stderr metrics and compare stdout
 with the uninstrumented executable. CPU samples were captured with macOS

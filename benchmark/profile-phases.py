@@ -1,7 +1,7 @@
 """Generate a diagnostic copy of main.f with inclusive phase timers.
 
 Usage: python3 benchmark/profile-phases.py main.f .build/profile/phase.f
-Compile the generated source with the pinned Habu builder. Run that executable
+Compile the generated source with the Habu builder build.sh uses. Run that executable
 only with synthetic HOME and explicit fixture roots. Timers add overhead and
 nest: use them for attribution, not controlled performance comparisons. Metrics
 are written to stderr; compare stdout with an uninstrumented reference.
@@ -10,7 +10,7 @@ from pathlib import Path
 import sys
 source=Path(sys.argv[1]).read_text()
 items=[('PARSE-JSON','ptr u8 n --'),('EVENT-TIME','-- n'),('FIND-ROW','ptr u8 n -- n'),('SET-ADD','n n ptr u8 n --'),('EVENT-COST','-- r'),('RESERVE-ROWS','n --'),('POOL-ADD','ptr u8 n -- n'),('PARSE-FILE-CONTENT','n --'),('COLLECT','--'),('SORT-ROWS','--'),('MONEY','r --'),('REPORT-PERIOD','--'),('REPORT-STATUS','--')]
-source=source.replace('require lib/string.f','require lib/time.f\nrequire lib/string.f',1)
+source=source.replace('require src/lib/string.f','require src/lib/time.f\nrequire src/lib/string.f',1)
 decls='\n'.join(f'variable P-{name}-NS\nvariable P-{name}-N' for name,_ in items)
 source=source.replace('package ZU','package ZU\n'+decls+'''\nvariable P-WRITE-NS
 variable P-WRITE-N
